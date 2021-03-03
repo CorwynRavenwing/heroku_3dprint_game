@@ -13,13 +13,13 @@ div.outer {
 div.leftbar {
 	border: 1px black solid;
 	float: left;
-	height: 100%;
+	height: 99%;
 	width: 10%
 }
 
 div.main {
 	border: 1px black solid;
 	float: left;
-	height: 100%;
-	width: 90%;
+	height: 99%;
+	width: 89%;
 }
