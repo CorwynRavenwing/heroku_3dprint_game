@@ -11,7 +11,7 @@
 	<div class="main">
 <?php
 $Blocks = 20;
-for($x = 0; $x <= $Blocks; $x++) {
+for($x = 0; $x < $Blocks; $x++) {
 	echo "
 	<div class='block' id='block_{$x}'>
 		(block {$x})
