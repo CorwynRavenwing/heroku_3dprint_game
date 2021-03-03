@@ -25,3 +25,11 @@ div.main {
 	margin: 1px;
 	width: 89%;
 }
+
+div.block {
+	border: 1px red solid;
+	float: left;
+	height: 100px;
+	margin: 1px;
+	width: 100px;
+}

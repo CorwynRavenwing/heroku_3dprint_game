@@ -9,9 +9,15 @@
 		Left Bar
 	</div>
 	<div class="main">
-		Main Section
 <?php
-
+$Blocks = 12;
+for($x = 0; $x <= $Blocks; $x++) {
+	?>
+	<div class="block" id="block_$x">
+		(block $x)
+	</div>
+	<?
+} # next Blocks
 ?>
 	</div>
 </div>
