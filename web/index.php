@@ -4,11 +4,16 @@
 <title>3d Print Game</title>
 </head>
 <body>
-<div class="main">
+<div class="outer">
+	<div class="leftbar">
+		Left Bar
+	</div>
+	<div class="main">
+		Main Section
 <?php
 
-echo "PHP program running correctly";
 ?>
+	</div>
 </div>
 </body>
 </html>
