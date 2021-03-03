@@ -29,7 +29,7 @@ div.main {
 div.block {
 	border: 1px red solid;
 	float: left;
-	height: 200px;
+	height: 25%;
 	margin: 1px;
-	width: 200px;
+	width: 20%;
 }

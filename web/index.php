@@ -10,11 +10,11 @@
 	</div>
 	<div class="main">
 <?php
-$Blocks = 12;
+$Blocks = 20;
 for($x = 0; $x <= $Blocks; $x++) {
 	?>
-	<div class="block" id="block_$x">
-		(block $x)
+	<div class="block" id="block_{$x}">
+		(block {$x})
 	</div>
 	<?
 } # next Blocks
