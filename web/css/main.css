@@ -14,6 +14,7 @@ div.leftbar {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
+	margin: 1px;
 	width: 10%
 }
 
@@ -21,5 +22,6 @@ div.main {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
+	margin: 1px;
 	width: 89%;
 }
