@@ -5,11 +5,11 @@
 </head>
 <body>
 <h1>3d Print Game</h1>
-
+<div class="main">
 <?php
 
 echo "PHP program running correctly";
 ?>
-
+</div>
 </body>
 </html>
