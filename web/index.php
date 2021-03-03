@@ -4,7 +4,6 @@
 <title>3d Print Game</title>
 </head>
 <body>
-<h1>3d Print Game</h1>
 <div class="main">
 <?php
 

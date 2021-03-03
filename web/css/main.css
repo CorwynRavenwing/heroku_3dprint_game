@@ -4,14 +4,8 @@ body {
 	background-color: lightblue;
 }
 
-h1 {
-	color: navy;
-	margin-left: 20px;
-	text-align: center;
-}
-
 div.main {
 	border: 1px black solid;
 	width: 95%;
-	height: 75%;
+	height: 95%;
 }
