@@ -4,8 +4,19 @@ body {
 	background-color: lightblue;
 }
 
+div.outer {
+	border: 1px black solid;
+	height: 95%;
+	width: 95%;
+}
+
+div.leftbar {
+	border: 1px black solid;
+	float: left;
+	width: 10%
+}
+
 div.main {
 	border: 1px black solid;
-	width: 95%;
-	height: 95%;
+	float: left;
 }
