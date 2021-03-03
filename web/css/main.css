@@ -4,13 +4,13 @@ body {
 	background-color: lightblue;
 }
 
-div.outer {
+.outer {
 	border: 1px black solid;
 	height: 95%;
 	width: 95%;
 }
 
-div.leftbar {
+.leftbar {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
@@ -18,7 +18,12 @@ div.leftbar {
 	width: 10%
 }
 
-div.main {
+.leftbar .data {
+	color: purple;
+	font-weight: bold;
+}
+
+.main {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
@@ -26,10 +31,11 @@ div.main {
 	width: 89%;
 }
 
-div.block {
-	border: 1px red solid;
+.block {
+	border: 1px black solid;
 	float: left;
 	height: 24%;
 	margin: 1px;
+	text-align: center;
 	width: 19%;
 }
