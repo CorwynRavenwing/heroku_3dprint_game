@@ -1,8 +1,6 @@
 {
   "require" : {
     "monolog/monolog": "^1.22",
-    "symfony/twig-bridge": "^3",
-    "twig/twig": "^2.0",
     "csanquer/pdo-service-provider": "~1.1dev"
   },
   "require-dev": {
