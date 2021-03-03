@@ -9,6 +9,15 @@
 		<div class="data">
 			Money: <p id="data_money">0</p>
 		</div>
+		<div class="data">
+			Filament: <p id="data_filament">0</p>
+		</div>
+		<div class="data">
+			Plastic: <p id="data_plastic">0</p>
+		</div>
+		<div class="data">
+			Electric: <p id="data_electric">0</p>
+		</div>
 	</div>
 	<div class="main">
 <?php
