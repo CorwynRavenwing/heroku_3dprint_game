@@ -19,8 +19,10 @@ body {
 }
 
 .leftbar .data {
+	border: 1px black solid;
 	color: purple;
 	font-weight: bold;
+	margin: 1px;
 }
 
 .main {

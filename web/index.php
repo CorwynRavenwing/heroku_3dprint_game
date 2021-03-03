@@ -7,7 +7,7 @@
 <div class="outer">
 	<div class="leftbar">
 		<div class="data">
-			Money:&nbsp$<p id="data_money">0</p>
+			Money: <p id="data_money">0</p>
 		</div>
 	</div>
 	<div class="main">
