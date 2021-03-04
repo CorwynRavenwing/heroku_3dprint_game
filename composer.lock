@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "28acd454f49d66623e3f6cafea6d29ba",
+    "content-hash": "f9b23a2d0abc2d77e7f30a3d74c819af",
     "packages": [
         {
             "name": "csanquer/pdo-service-provider",
@@ -56,6 +56,85 @@
                 "silex"
             ],
             "time": "2018-01-03T09:49:51+00:00"
+        },
+        {
+            "name": "lintrue/jquery",
+            "version": "v2.2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lintrue/jquery.git",
+                "reference": "209ca1f810147c607bbe75d154ce22c5dd1d9d31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lintrue/jquery/zipball/209ca1f810147c607bbe75d154ce22c5dd1d9d31",
+                "reference": "209ca1f810147c607bbe75d154ce22c5dd1d9d31",
+                "shasum": ""
+            },
+            "require": {
+                "lintrue/static-installer": "^v1.0"
+            },
+            "type": "lintrue-static",
+            "extra": {
+                "static-path": "public/static/jquery"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lintrue",
+                    "email": "jiamisslin@gmail.com"
+                }
+            ],
+            "description": "deploy jquery/jquery",
+            "keywords": [
+                "JS",
+                "framework",
+                "static",
+                "web"
+            ],
+            "time": "2018-02-13T08:24:49+00:00"
+        },
+        {
+            "name": "lintrue/static-installer",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lintrue/static-installer.git",
+                "reference": "4b2ee7c6f4ace50c7c233659f2a81ecfad2c610d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lintrue/static-installer/zipball/4b2ee7c6f4ace50c7c233659f2a81ecfad2c610d",
+                "reference": "4b2ee7c6f4ace50c7c233659f2a81ecfad2c610d",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "lintrue\\composer\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "lintrue\\composer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lintrue",
+                    "email": "jiamisslin@gmail.com"
+                }
+            ],
+            "description": "将静态资源包安装到指定目录",
+            "time": "2017-12-22T15:40:08+00:00"
         },
         {
             "name": "monolog/monolog",
