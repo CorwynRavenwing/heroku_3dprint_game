@@ -6,6 +6,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="css/main.css">
 <script type="text/javascript" src="public/static/jquery/jquery.js"></script>
+<script type="text/javascript" src="js/3dprint.js"></script>
 <title>3d Print Game</title>
 </head>
 <body>
