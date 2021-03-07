@@ -26,7 +26,7 @@
 	</div>
 	<div class="main">
 <?php
-$Blocks = 20;
+$Blocks = 10;
 for($x = 0; $x < $Blocks; $x++) {
 	?>
 	<div class="block" id="block_<?=$x?>}">
