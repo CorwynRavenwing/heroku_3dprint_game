@@ -1,5 +1,11 @@
 /* 3dprint_game/js/3dprint.js */
 
 $(document).ready(function() {
-	alert("calling jquery from inside 3dprint.js");
+	if (typeof(Storage) !== "undefined") {
+		$(".main").html("Sorry! No Web Storage support. You need a more recent browser.");
+		return;
+	}
+
+	$("#data_money") = 1000;
+
 });
