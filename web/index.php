@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/main.css">
+<script type="text/javascript" src="public/static/jquery/jquery.js"></script>
 <title>3d Print Game</title>
 </head>
 <body>
