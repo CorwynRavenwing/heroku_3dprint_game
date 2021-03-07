@@ -1,0 +1,31 @@
+{
+  "name": "lintrue/jquery",
+  "type": "lintrue-static",
+  "license": "MIT",
+  "description": "deploy jquery/jquery",
+  "keywords": [
+    "js",
+    "framework",
+    "web",
+    "static"
+  ],
+  "config": {
+    "process-timeout": 600,
+    "preferred-install": "dist",
+    "github-protocols": [
+      "https"
+    ]
+  },
+  "authors": [
+    {
+      "name": "lintrue",
+      "email": "jiamisslin@gmail.com"
+    }
+  ],
+  "require": {
+    "lintrue/static-installer": "^v1.0"
+  },
+  "extra": {
+    "static-path": "public/static/jquery"
+  }
+}
