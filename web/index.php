@@ -25,6 +25,15 @@
 		<div class="data">
 			Electric: <div id="data_electric">0</div>
 		</div>
+		<div class="data">
+			Printers:
+			<div class="data">
+				Kits: <div id="data_kits">0</div>
+			</div>
+			<div class="data">
+				Built: <div id="data_printers">0</div>
+			</div>
+		</div>
 	</div>
 	<div class="main">
 <?php

@@ -7,5 +7,6 @@ $(document).ready(function() {
 	}
 
 	$("#data_filament").html(10);
+	$("#data_kits").html(1);
 
 });
