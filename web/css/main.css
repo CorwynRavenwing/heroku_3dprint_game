@@ -39,6 +39,8 @@ body {
 	float: left;
 	height: 24%;
 	margin: 1px;
+	min-height: 75px;
 	text-align: center;
+	vertical-align: middle;
 	width: 19%;
 }
