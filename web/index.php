@@ -13,16 +13,16 @@
 <div class="outer">
 	<div class="leftbar">
 		<div class="data">
-			Money: <p id="data_money">0</p>
+			Money: <div id="data_money">0</div>
 		</div>
 		<div class="data">
-			Filament: <p id="data_filament">0</p>
+			Filament: <div id="data_filament">0</div>
 		</div>
 		<div class="data">
-			Plastic: <p id="data_plastic">0</p>
+			Plastic: <div id="data_plastic">0</div>
 		</div>
 		<div class="data">
-			Electric: <p id="data_electric">0</p>
+			Electric: <div id="data_electric">0</div>
 		</div>
 	</div>
 	<div class="main">
