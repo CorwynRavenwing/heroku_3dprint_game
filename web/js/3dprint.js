@@ -6,6 +6,6 @@ $(document).ready(function() {
 		return;
 	}
 
-	$("#data_filament") = 10;
+	$("#data_filament").html(10);
 
 });
