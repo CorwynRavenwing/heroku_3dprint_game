@@ -7,21 +7,35 @@ $(document).ready(function() {
 	}
 
 	var data = {};
+	var data_items = [
+		'filament',
+		'kits',
+		'printers',
+		'version',
+	]
 
 	var load_data = function () {
 		console.log('called function load_data');
-		data['filament'] = localStorage.getItem('filament');
+		data_items.forEach(function(item, index, array) {
+			console.log(item, index);
+			data[index] = localStorage.getItem(index);
+		});
 	}
 
 	var save_data = function () {
 		console.log('called function save_data');
-		localStorage.setItem('filament', data['filament']);
+		data_items.forEach(function(item, index, array) {
+			console.log(item, index);
+			localStorage.setItem(index, data[index]);
+		});
 	}
 
 	var update_screen = function () {
 		console.log('called function update_screen');
-		$("#data_filament").html(data['filament']);
-		$("#data_kits").html(data['kits']);
+		data_items.forEach(function(item, index, array) {
+			console.log(item, index);
+			$("#data_"+index).html(data[index]);
+		});
 	}
 
 	var begin = function () {
