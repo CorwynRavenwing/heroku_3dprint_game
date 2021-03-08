@@ -31,7 +31,7 @@
 $Blocks = 10;
 for($x = 0; $x < $Blocks; $x++) {
 	?>
-	<div class="block" id="block_<?=$x?>}">
+	<div class="block" id="block_<?=$x?>">
 		(block <?=$x?>)
 	</div>
 	<?php
