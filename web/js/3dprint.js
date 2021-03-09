@@ -18,24 +18,24 @@ $(document).ready(function() {
 	var load_data = function () {
 		console.log('called function load_data');
 		data_items.forEach(function(item, index, array) {
-			data[index] = localStorage.getItem(index);
-			console.log(index, data[index]);
+			data[item] = localStorage.getItem(item);
+			console.log(item, data[item]);
 		});
 	}
 
 	var save_data = function () {
 		console.log('called function save_data');
 		data_items.forEach(function(item, index, array) {
-			localStorage.setItem(index, data[index]);
-			console.log(index, data[index]);
+			localStorage.setItem(item, data[item]);
+			console.log(item, data[item]);
 		});
 	}
 
 	var update_screen = function () {
 		console.log('called function update_screen');
 		data_items.forEach(function(item, index, array) {
-			$("#data_"+index).html(data[index]);
-			console.log(index, data[index]);
+			$("#data_"+item).html(data[item]);
+			console.log(item, data[item]);
 		});
 	}
 
