@@ -18,7 +18,12 @@ $(document).ready(function() {
 	var load_data = function () {
 		console.log('called function load_data');
 		data_items.forEach(function(item, index, array) {
-			data[item] = localStorage.getItem(item);
+			temp = localStorage.getItem(item);
+			if (temp === null) {
+				console.log("fixed", temp, "->", 0);
+				temp = 0;
+			}
+			data[item] = temp;
 			console.log(item, data[item]);
 		});
 	}
