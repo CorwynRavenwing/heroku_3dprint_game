@@ -46,6 +46,11 @@ $(document).ready(function() {
 
 	var begin = function () {
 		console.log('called function begin');
+		// initialize all data_items to zero
+		data_items.forEach(function(item, index, array) {
+			data[item] = 0;
+		});
+		// then set particular values
 		data['filament'] = 10;
 		data['kits'] = 1;
 		data['version'] = 1;
