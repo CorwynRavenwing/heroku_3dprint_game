@@ -18,17 +18,7 @@ $(document).ready(function() {
 		'printers': "Printers",
 	};
 
-	var data_items = Object.keys(data_items_labels)
-
-	var data_items_old = [
-		'version',
-		'money',
-		'filament',
-		'plastic',
-		'electric',
-		'kits',
-		'printers',
-	];
+	var data_items = Object.keys(data_items_labels);
 
 	var Blocks = 15;
 
@@ -64,7 +54,6 @@ $(document).ready(function() {
 				temp = 0;
 			}
 			data[item] = temp;
-			console.log(item, data[item]);
 		});
 	}
 
@@ -72,7 +61,6 @@ $(document).ready(function() {
 		console.log('called function save_data');
 		data_items.forEach(function(item, index, array) {
 			localStorage.setItem(item, data[item]);
-			console.log(item, data[item]);
 		});
 	}
 
@@ -80,7 +68,6 @@ $(document).ready(function() {
 		console.log('called function update_screen');
 		data_items.forEach(function(item, index, array) {
 			$("#data_"+item).html(data[item]);
-			console.log(item, data[item]);
 		});
 	}
 
