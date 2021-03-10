@@ -43,6 +43,18 @@ $(document).ready(function() {
 		});
 	}
 
+	var Blocks = 15;
+
+	var setup_main = function () {
+		console.log('called function setup_main');
+		var x;
+		var M = $(".main");
+		for (x = 0; x < Blocks; x++) {
+			var newdiv = $('<div id="block_'+x+'">(block '+x+')</div>').addClass("block");
+			M.append(newdiv);
+		} // next Blocks
+	}
+
 	var load_data = function () {
 		console.log('called function load_data');
 		data_items.forEach(function(item, index, array) {

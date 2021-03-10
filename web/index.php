@@ -13,39 +13,11 @@
 <body>
 <div class="outer">
 	<div class="leftbar">
-		<div class="data">
-			Money: <div id="data_money">0</div>
-		</div>
-		<div class="data">
-			Filament: <div id="data_filament">0</div>
-		</div>
-		<div class="data">
-			Plastic: <div id="data_plastic">0</div>
-		</div>
-		<div class="data">
-			Electric: <div id="data_electric">0</div>
-		</div>
-		<div class="data">
-			Kits: <div id="data_kits">0</div>
-		</div>
-		<div class="data">
-			Printers: <div id="data_printers">0</div>
-		</div>
-		<div class="data">
-			Auto: <div id="data_automated_junk">0</div>
-		</div>
+		<!-- div.data, containing Label: div#data_x, added here automatically -->
 	</div>
 	<div class="main">
-<?php
-$Blocks = 10;
-for($x = 0; $x < $Blocks; $x++) {
-	?>
-	<div class="block" id="block_<?=$x?>">
-		(block <?=$x?>)
-	</div>
-	<?php
-} # next Blocks
-?>
+		<noscript>Sorry, you need JavaScript to run this game.</noscript>
+		<!-- div.block added here automatically -->
 	</div>
 </div>
 </body>
