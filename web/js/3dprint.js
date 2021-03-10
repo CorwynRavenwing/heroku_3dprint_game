@@ -1,6 +1,6 @@
 /* 3dprint_game/js/3dprint.js */
 
-var data = {};
+var data = {};	// move definition here to let console see 'data' object
 
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
@@ -8,12 +8,40 @@ $(document).ready(function() {
 		return;
 	}
 
-	var data_items = [
+	var data_items_labels = {
+		'version':  "Version",
+		'money':    "Money",
+		'filament': "Filament",
+		'plastic':  "Plastic",
+		'electric': "Electric",
+		'kits':     "Kits",
+		'printers': "Printers",
+	};
+
+	var data_items = Object.keys(data_items_labels)
+
+	var data_items_old = [
+		'version',
+		'money',
 		'filament',
+		'plastic',
+		'electric',
 		'kits',
 		'printers',
-		'version',
-	]
+	];
+
+	var setup_leftbar = function () {
+		console.log('called function setup_leftbar');
+		var L = $(".leftbar");
+
+		data_items.forEach(function(item, index, array) {
+			var label = data_items_labels[item];
+			var innerdiv = $('<div id="data_'+item+'">0</div>');
+			var outerdiv = $('<div'+label+': ').addClass("data");
+			outerdiv.append( innerdiv );
+			L.append(outerdiv);
+		});
+	}
 
 	var load_data = function () {
 		console.log('called function load_data');
@@ -44,8 +72,8 @@ $(document).ready(function() {
 		});
 	}
 
-	var begin = function () {
-		console.log('called function begin');
+	var initialize_data = function () {
+		console.log('called function initialize_data');
 		// initialize all data_items to zero
 		data_items.forEach(function(item, index, array) {
 			data[item] = 0;
@@ -59,9 +87,11 @@ $(document).ready(function() {
 	load_data();
 
 	if (!data.version) {
-		begin();
+		initialize_data();
 		save_data();
 	}
+
+	setup_leftbar();
 
 	update_screen();
 
