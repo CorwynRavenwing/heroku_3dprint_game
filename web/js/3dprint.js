@@ -30,6 +30,8 @@ $(document).ready(function() {
 		'printers',
 	];
 
+	var Blocks = 15;
+
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
 		var L = $(".leftbar");
@@ -42,8 +44,6 @@ $(document).ready(function() {
 			L.append(outerdiv);
 		});
 	}
-
-	var Blocks = 15;
 
 	var setup_main = function () {
 		console.log('called function setup_main');
@@ -104,6 +104,7 @@ $(document).ready(function() {
 	}
 
 	setup_leftbar();
+	setup_main();
 
 	update_screen();
 
