@@ -35,9 +35,9 @@ $(document).ready(function() {
 		var L = $(".leftbar");
 
 		data_items.forEach(function(item, index, array) {
-			var label = data_items_labels[item];
+			var label = data_items_labels[item]+': ';
 			var innerdiv = $('<div id="data_'+item+'">0</div>');
-			var outerdiv = $('<div'+label+': ').addClass("data");
+			var outerdiv = $('<div>'+label+'</div>').addClass("data");
 			outerdiv.append( innerdiv );
 			L.append(outerdiv);
 		});
