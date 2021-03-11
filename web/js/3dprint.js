@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	block_items = block_data;
 
-	var data_items = leftbar_items + block_items;
+	var data_items = [].concat(leftbar_items, block_items);
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
