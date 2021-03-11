@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 		block_list.forEach(function(block, index, array) {
 			var outerdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
-			var innerdiv = $('<div id="data_'+block+'_type>'+block+'_type</div>').addclass("type");
+			var innerdiv = $('<div id="data_'+block+'_type>'+block+'_type</div>').addClass("type");
 			outerdiv.append(innerdiv);
 			M.append(outerdiv);
 		});
