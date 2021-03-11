@@ -8,7 +8,7 @@ $(document).ready(function() {
 		return;
 	}
 
-	var data_items_labels = {
+	var leftbar_labels = {
 		'version':  "Version",
 		'money':    "Money",
 		'filament': "Filament",
@@ -18,16 +18,26 @@ $(document).ready(function() {
 		'printers': "Printers",
 	};
 
-	var data_items = Object.keys(data_items_labels);
+	var leftbar_items = Object.keys(leftbar_labels);
 
 	var Blocks = 15;
+
+	var block_list = [];
+	var x;
+	for (x = 0; x < Blocks; x++) {
+		block_list.push( block_id = 'block_'+x );
+	}
+
+	// ... MORE BLOCK CODE HERE
+
+	var data_items = leftbar_items;
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
 		var L = $(".leftbar");
 
-		data_items.forEach(function(item, index, array) {
-			var label = data_items_labels[item]+': ';
+		leftbar_items.forEach(function(item, index, array) {
+			var label = leftbar_labels[item]+': ';
 			var innerdiv = $('<div id="data_'+item+'">0</div>');
 			var outerdiv = $('<div>'+label+'</div>').addClass("data");
 			outerdiv.append( innerdiv );
@@ -37,12 +47,12 @@ $(document).ready(function() {
 
 	var setup_main = function () {
 		console.log('called function setup_main');
-		var x;
 		var M = $(".main");
-		for (x = 0; x < Blocks; x++) {
-			var newdiv = $('<div id="block_'+x+'">(block '+x+')</div>').addClass("block");
+
+		block_list.forEach(function(block, index, array) {
+			var newdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
 			M.append(newdiv);
-		} // next Blocks
+		});
 	}
 
 	var load_data = function () {
@@ -50,7 +60,7 @@ $(document).ready(function() {
 		data_items.forEach(function(item, index, array) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
-				console.log("fixed", temp, "->", 0);
+				console.log("fixed", item, temp, "->", 0);
 				temp = 0;
 			}
 			data[item] = temp;
