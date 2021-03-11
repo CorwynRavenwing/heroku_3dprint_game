@@ -44,3 +44,7 @@ body {
 	vertical-align: middle;
 	width: 19%;
 }
+
+.block .type {
+	color: darkgreen;
+}

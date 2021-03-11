@@ -51,6 +51,7 @@ $(document).ready(function() {
 
 		block_list.forEach(function(block, index, array) {
 			var newdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
+			newdiv.append('<div id="'+block+'_type>'+block+'_type</div>').addclass("type");
 			M.append(newdiv);
 		});
 	}
