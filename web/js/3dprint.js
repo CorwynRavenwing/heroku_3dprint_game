@@ -41,8 +41,10 @@ $(document).ready(function() {
 
 		leftbar_items.forEach(function(item, index, array) {
 			var label = leftbar_labels[item]+': ';
-			var outerdiv = $('<div>'+label+'</div>').addClass("data");
-			var innerdiv = $('<div id="data_'+item+'">0</div>');
+			var outerdiv = $('<div>'+label+'</div>')
+				.addClass("data");
+			var innerdiv = $('<div>0</div>')
+				.attr('id', 'data_'+item)
 			outerdiv.append(innerdiv);
 			L.append(outerdiv);
 		});
@@ -53,8 +55,12 @@ $(document).ready(function() {
 		var M = $(".main");
 
 		block_list.forEach(function(block, index, array) {
-			var outerdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
-			var innerdiv = $('<div id="data_'+block+'_type>'+block+'_type</div>').addClass("type");
+			var outerdiv = $('<div>(B'+index+')</div>')
+				.attr('id', block)
+				.addClass("block");
+			var innerdiv = $('<div>'+block+'_type</div>')
+				.attr('id', 'data_'+block+'_type')
+				.addClass("type");
 			console.log('inner', innerdiv);
 			console.log('outer', outerdiv);
 			outerdiv.append(innerdiv);
