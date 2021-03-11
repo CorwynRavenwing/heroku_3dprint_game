@@ -23,14 +23,17 @@ $(document).ready(function() {
 	var Blocks = 15;
 
 	var block_list = [];
+	var block_data = [];
 	var x;
 	for (x = 0; x < Blocks; x++) {
-		block_list.push( block_id = 'block_'+x );
+		var block_id = 'block_'+x;
+		block_list.push( block_id );
+		block_data.push( 'data_'+block_id+'_type' );
 	}
 
-	// ... MORE BLOCK CODE HERE
+	block_items = block_data;
 
-	var data_items = leftbar_items;
+	var data_items = leftbar_items + block_items;
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
@@ -51,7 +54,7 @@ $(document).ready(function() {
 
 		block_list.forEach(function(block, index, array) {
 			var newdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
-			newdiv.append('<div id="'+block+'_type>'+block+'_type</div>').addclass("type");
+			newdiv.append('<div id="data_'+block+'_type>'+block+'_type</div>').addclass("type");
 			M.append(newdiv);
 		});
 	}
