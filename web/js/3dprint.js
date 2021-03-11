@@ -28,7 +28,7 @@ $(document).ready(function() {
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
 		block_list.push( block_id );
-		block_data.push( 'data_'+block_id+'_type' );
+		block_data.push( block_id+'_type' );
 	}
 
 	block_items = block_data;
@@ -92,7 +92,7 @@ $(document).ready(function() {
 	var update_screen = function () {
 		console.log('called function update_screen');
 		data_items.forEach(function(item, index, array) {
-			$("#data_"+item).html(data[item]);
+			$('#data_'+item).html(data[item]);
 		});
 	}
 
