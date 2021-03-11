@@ -41,9 +41,9 @@ $(document).ready(function() {
 
 		leftbar_items.forEach(function(item, index, array) {
 			var label = leftbar_labels[item]+': ';
-			var innerdiv = $('<div id="data_'+item+'">0</div>');
 			var outerdiv = $('<div>'+label+'</div>').addClass("data");
-			outerdiv.append( innerdiv );
+			var innerdiv = $('<div id="data_'+item+'">0</div>');
+			outerdiv.append(innerdiv);
 			L.append(outerdiv);
 		});
 	}
@@ -53,9 +53,10 @@ $(document).ready(function() {
 		var M = $(".main");
 
 		block_list.forEach(function(block, index, array) {
-			var newdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
-			newdiv.append('<div id="data_'+block+'_type>'+block+'_type</div>').addclass("type");
-			M.append(newdiv);
+			var outerdiv = $('<div id="'+block+'">(B'+index+')</div>').addClass("block");
+			var innerdiv = $('<div id="data_'+block+'_type>'+block+'_type</div>').addclass("type");
+			outerdiv.append(innerdiv);
+			M.append(outerdiv);
 		});
 	}
 
