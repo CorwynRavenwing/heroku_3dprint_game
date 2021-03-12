@@ -57,8 +57,6 @@ $(document).ready(function() {
 
 	block_items = block_data;
 
-	console.log('block_items', block_items);
-
 	var data_items = [].concat(leftbar_items, block_items);
 
 	var setup_leftbar = function () {
