@@ -1,6 +1,30 @@
 /* 3dprint_game/js/3dprint.js */
 
-var data = {};	// move definition here to let console see 'data' object
+var data = {};
+var machines = [];
+
+class Machine {
+	constructor(block_id, machine_type) {
+		console.log('called Machine constructor()', block_id, machine_type);
+		this.block_id = block_id;
+		if ( data[block_id] !== 0 ) {
+			console.log('error: data[block_id]', data[block_id], 'should be', 0);
+			assert('crash')
+		}
+		data[block_id+'_type'] = machine_type;
+		this.machine_type = machine_type;
+
+		machines.push(this);
+	}
+
+	// other Machine code here ...
+}
+
+var reset_machines = function () {
+	console.log('called reset_machines');
+	// should probably deconstruct each individually?
+	machines = [];
+}
 
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
@@ -80,6 +104,16 @@ $(document).ready(function() {
 			}
 			data[item] = temp;
 		});
+		reset_machines();
+		block_list.foreach(function(block_id, index, array) {
+			blocktype = data[block_id+'_type'];
+			if (blocktype === 0) {
+				console.log("blocktype was 0", blocktype);
+			} else {
+				console.log("blocktype was non-zero", blocktype);
+				var m = new Machine(block_id, blocktype);
+			}
+		});
 	}
 
 	var save_data = function () {
@@ -106,6 +140,7 @@ $(document).ready(function() {
 		data['filament'] = 10;
 		data['kits'] = 1;
 		data['version'] = 1;
+		var m = new Machine('block_10', 'build');
 	}
 
 	load_data();
@@ -119,5 +154,7 @@ $(document).ready(function() {
 	setup_main();
 
 	update_screen();
+
+	save_data();
 
 });
