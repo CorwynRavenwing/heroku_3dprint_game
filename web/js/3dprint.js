@@ -64,16 +64,19 @@ $(document).ready(function() {
 		var L = $(".leftbar");
 		var menudiv;
 
-		menudiv = $('<div>RESET</div>');
-		menudiv.click(function() { initialize_data();	});
+		menudiv = $('<div>RESET</div>')
+			.addClass("menu")
+			.click(function() { initialize_data();	});
 		L.append(menudiv);
 
-		menudiv = $('<div>LOAD</div>');
-		menudiv.click(function() { load_data();			});
+		menudiv = $('<div>LOAD</div>')
+			.addClass("menu")
+			.click(function() { load_data();		});
 		L.append(menudiv);
 
-		menudiv = $('<div>SAVE</div>');
-		menudiv.click(function() { save_data();			});
+		menudiv = $('<div>SAVE</div>')
+			.addClass("menu")
+			.click(function() { save_data();		});
 		L.append(menudiv);
 
 		leftbar_items.forEach(function(item, index, array) {
@@ -98,8 +101,6 @@ $(document).ready(function() {
 			var innerdiv = $('<div>'+block+'_type</div>')
 				.attr('id', 'data_'+block+'_type')
 				.addClass("type");
-			console.log('inner', innerdiv);
-			console.log('outer', outerdiv);
 			outerdiv.append(innerdiv);
 			M.append(outerdiv);
 		});

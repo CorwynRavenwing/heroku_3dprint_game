@@ -18,6 +18,14 @@ body {
 	width: 10%
 }
 
+.leftbar .menu {
+	border: 1px darkgreen solid;
+	color: darkgreen;
+	font-weight: bold;
+	margin: 1px;
+	text-align: center;
+}
+
 .leftbar .data {
 	border: 1px black solid;
 	color: purple;
