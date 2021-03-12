@@ -7,7 +7,7 @@ class Machine {
 	constructor(block_id, machine_type) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
-		if ( data[block_id+'_type'] !== 0 ) {
+		if ( data[block_id+'_type'] !== "0" ) {
 			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', 0);
 			die();
 		}
@@ -107,7 +107,7 @@ $(document).ready(function() {
 		reset_machines();
 		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
-			if (blocktype === 0) {
+			if (blocktype === "0") {
 				console.log("blocktype was 0", blocktype);
 			} else {
 				console.log("blocktype was non-zero", blocktype);
