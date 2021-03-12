@@ -79,6 +79,11 @@ $(document).ready(function() {
 			.click(function() { save_data();		});
 		L.append(menudiv);
 
+		menudiv = $('<div>UPDATE</div>')
+			.addClass("menu")
+			.click(function() { update_screen();	});
+		L.append(menudiv);
+
 		leftbar_items.forEach(function(item, index, array) {
 			var label = leftbar_labels[item]+': ';
 			var outerdiv = $('<div>'+label+'</div>')
