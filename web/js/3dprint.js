@@ -105,7 +105,7 @@ $(document).ready(function() {
 			data[item] = temp;
 		});
 		reset_machines();
-		block_list.foreach(function(block_id, index, array) {
+		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
 			if (blocktype === 0) {
 				console.log("blocktype was 0", blocktype);
