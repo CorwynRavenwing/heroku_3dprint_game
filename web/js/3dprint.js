@@ -7,9 +7,9 @@ class Machine {
 	constructor(block_id, machine_type) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
-		if ( data[block_id] !== 0 ) {
-			console.log('error: data[block_id]', data[block_id], 'should be', 0);
-			assert('crash')
+		if ( data[block_id+'_type'] !== 0 ) {
+			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', 0);
+			die();
 		}
 		data[block_id+'_type'] = machine_type;
 		this.machine_type = machine_type;
