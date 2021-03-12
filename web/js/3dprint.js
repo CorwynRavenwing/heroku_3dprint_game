@@ -112,8 +112,8 @@ $(document).ready(function() {
 		data_items.forEach(function(item, index, array) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
-				console.log("fixed", item, temp, "->", 0);
-				temp = 0;
+				console.log("fixed", item, temp, "->", "0");
+				temp = "0";
 			}
 			data[item] = temp;
 		});
