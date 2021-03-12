@@ -64,6 +64,19 @@ $(document).ready(function() {
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
 		var L = $(".leftbar");
+		var menudiv;
+
+		menudiv = $('<div>RESET</div>');
+		menudiv.click(function() { initialize_data();	});
+		L.append(menudiv);
+
+		menudiv = $('<div>LOAD</div>');
+		menudiv.click(function() { load_data();			});
+		L.append(menudiv);
+
+		menudiv = $('<div>SAVE</div>');
+		menudiv.click(function() { save_data();			});
+		L.append(menudiv);
 
 		leftbar_items.forEach(function(item, index, array) {
 			var label = leftbar_labels[item]+': ';
