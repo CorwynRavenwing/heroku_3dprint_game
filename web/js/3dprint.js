@@ -147,7 +147,7 @@ $(document).ready(function() {
 		console.log('called function initialize_data');
 		// initialize all data_items to zero
 		data_items.forEach(function(item, index, array) {
-			data[item] = 0;
+			data[item] = "0";
 		});
 		// then set particular values
 		data['filament'] = 10;
