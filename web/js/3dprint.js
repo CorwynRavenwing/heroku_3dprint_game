@@ -116,7 +116,7 @@ $(document).ready(function() {
 				.attr('id', 'data_'+block+'_time')
 				.addClass("time");
 			outerdiv.append(innerdiv);
-			Blocks.append(outerdiv);
+			B.append(outerdiv);
 		});
 	}
 
