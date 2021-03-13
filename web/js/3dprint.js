@@ -14,9 +14,22 @@ class Machine {
 			die();
 		}
 		data[block_id+'_type'] = machine_type;
+		data[block_id+'_input' ] = "UNKNOWN";
+		data[block_id+'_output'] = "UNKNOWN";
+		data[block_id+'_time'  ] = "UNKNOWN";
+		data[block_id+'_auto'  ] = "UNKNOWN";
 		this.machine_type = machine_type;
 
 		machines.push(this);
+	}
+
+	destruct() {
+		console.log('called Machine destruct()', this.block_id);
+		data[block_id+'_type'  ] = BLANK;
+		data[block_id+'_input' ] = BLANK;
+		data[block_id+'_output'] = BLANK;
+		data[block_id+'_time'  ] = BLANK;
+		data[block_id+'_auto'  ] = BLANK;
 	}
 
 	// other Machine code here ...
@@ -24,7 +37,9 @@ class Machine {
 
 var reset_machines = function () {
 	console.log('called reset_machines');
-	// should probably deconstruct each individually?
+	machines.forEach(function(m,index,array) {
+		m.destruct();
+	});
 	machines = [];
 }
 
