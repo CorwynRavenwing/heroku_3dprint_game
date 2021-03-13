@@ -3,12 +3,14 @@
 var data = {};
 var machines = [];
 
+const BLANK = "BLANK";		// @todo: make this "" at some later time
+
 class Machine {
 	constructor(block_id, machine_type) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
-		if ( data[block_id+'_type'] !== "0" ) {
-			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', 0);
+		if ( data[block_id+'_type'] !== BLANK ) {
+			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', BLANK);
 			die();
 		}
 		data[block_id+'_type'] = machine_type;
@@ -52,7 +54,10 @@ $(document).ready(function() {
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
 		block_list.push( block_id );
-		block_data.push( block_id+'_type' );
+		block_data.push( block_id+'_type'  );
+		block_data.push( block_id+'_input' );
+		block_data.push( block_id+'_time'  );
+		block_data.push( block_id+'_auto'  );
 	}
 
 	block_items = block_data;
@@ -116,6 +121,10 @@ $(document).ready(function() {
 				.attr('id', 'data_'+block+'_time')
 				.addClass("time");
 			outerdiv.append(innerdiv);
+			innerdiv = $('<div>'+block+'_auto</div>')
+				.attr('id', 'data_'+block+'_auto')
+				.addClass("auto");
+			outerdiv.append(innerdiv);
 			B.append(outerdiv);
 		});
 	}
@@ -125,15 +134,15 @@ $(document).ready(function() {
 		data_items.forEach(function(item, index, array) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
-				console.log("fixed", item, temp, "->", "0");
-				temp = "0";
+				console.log("fixed", item, temp, "->", BLANK);
+				temp = BLANK;
 			}
 			data[item] = temp;
 		});
 		reset_machines();
 		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
-			if (blocktype === "0") {
+			if (blocktype === BLANK) {
 				console.log("blocktype was 0", blocktype);
 			} else {
 				console.log("blocktype was non-zero", blocktype);
@@ -160,7 +169,7 @@ $(document).ready(function() {
 		console.log('called function initialize_data');
 		// initialize all data_items to zero
 		data_items.forEach(function(item, index, array) {
-			data[item] = "0";
+			data[item] = BLANK;
 		});
 		// then set particular values
 		data['filament'] = 10;
