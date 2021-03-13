@@ -28,7 +28,7 @@ var reset_machines = function () {
 
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
-		$(".main").html("Sorry! No Web Storage support. You need a more recent browser.");
+		$(".blocks").html("Sorry! No Web Storage support. You need a more recent browser.");
 		return;
 	}
 
@@ -95,19 +95,28 @@ $(document).ready(function() {
 		});
 	}
 
-	var setup_main = function () {
-		console.log('called function setup_main');
-		var M = $(".main");
+	var setup_blocks = function () {
+		console.log('called function setup_blocks');
+		var B = $(".blocks");
+		var innerdiv;
 
 		block_list.forEach(function(block, index, array) {
 			var outerdiv = $('<div>(B'+index+')</div>')
 				.attr('id', block)
 				.addClass("block");
-			var innerdiv = $('<div>'+block+'_type</div>')
+			innerdiv = $('<div>'+block+'_type</div>')
 				.attr('id', 'data_'+block+'_type')
 				.addClass("type");
 			outerdiv.append(innerdiv);
-			M.append(outerdiv);
+			innerdiv = $('<div>'+block+'_input</div>')
+				.attr('id', 'data_'+block+'_input')
+				.addClass("input");
+			outerdiv.append(innerdiv);
+			innerdiv = $('<div>'+block+'_time</div>')
+				.attr('id', 'data_'+block+'_time')
+				.addClass("time");
+			outerdiv.append(innerdiv);
+			Blocks.append(outerdiv);
 		});
 	}
 
@@ -168,7 +177,7 @@ $(document).ready(function() {
 	}
 
 	setup_leftbar();
-	setup_main();
+	setup_blocks();
 
 	update_screen();
 

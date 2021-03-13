@@ -34,7 +34,7 @@ body {
 	text-align: center;
 }
 
-.main {
+.blocks {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
@@ -53,6 +53,15 @@ body {
 	width: 19%;
 }
 
+
 .block .type {
 	color: darkgreen;
+}
+
+.block .input {
+	color: darkred;
+}
+
+.block .time {
+	color: darkblue;
 }
