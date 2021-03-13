@@ -54,10 +54,11 @@ $(document).ready(function() {
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
 		block_list.push( block_id );
-		block_data.push( block_id+'_type'  );
-		block_data.push( block_id+'_input' );
-		block_data.push( block_id+'_time'  );
-		block_data.push( block_id+'_auto'  );
+		block_data.push( block_id+'_type'   );
+		block_data.push( block_id+'_input'  );
+		block_data.push( block_id+'_output' );
+		block_data.push( block_id+'_time'   );
+		block_data.push( block_id+'_auto'   );
 	}
 
 	block_items = block_data;
@@ -117,6 +118,10 @@ $(document).ready(function() {
 				.attr('id', 'data_'+block+'_input')
 				.addClass("input");
 			outerdiv.append(innerdiv);
+			innerdiv = $('<div>'+block+'_output</div>')
+				.attr('id', 'data_'+block+'_output')
+				.addClass("output");
+			outerdiv.append(innerdiv);
 			innerdiv = $('<div>'+block+'_time</div>')
 				.attr('id', 'data_'+block+'_time')
 				.addClass("time");
@@ -137,15 +142,20 @@ $(document).ready(function() {
 				console.log("fixed", item, temp, "->", BLANK);
 				temp = BLANK;
 			}
+			if (temp === "0") {
+				// only temporarily necessary
+				console.log("fixed", item, temp, "->", BLANK);
+				temp = BLANK;
+			}
 			data[item] = temp;
 		});
 		reset_machines();
 		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
 			if (blocktype === BLANK) {
-				console.log("blocktype was 0", blocktype);
+				console.log("blocktype was blank", blocktype);
 			} else {
-				console.log("blocktype was non-zero", blocktype);
+				console.log("blocktype was non-blank", blocktype);
 				var m = new Machine(block_id, blocktype);
 			}
 		});
