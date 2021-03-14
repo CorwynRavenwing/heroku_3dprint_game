@@ -218,7 +218,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (data.version === BLANK) {
+	if (!data.version) {
 		initialize_data();
 		save_data();
 	}
