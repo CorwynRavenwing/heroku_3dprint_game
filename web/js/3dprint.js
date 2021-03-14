@@ -62,10 +62,18 @@ class Machine {
 
 var reset_machines = function () {
 	console.log('called reset_machines');
-	machines.forEach(function(m, index) {
-		console.log('...destructing machine #', index);
+	/* OLD WAY -- WHY DOES THIS NOT WORK?
+	machines.forEach(function(m, i) {
+		console.log('...destructing machine #', i);
 		m.destruct();
 	});
+	*/
+	/* NEW WAY */
+	for (var i=0; i<machines.length; i++) {
+		console.log('...destructing machine #', i);
+		m = machines[i];
+		m.destruct();
+	}
 	console.log('...clearing machines list');
 	machines = [];
 }
