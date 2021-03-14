@@ -18,10 +18,7 @@ class Machine {
 
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
-		innerdiv = $('<div>'+block_id+'_type</div>')
-			.attr('id', 'data_'+block_id+'_type')
-			.addClass("type");
-		outerdiv.append(innerdiv);
+		outerdiv.addClass('type_'+machine_type);
 		innerdiv = $('<div>'+block_id+'_input</div>')
 			.attr('id', 'data_'+block_id+'_input')
 			.addClass("input");
@@ -38,7 +35,6 @@ class Machine {
 			.attr('id', 'data_'+block_id+'_auto')
 			.addClass("auto");
 		outerdiv.append(innerdiv);
-		outerdiv.addClass('type_'+machine_type);
 
 		data[block_id+'_input' ] = "UNKNOWN";
 		data[block_id+'_output'] = "UNKNOWN";
