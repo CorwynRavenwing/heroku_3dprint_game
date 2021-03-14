@@ -46,8 +46,8 @@ class Machine {
 		machines.push(this);
 	}
 
-	destruct() {
-		console.log('called Machine destruct()', this.block_id);
+	shutdown_commands() {
+		console.log('called Machine shutdown_commands()', this.block_id);
 		data[this.block_id+'_type'  ] = BLANK;
 		// @todo: should really set the following to NULL
 		// but also would need to do change the 'save' code
@@ -55,6 +55,7 @@ class Machine {
 		data[this.block_id+'_output'] = BLANK;
 		data[this.block_id+'_time'  ] = BLANK;
 		data[this.block_id+'_auto'  ] = BLANK;
+		// @todo: should also delete them from the DOM here
 	}
 
 	// other Machine code here ...
@@ -64,15 +65,15 @@ var reset_machines = function () {
 	console.log('called reset_machines');
 	/* OLD WAY -- WHY DOES THIS NOT WORK?
 	machines.forEach(function(m, i) {
-		console.log('...destructing machine #', i);
-		m.destruct();
+		console.log('...shutting down machine #', i);
+		m.shutdown_commands();
 	});
 	*/
 	/* NEW WAY */
 	for (var i=0; i<machines.length; i++) {
-		console.log('...destructing machine #', i);
+		console.log('...shutting down machine #', i);
 		m = machines[i];
-		m.destruct();
+		m.shutdown_commands();
 	}
 	console.log('...clearing machines list');
 	machines = [];
