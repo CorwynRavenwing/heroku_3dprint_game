@@ -15,10 +15,36 @@ class Machine {
 			return;
 		}
 		data[block_id+'_type'] = machine_type;
+
+		var innerdiv;
+		var outerdiv = $('#'+block_id);
+		innerdiv = $('<div>'+block_id+'_type</div>')
+			.attr('id', 'data_'+block_id+'_type')
+			.addClass("type");
+		outerdiv.append(innerdiv);
+		innerdiv = $('<div>'+block_id+'_input</div>')
+			.attr('id', 'data_'+block_id+'_input')
+			.addClass("input");
+		outerdiv.append(innerdiv);
+		innerdiv = $('<div>'+block_id+'_output</div>')
+			.attr('id', 'data_'+block_id+'_output')
+			.addClass("output");
+		outerdiv.append(innerdiv);
+		innerdiv = $('<div>'+block_id+'_time</div>')
+			.attr('id', 'data_'+block_id+'_time')
+			.addClass("time");
+		outerdiv.append(innerdiv);
+		innerdiv = $('<div>'+block_id+'_auto</div>')
+			.attr('id', 'data_'+block_id+'_auto')
+			.addClass("auto");
+		outerdiv.append(innerdiv);
+		outerdiv.addClass('type_'+machine_type);
+
 		data[block_id+'_input' ] = "UNKNOWN";
 		data[block_id+'_output'] = "UNKNOWN";
 		data[block_id+'_time'  ] = "UNKNOWN";
 		data[block_id+'_auto'  ] = "UNKNOWN";
+
 		this.machine_type = machine_type;
 
 		machines.push(this);
@@ -26,11 +52,13 @@ class Machine {
 
 	destruct() {
 		console.log('called Machine destruct()', this.block_id);
-		data[block_id+'_type'  ] = BLANK;
-		data[block_id+'_input' ] = BLANK;
-		data[block_id+'_output'] = BLANK;
-		data[block_id+'_time'  ] = BLANK;
-		data[block_id+'_auto'  ] = BLANK;
+		data[this.block_id+'_type'  ] = BLANK;
+		// @todo: should really set the following to NULL
+		// but also would need to do change the 'save' code
+		data[this.block_id+'_input' ] = BLANK;
+		data[this.block_id+'_output'] = BLANK;
+		data[this.block_id+'_time'  ] = BLANK;
+		data[this.block_id+'_auto'  ] = BLANK;
 	}
 
 	// other Machine code here ...
@@ -71,6 +99,7 @@ $(document).ready(function() {
 		var block_id = 'block_'+x;
 		block_list.push( block_id );
 		block_data.push( block_id+'_type'   );
+		// @todo: might want to do the following in Machine.create() instead
 		block_data.push( block_id+'_input'  );
 		block_data.push( block_id+'_output' );
 		block_data.push( block_id+'_time'   );
@@ -134,22 +163,6 @@ $(document).ready(function() {
 			innerdiv = $('<div>'+block+'_type</div>')
 				.attr('id', 'data_'+block+'_type')
 				.addClass("type");
-			outerdiv.append(innerdiv);
-			innerdiv = $('<div>'+block+'_input</div>')
-				.attr('id', 'data_'+block+'_input')
-				.addClass("input");
-			outerdiv.append(innerdiv);
-			innerdiv = $('<div>'+block+'_output</div>')
-				.attr('id', 'data_'+block+'_output')
-				.addClass("output");
-			outerdiv.append(innerdiv);
-			innerdiv = $('<div>'+block+'_time</div>')
-				.attr('id', 'data_'+block+'_time')
-				.addClass("time");
-			outerdiv.append(innerdiv);
-			innerdiv = $('<div>'+block+'_auto</div>')
-				.attr('id', 'data_'+block+'_auto')
-				.addClass("auto");
 			outerdiv.append(innerdiv);
 			B.append(outerdiv);
 		});
