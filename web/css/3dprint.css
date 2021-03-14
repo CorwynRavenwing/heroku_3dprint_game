@@ -53,6 +53,20 @@ body {
 	width: 19%;
 }
 
+/* @todo: _blank is not actually being used at the moment */
+.type_blank {
+	background-color: lightgrey;
+}
+
+.type_build {
+	background-color: lightgreen;
+}
+
+.type_print {
+	background-color: lightgrey;
+}
+
+/* @todo: other types go here */
 
 .block .type {
 	color: darkgreen;
@@ -62,6 +76,14 @@ body {
 	color: darkred;
 }
 
+.block .output {
+	color: lightgreen;
+}
+
 .block .time {
 	color: darkblue;
+}
+
+.block .auto {
+	color: darkgrey;
 }
