@@ -86,6 +86,11 @@ $(document).ready(function() {
 		var L = $(".leftbar");
 		var menudiv;
 
+		menudiv = $('<div>CLEAR</div>')
+			.addClass("menu")
+			.click(function() { clear_all_data();	});
+		L.append(menudiv);
+
 		menudiv = $('<div>RESET</div>')
 			.addClass("menu")
 			.click(function() { initialize_data();	});
@@ -147,6 +152,14 @@ $(document).ready(function() {
 				.addClass("auto");
 			outerdiv.append(innerdiv);
 			B.append(outerdiv);
+		});
+	}
+
+	var clear_all_data = function () {
+		console.log('called function clear_all_data');
+		data_items.forEach(function(item, index, array) {
+			console.log('DELETE', item);
+			localStorage.removeItem(item);
 		});
 	}
 
