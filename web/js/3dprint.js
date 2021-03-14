@@ -62,7 +62,7 @@ class Machine {
 
 var reset_machines = function () {
 	console.log('called reset_machines');
-	machines.forEach(function(m, index, array) {
+	machines.forEach(function(m, index) {
 		console.log('...destructing machine #', index);
 		m.destruct();
 	});
