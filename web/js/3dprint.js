@@ -11,7 +11,8 @@ class Machine {
 		this.block_id = block_id;
 		if ( data[block_id+'_type'] !== BLANK ) {
 			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', BLANK);
-			die();
+			// should throw an error here
+			return;
 		}
 		data[block_id+'_type'] = machine_type;
 		data[block_id+'_input' ] = "UNKNOWN";
