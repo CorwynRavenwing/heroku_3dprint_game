@@ -171,11 +171,6 @@ $(document).ready(function() {
 				console.log("fixed", item, temp, "->", BLANK);
 				temp = BLANK;
 			}
-			if (temp === "0") {
-				// only temporarily necessary
-				console.log("fixed", item, temp, "->", BLANK);
-				temp = BLANK;
-			}
 			data[item] = temp;
 		});
 		reset_machines();
@@ -206,8 +201,12 @@ $(document).ready(function() {
 
 	var initialize_data = function () {
 		console.log('called function initialize_data');
-		// initialize all data_items to zero
-		data_items.forEach(function(item, index, array) {
+		// initialize all leftbar_items to zero
+		leftbar_items.forEach(function(item, index, array) {
+			data[item] = 0;
+		});
+		// initialize all block_items to BLANK
+		block_items.forEach(function(item, index, array) {
 			data[item] = BLANK;
 		});
 		// then set particular values
@@ -219,7 +218,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!data.version) {
+	if (data.version === BLANK) {
 		initialize_data();
 		save_data();
 	}
