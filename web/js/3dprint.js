@@ -177,7 +177,8 @@ $(document).ready(function() {
 		block_list.forEach(function(block, index, array) {
 			var outerdiv = $('<div>(B'+index+')</div>')
 				.attr('id', block)
-				.addClass("block");
+				.addClass("block")
+				.addClass('type_blank');
 			innerdiv = $('<div>'+block+'_type</div>')
 				.attr('id', 'data_'+block+'_type')
 				.addClass("type");
