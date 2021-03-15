@@ -9,8 +9,13 @@ class Machine {
 	constructor(block_id, machine_type) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
-		if ( data[block_id+'_type'] !== BLANK ) {
-			console.log('error: data[{block_id}_type]', data[block_id+'_type'], 'should be', BLANK);
+		var current_type = data[block_id+'_type'];
+		if ( current_type === BLANK ) {
+			console.log('OK: block current type blank:', current_type);
+		} else if ( current_type === machine_type ) {
+			console.log('OK: block current type correct:', current_type);
+		} else
+			console.log('error: data['+block_id+'_type]', data[block_id+'_type'], 'should be', BLANK, 'or', machine_type);
 			// should throw an error here
 			return;
 		}
@@ -199,7 +204,7 @@ $(document).ready(function() {
 		data_items.forEach(function(item, index, array) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
-				console.log("fixed", item, temp, "->", BLANK);
+				// console.log("fixed", item, temp, "->", BLANK);
 				temp = BLANK;
 			}
 			data[item] = temp;
@@ -207,7 +212,7 @@ $(document).ready(function() {
 		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
 			if (blocktype === BLANK) {
-				console.log("blocktype was blank", blocktype);
+				// console.log("blocktype was blank", blocktype);
 			} else {
 				console.log("blocktype was non-blank", blocktype);
 				var m = new Machine(block_id, blocktype);
