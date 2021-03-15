@@ -17,8 +17,9 @@ class Machine {
 		data[block_id+'_type'] = machine_type;
 
 		var innerdiv;
-		var outerdiv = $('#'+block_id);
-		outerdiv.addClass('type_'+machine_type);
+		var outerdiv = $('#'+block_id)
+			.removeClass('type_blank')
+			.addClass('type_'+machine_type);
 		innerdiv = $('<div>'+block_id+'_input</div>')
 			.attr('id', 'data_'+block_id+'_input')
 			.addClass("input");
@@ -50,12 +51,20 @@ class Machine {
 		console.log('called Machine shutdown_commands()', this.block_id);
 		data[this.block_id+'_type'  ] = BLANK;
 		// @todo: should really set the following to NULL
-		// but also would need to do change the 'save' code
+		// but also would need to change the 'save' code
 		data[this.block_id+'_input' ] = BLANK;
 		data[this.block_id+'_output'] = BLANK;
 		data[this.block_id+'_time'  ] = BLANK;
 		data[this.block_id+'_auto'  ] = BLANK;
-		// @todo: should also delete them from the DOM here
+
+		$('#'+this.block_id)
+			.removeClass('type_'+this.machine_type)
+			.addClass('type_blank');
+
+		$('#data_'+this.block_id+'_input' ).remove();
+		$('#data_'+this.block_id+'_output').remove();
+		$('#data_'+this.block_id+'_time'  ).remove();
+		$('#data_'+this.block_id+'_auto'  ).remove();
 	}
 
 	// other Machine code here ...
@@ -63,17 +72,18 @@ class Machine {
 
 var reset_machines = function () {
 	console.log('called reset_machines');
-	/* OLD WAY -- WHY DOES THIS NOT WORK?
-	machines.forEach(function(m, i) {
+
+	var shutdown_machine = function (m, i) {
 		console.log('...shutting down machine #', i);
 		m.shutdown_commands();
-	});
+	}
+
+	/* OLD WAY -- WHY DOES THIS NOT WORK?
+	machines.forEach( shutdown_machine );
 	*/
 	/* NEW WAY */
 	for (var i=0; i<machines.length; i++) {
-		console.log('...shutting down machine #', i);
-		m = machines[i];
-		m.shutdown_commands();
+		shutdown_machine(m, i);
 	}
 	console.log('...clearing machines list');
 	machines = [];
