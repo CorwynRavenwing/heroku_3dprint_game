@@ -14,7 +14,7 @@ class Machine {
 			console.log('OK: block current type blank:', current_type);
 		} else if ( current_type === machine_type ) {
 			console.log('OK: block current type correct:', current_type);
-		} else
+		} else {
 			console.log('error: data['+block_id+'_type]', data[block_id+'_type'], 'should be', BLANK, 'or', machine_type);
 			// should throw an error here
 			return;
