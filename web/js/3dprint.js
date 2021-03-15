@@ -256,15 +256,15 @@ $(document).ready(function() {
 		var m = new Machine('block_10', 'build');
 	}
 
+	setup_leftbar();
+	setup_blocks();
+
 	load_data();
 
 	if (!data.version) {
 		initialize_data();
 		save_data();
 	}
-
-	setup_leftbar();
-	setup_blocks();
 
 	update_screen();
 
