@@ -50,12 +50,10 @@ class Machine {
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
 		data[this.block_id+'_type'  ] = BLANK;
-		// @todo: should really set the following to NULL
-		// but also would need to change the 'save' code
-		data[this.block_id+'_input' ] = BLANK;
-		data[this.block_id+'_output'] = BLANK;
-		data[this.block_id+'_time'  ] = BLANK;
-		data[this.block_id+'_auto'  ] = BLANK;
+		data[this.block_id+'_input' ] = null;
+		data[this.block_id+'_output'] = null;
+		data[this.block_id+'_time'  ] = null;
+		data[this.block_id+'_auto'  ] = null;
 
 		$('#'+this.block_id)
 			.removeClass('type_'+this.machine_type)
@@ -220,7 +218,13 @@ $(document).ready(function() {
 	var save_data = function () {
 		console.log('called function save_data');
 		data_items.forEach(function(item, index, array) {
-			localStorage.setItem(item, data[item]);
+			if (data[item] === null) {
+				console.log('data null for item, removing', item, data[item])
+				localStorage.remove(item);
+			} else {
+				y
+				localStorage.setItem(item, data[item]);
+			}
 		});
 	}
 
