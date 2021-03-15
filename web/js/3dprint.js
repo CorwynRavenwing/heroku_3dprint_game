@@ -6,6 +6,12 @@ var machines = [];
 const BLANK = "BLANK";		// @todo: make this "" at some later time
 
 class Machine {
+
+	input  = "variable initialize";
+	output = "variable initialize";
+	time   = "variable initialize";
+	auto   = "variable initialize";
+
 	constructor(block_id, machine_type) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
@@ -25,19 +31,19 @@ class Machine {
 		var outerdiv = $('#'+block_id)
 			.removeClass('type_blank')
 			.addClass('type_'+machine_type);
-		innerdiv = $('<div>'+block_id+'_input</div>')
+		innerdiv = $('<div>temp</div>')
 			.attr('id', 'data_'+block_id+'_input')
 			.addClass("input");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>'+block_id+'_output</div>')
+		innerdiv = $('<div>temp</div>')
 			.attr('id', 'data_'+block_id+'_output')
 			.addClass("output");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>'+block_id+'_time</div>')
+		innerdiv = $('<div>temp</div>')
 			.attr('id', 'data_'+block_id+'_time')
 			.addClass("time");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>'+block_id+'_auto</div>')
+		innerdiv = $('<div>temp</div>')
 			.attr('id', 'data_'+block_id+'_auto')
 			.addClass("auto");
 		outerdiv.append(innerdiv);
@@ -49,7 +55,43 @@ class Machine {
 
 		this.machine_type = machine_type;
 
+		switch (machine_type) {
+			case "blank":
+				data[block_id+'_input' ] = input  = null;
+				data[block_id+'_output'] = output = null;
+				data[block_id+'_time'  ] = time   = null;
+				data[block_id+'_auto'  ] = auto   = null;
+				break;
+
+			case "build":
+				data[block_id+'_input' ] = input  = "0";
+				data[block_id+'_output'] = output = "printer";
+				data[block_id+'_time'  ] = time   = "0";
+				data[block_id+'_auto'  ] = auto   = "0";
+				break;
+
+			case "print":
+				data[block_id+'_input' ] = input  = "0";
+				data[block_id+'_output'] = output = "???";
+				data[block_id+'_time'  ] = time   = "0";
+				data[block_id+'_auto'  ] = auto   = "0";
+				break;
+
+			// other cases go here
+
+			default:
+				data[block_id+'_input' ] = input  = "???";
+				data[block_id+'_output'] = output = "???";
+				data[block_id+'_time'  ] = time   = "???";
+				data[block_id+'_auto'  ] = auto   = "???";
+				break;
+		}
+
 		machines.push(this);
+	}
+
+	update_display() {
+		x();
 	}
 
 	shutdown_commands() {
