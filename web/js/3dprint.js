@@ -57,33 +57,33 @@ class Machine {
 
 		switch (machine_type) {
 			case "blank":
-				data[block_id+'_input' ] = input  = null;
-				data[block_id+'_output'] = output = null;
-				data[block_id+'_time'  ] = time   = null;
-				data[block_id+'_auto'  ] = auto   = null;
+				data[block_id+'_input' ] = this.input  = null;
+				data[block_id+'_output'] = this.output = null;
+				data[block_id+'_time'  ] = this.time   = null;
+				data[block_id+'_auto'  ] = this.auto   = null;
 				break;
 
 			case "build":
-				data[block_id+'_input' ] = input  = "0";
-				data[block_id+'_output'] = output = "printer";
-				data[block_id+'_time'  ] = time   = "0";
-				data[block_id+'_auto'  ] = auto   = "0";
+				data[block_id+'_input' ] = this.input  = "0";
+				data[block_id+'_output'] = this.output = "printer";
+				data[block_id+'_time'  ] = this.time   = "0";
+				data[block_id+'_auto'  ] = this.auto   = "0";
 				break;
 
 			case "print":
-				data[block_id+'_input' ] = input  = "0";
-				data[block_id+'_output'] = output = "???";
-				data[block_id+'_time'  ] = time   = "0";
-				data[block_id+'_auto'  ] = auto   = "0";
+				data[block_id+'_input' ] = this.input  = "0";
+				data[block_id+'_output'] = this.output = "???";
+				data[block_id+'_time'  ] = this.time   = "0";
+				data[block_id+'_auto'  ] = this.auto   = "0";
 				break;
 
 			// other cases go here
 
 			default:
-				data[block_id+'_input' ] = input  = "???";
-				data[block_id+'_output'] = output = "???";
-				data[block_id+'_time'  ] = time   = "???";
-				data[block_id+'_auto'  ] = auto   = "???";
+				data[block_id+'_input' ] = this.input  = "???";
+				data[block_id+'_output'] = this.output = "???";
+				data[block_id+'_time'  ] = this.time   = "???";
+				data[block_id+'_auto'  ] = this.auto   = "???";
 				break;
 		}
 
