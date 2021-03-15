@@ -222,7 +222,6 @@ $(document).ready(function() {
 				console.log('data null for item, removing', item, data[item])
 				localStorage.remove(item);
 			} else {
-				y
 				localStorage.setItem(item, data[item]);
 			}
 		});
