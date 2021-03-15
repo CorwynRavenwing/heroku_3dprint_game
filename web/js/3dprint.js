@@ -197,6 +197,7 @@ $(document).ready(function() {
 
 	var load_data = function () {
 		console.log('called function load_data');
+		reset_machines();
 		data_items.forEach(function(item, index, array) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
@@ -205,7 +206,6 @@ $(document).ready(function() {
 			}
 			data[item] = temp;
 		});
-		reset_machines();
 		block_list.forEach(function(block_id, index, array) {
 			blocktype = data[block_id+'_type'];
 			if (blocktype === BLANK) {
