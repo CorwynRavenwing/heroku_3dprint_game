@@ -74,7 +74,7 @@ var reset_machines = function () {
 	console.log('called reset_machines');
 
 	var shutdown_machine = function (m, i) {
-		console.log('...shutting down machine #', i);
+		console.log('...shutting down machine #', i, m.block_id);
 		m.shutdown_commands();
 	}
 
@@ -83,6 +83,7 @@ var reset_machines = function () {
 	*/
 	/* NEW WAY */
 	for (var i=0; i<machines.length; i++) {
+		var m = machines[i];
 		shutdown_machine(m, i);
 	}
 	console.log('...clearing machines list');
