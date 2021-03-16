@@ -181,12 +181,7 @@ $(document).ready(function() {
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
 		block_list.push( block_id );
-		block_data.push( block_id+'_type'   );
-		// @todo: might want to do the following in Machine.create() instead
-		block_data.push( block_id+'_input'  );
-		block_data.push( block_id+'_output' );
-		block_data.push( block_id+'_time'   );
-		block_data.push( block_id+'_auto'   );
+		block_data.push( block_id+'_type');
 	}
 
 	block_items = block_data;
@@ -244,7 +239,7 @@ $(document).ready(function() {
 				.attr('id', block)
 				.addClass("block")
 				.addClass('type_blank');
-			innerdiv = $('<div>'+block+'_type</div>')
+			innerdiv = $('<div>[type]</div>')
 				.attr('id', 'data_'+block+'_type')
 				.addClass("type");
 			outerdiv.append(innerdiv);
@@ -317,7 +312,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!data.version) {
+	if (!data['version']) {
 		initialize_data();
 		save_data();
 	}
