@@ -24,7 +24,7 @@ class Machine {
 	 * 		(therefore set variables from save file also)
 	 */
 	constructor(block_id, machine_type, is_new) {
-		console.log('called Machine constructor()', block_id, machine_type);
+		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
 		var current_type = data[block_id+'_type'];
 		if ( current_type === BLANK ) {
@@ -59,45 +59,54 @@ class Machine {
 			.addClass("auto");
 		outerdiv.append(innerdiv);
 
+		if (is_new) {
+			// drop default values here
+
 		data[block_id+'_input' ] = "UNKNOWN";
-		data[block_id+'_output'] = "UNKNOWN";
-		data[block_id+'_time'  ] = "UNKNOWN";
-		data[block_id+'_auto'  ] = "UNKNOWN";
+			data[block_id+'_output'] = "UNKNOWN";
+			data[block_id+'_time'  ] = "UNKNOWN";
+			data[block_id+'_auto'  ] = "UNKNOWN";
 
-		this.machine_type = machine_type;
+			this.machine_type = machine_type;
 
-		switch (machine_type) {
-			case "blank":
-				data[block_id+'_input' ] = this.input  = null;
-				data[block_id+'_output'] = this.output = null;
-				data[block_id+'_time'  ] = this.time   = null;
-				data[block_id+'_auto'  ] = this.auto   = null;
-				break;
+			switch (machine_type) {
+				case "blank":
+					data[block_id+'_input' ] = null;
+					data[block_id+'_output'] = null;
+					data[block_id+'_time'  ] = null;
+					data[block_id+'_auto'  ] = null;
+					break;
 
-			case "build":
-				data[block_id+'_input' ] = this.input  = "0";
-				data[block_id+'_output'] = this.output = "printer";
-				data[block_id+'_time'  ] = this.time   = "0";
-				data[block_id+'_auto'  ] = this.auto   = "0";
-				break;
+				case "build":
+					data[block_id+'_input' ] = "0";
+					data[block_id+'_output'] = "printer";
+					data[block_id+'_time'  ] = "0";
+					data[block_id+'_auto'  ] = "0";
+					break;
 
-			case "print":
-				data[block_id+'_input' ] = this.input  = "0";
-				data[block_id+'_output'] = this.output = "???";
-				data[block_id+'_time'  ] = this.time   = "0";
-				data[block_id+'_auto'  ] = this.auto   = "0";
-				break;
+				case "print":
+					data[block_id+'_input' ] = "0";
+					data[block_id+'_output'] = "???";
+					data[block_id+'_time'  ] = "0";
+					data[block_id+'_auto'  ] = "0";
+					break;
 
-			// other cases go here
+				// other cases go here
 
-			default:
-				data[block_id+'_input' ] = this.input  = "???";
-				data[block_id+'_output'] = this.output = "???";
-				data[block_id+'_time'  ] = this.time   = "???";
-				data[block_id+'_auto'  ] = this.auto   = "???";
-				break;
+				default:
+					data[block_id+'_input' ] = "???";
+					data[block_id+'_output'] = "???";
+					data[block_id+'_time'  ] = "???";
+					data[block_id+'_auto'  ] = "???";
+					break;
+			} // end switch
 		}
 
+		this.input  = data[block_id+'_input' ];
+		this.output = data[block_id+'_output'];
+		this.time   = data[block_id+'_time'  ];
+		this.auto   = data[block_id+'_auto'  ];
+	
 		machines.push(this);
 	}
 
