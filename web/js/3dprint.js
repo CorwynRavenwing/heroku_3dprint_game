@@ -261,13 +261,27 @@ $(document).ready(function() {
 
 		Object.keys(localStorage).forEach(function(item, index) {
 			data[item] = localStorage.getItem(item);
+
+			if (item.endsWith('_type')) {
+				console.log('item.endswith(_type) true:', item);
+				block_id = item.replace(/_type/, '');
+				console.log('... found block_id', block_id);
+				blocktype = data[item];
+				if ((blocktype !== undefined) && (blocktype !== BLANK)) {
+					var m = new Machine(block_id, blocktype, false);
+				}
+			} else {
+				console.log('item.endswith(_type) false:', item);
+			}
 		});
+		/*
 		block_list.forEach(function(block_id, index) {
 			blocktype = data[block_id+'_type'];
 			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
 				var m = new Machine(block_id, blocktype, false);
 			}
 		});
+		*/
 	}
 
 	var save_data = function () {
