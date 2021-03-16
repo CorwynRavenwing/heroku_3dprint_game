@@ -208,24 +208,14 @@ $(document).ready(function() {
 			.click(function() { initialize_data();	});
 		L.append(menudiv);
 
-		menudiv = $('<div>LOAD(OLD)</div>')
+		menudiv = $('<div>LOAD</div>')
 			.addClass("menu")
 			.click(function() { load_data();		});
 		L.append(menudiv);
 
-		menudiv = $('<div>LOAD(NEW)</div>')
-			.addClass("menu")
-			.click(function() { load_data_new();	});
-		L.append(menudiv);
-
-		menudiv = $('<div>SAVE(OLD)</div>')
+		menudiv = $('<div>SAVE</div>')
 			.addClass("menu")
 			.click(function() { save_data();		});
-		L.append(menudiv);
-
-		menudiv = $('<div>SAVE(NEW)</div>')
-			.addClass("menu")
-			.click(function() { save_data_new();	});
 		L.append(menudiv);
 
 		menudiv = $('<div>UPDATE</div>')
@@ -271,29 +261,7 @@ $(document).ready(function() {
 	}
 
 	var load_data = function () {
-		console.log('called OLD function load_data');
-		reset_machines();
-		data_items.forEach(function(item, index) {
-			temp = localStorage.getItem(item);
-			if (temp === null) {
-				// console.log("fixed", item, temp, "->", BLANK);
-				temp = BLANK;
-			}
-			data[item] = temp;
-		});
-		block_list.forEach(function(block_id, index) {
-			blocktype = data[block_id+'_type'];
-			if (blocktype === BLANK) {
-				// console.log("blocktype was blank", blocktype);
-			} else {
-				console.log("blocktype was non-blank", blocktype);
-				var m = new Machine(block_id, blocktype, false);
-			}
-		});
-	}
-
-	var load_data_new = function () {
-		console.log('called NEW function load_data');
+		console.log('called function load_data');
 		reset_machines();
 
 		Object.keys(localStorage).forEach(function(item, index) {
@@ -308,25 +276,13 @@ $(document).ready(function() {
 	}
 
 	var save_data = function () {
-		console.log('called OLD function save_data');
-		data_items.forEach(function(item, index) {
-			if (data[item] === null) {
-				console.log('data null for item, removing', item, data[item])
-				localStorage.remove(item);
-			} else {
-				localStorage.setItem(item, data[item]);
-			}
-		});
-	}
-
-	var save_data_new = function () {
-		console.log('called NEW function save_data');
+		console.log('called function save_data');
 		Object.keys(data).forEach(function(item, index) {
 			if (data[item] === null) {
-				console.log('data null for item, removing', item, data[item])
+				console.log('data null for item, removing:', item, data[item])
 				localStorage.remove(item);
 			} else {
-				console.log('data exists for item, saving', item, data[item])
+				// console.log('data exists for item, saving', item, data[item])
 				localStorage.setItem(item, data[item]);
 			}
 		});
