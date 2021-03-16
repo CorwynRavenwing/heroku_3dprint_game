@@ -12,7 +12,18 @@ class Machine {
 	time   = "variable initialize";
 	auto   = "variable initialize";
 
-	constructor(block_id, machine_type) {
+	/*
+	 * @input block_id
+	 *	the ID of the new block, of form "block_28"
+	 * @input machine_type
+	 *	the type of machine this is: currently "blank", "build", "print"
+	 * @input is_new
+	 *	TRUE if machine is being created by user action
+	 *		(therefore set variables to initial or default values)
+	 *	FALSE if machine is being loaded from save file
+	 * 		(therefore set variables from save file also)
+	 */
+	constructor(block_id, machine_type, is_new) {
 		console.log('called Machine constructor()', block_id, machine_type);
 		this.block_id = block_id;
 		var current_type = data[block_id+'_type'];
@@ -257,7 +268,7 @@ $(document).ready(function() {
 				// console.log("blocktype was blank", blocktype);
 			} else {
 				console.log("blocktype was non-blank", blocktype);
-				var m = new Machine(block_id, blocktype);
+				var m = new Machine(block_id, blocktype, false);
 			}
 		});
 	}
@@ -295,7 +306,7 @@ $(document).ready(function() {
 		data['filament'] = 10;
 		data['kits'] = 1;
 		data['version'] = 1;
-		var m = new Machine('block_10', 'build');
+		var m = new Machine('block_10', 'build', true);
 	}
 
 	setup_leftbar();
