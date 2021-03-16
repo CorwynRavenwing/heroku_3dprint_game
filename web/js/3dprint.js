@@ -208,9 +208,14 @@ $(document).ready(function() {
 			.click(function() { initialize_data();	});
 		L.append(menudiv);
 
-		menudiv = $('<div>LOAD</div>')
+		menudiv = $('<div>LOAD(OLD)</div>')
 			.addClass("menu")
 			.click(function() { load_data();		});
+		L.append(menudiv);
+
+		menudiv = $('<div>LOAD(NEW)</div>')
+			.addClass("menu")
+			.click(function() { load_data_new();	});
 		L.append(menudiv);
 
 		menudiv = $('<div>SAVE(OLD)</div>')
@@ -266,7 +271,7 @@ $(document).ready(function() {
 	}
 
 	var load_data = function () {
-		console.log('called function load_data');
+		console.log('called OLD function load_data');
 		reset_machines();
 		data_items.forEach(function(item, index) {
 			temp = localStorage.getItem(item);
@@ -282,6 +287,21 @@ $(document).ready(function() {
 				// console.log("blocktype was blank", blocktype);
 			} else {
 				console.log("blocktype was non-blank", blocktype);
+				var m = new Machine(block_id, blocktype, false);
+			}
+		});
+	}
+
+	var load_data_new = function () {
+		console.log('called NEW function load_data');
+		reset_machines();
+
+		Object.keys(localStorage).forEach(function(item, index) {
+			data[item] = localStorage.getItem(item);
+		});
+		block_list.forEach(function(block_id, index) {
+			blocktype = data[block_id+'_type'];
+			if (blocktype !== BLANK) {
 				var m = new Machine(block_id, blocktype, false);
 			}
 		});
