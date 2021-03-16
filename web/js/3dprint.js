@@ -7,6 +7,7 @@ const BLANK = "BLANK";		// @todo: make this "" at some later time
 
 class Machine {
 
+	runing = "variable initialize";
 	input  = "variable initialize";
 	output = "variable initialize";
 	time   = "variable initialize";
@@ -42,70 +43,85 @@ class Machine {
 		var outerdiv = $('#'+block_id)
 			.removeClass('type_blank')
 			.addClass('type_'+machine_type);
-		innerdiv = $('<div>temp</div>')
+
+		innerdiv = $('<div>[running]</div>')
+			.attr('id', 'data_'+block_id+'_running')
+			.addClass("running");
+		outerdiv.append(innerdiv);
+
+		innerdiv = $('<div>[input]</div>')
 			.attr('id', 'data_'+block_id+'_input')
 			.addClass("input");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>temp</div>')
+
+		innerdiv = $('<div>[output]</div>')
 			.attr('id', 'data_'+block_id+'_output')
 			.addClass("output");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>temp</div>')
+
+		innerdiv = $('<div>[time]</div>')
 			.attr('id', 'data_'+block_id+'_time')
 			.addClass("time");
 		outerdiv.append(innerdiv);
-		innerdiv = $('<div>temp</div>')
+
+		innerdiv = $('<div>[auto]</div>')
 			.attr('id', 'data_'+block_id+'_auto')
 			.addClass("auto");
 		outerdiv.append(innerdiv);
 
 		if (is_new) {
-			// drop default values here
+			// set default values here
 
-		data[block_id+'_input' ] = "UNKNOWN";
-			data[block_id+'_output'] = "UNKNOWN";
-			data[block_id+'_time'  ] = "UNKNOWN";
-			data[block_id+'_auto'  ] = "UNKNOWN";
+			data[block_id+'_running'] = "UNKNOWN";
+			data[block_id+'_input'  ] = "UNKNOWN";
+			data[block_id+'_output' ] = "UNKNOWN";
+			data[block_id+'_time'   ] = "UNKNOWN";
+			data[block_id+'_auto'   ] = "UNKNOWN";
 
 			this.machine_type = machine_type;
 
 			switch (machine_type) {
 				case "blank":
-					data[block_id+'_input' ] = null;
-					data[block_id+'_output'] = null;
-					data[block_id+'_time'  ] = null;
-					data[block_id+'_auto'  ] = null;
+					data[block_id+'_running'] = null;
+					data[block_id+'_input'  ] = null;
+					data[block_id+'_output' ] = null;
+					data[block_id+'_time'   ] = null;
+					data[block_id+'_auto'   ] = null;
 					break;
 
 				case "build":
-					data[block_id+'_input' ] = "0";
-					data[block_id+'_output'] = "printer";
-					data[block_id+'_time'  ] = "0";
-					data[block_id+'_auto'  ] = "0";
+					data[block_id+'_running'] = "0";
+					data[block_id+'_input'  ] = "0";
+					data[block_id+'_output' ] = "printer";
+					data[block_id+'_time'   ] = "0";
+					data[block_id+'_auto'   ] = "0";
 					break;
 
 				case "print":
-					data[block_id+'_input' ] = "0";
-					data[block_id+'_output'] = "???";
-					data[block_id+'_time'  ] = "0";
-					data[block_id+'_auto'  ] = "0";
+					data[block_id+'_running'] = "0";
+					data[block_id+'_input'  ] = "0";
+					data[block_id+'_output' ] = "?";
+					data[block_id+'_time'   ] = "0";
+					data[block_id+'_auto'   ] = "0";
 					break;
 
 				// other cases go here
 
 				default:
-					data[block_id+'_input' ] = "???";
-					data[block_id+'_output'] = "???";
-					data[block_id+'_time'  ] = "???";
-					data[block_id+'_auto'  ] = "???";
+					data[block_id+'_running'] = "?";
+					data[block_id+'_input'  ] = "?";
+					data[block_id+'_output' ] = "?";
+					data[block_id+'_time'   ] = "?";
+					data[block_id+'_auto'   ] = "?";
 					break;
 			} // end switch
 		}
 
-		this.input  = data[block_id+'_input' ];
-		this.output = data[block_id+'_output'];
-		this.time   = data[block_id+'_time'  ];
-		this.auto   = data[block_id+'_auto'  ];
+		this.running= data[block_id+'_running'];
+		this.input  = data[block_id+'_input'  ];
+		this.output = data[block_id+'_output' ];
+		this.time   = data[block_id+'_time'   ];
+		this.auto   = data[block_id+'_auto'   ];
 	
 		machines.push(this);
 	}
@@ -116,20 +132,22 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		data[this.block_id+'_type'  ] = BLANK;
-		data[this.block_id+'_input' ] = null;
-		data[this.block_id+'_output'] = null;
-		data[this.block_id+'_time'  ] = null;
-		data[this.block_id+'_auto'  ] = null;
+		data[this.block_id+'_type'   ] = BLANK;
+		data[this.block_id+'_running'] = null;
+		data[this.block_id+'_input'  ] = null;
+		data[this.block_id+'_output' ] = null;
+		data[this.block_id+'_time'   ] = null;
+		data[this.block_id+'_auto'   ] = null;
 
 		$('#'+this.block_id)
 			.removeClass('type_'+this.machine_type)
 			.addClass('type_blank');
 
-		$('#data_'+this.block_id+'_input' ).remove();
-		$('#data_'+this.block_id+'_output').remove();
-		$('#data_'+this.block_id+'_time'  ).remove();
-		$('#data_'+this.block_id+'_auto'  ).remove();
+		$('#data_'+this.block_id+'_running').remove();
+		$('#data_'+this.block_id+'_input'  ).remove();
+		$('#data_'+this.block_id+'_output' ).remove();
+		$('#data_'+this.block_id+'_time'   ).remove();
+		$('#data_'+this.block_id+'_auto'   ).remove();
 	}
 
 	// other Machine code here ...

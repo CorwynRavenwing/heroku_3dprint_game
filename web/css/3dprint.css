@@ -72,6 +72,10 @@ body {
 	color: darkgreen;
 }
 
+.block .running {
+	color: red;
+}
+
 .block .input {
 	color: darkred;
 }
