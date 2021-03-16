@@ -213,9 +213,14 @@ $(document).ready(function() {
 			.click(function() { load_data();		});
 		L.append(menudiv);
 
-		menudiv = $('<div>SAVE</div>')
+		menudiv = $('<div>SAVE(OLD)</div>')
 			.addClass("menu")
 			.click(function() { save_data();		});
+		L.append(menudiv);
+
+		menudiv = $('<div>SAVE(NEW)</div>')
+			.addClass("menu")
+			.click(function() { save_data_new();	});
 		L.append(menudiv);
 
 		menudiv = $('<div>UPDATE</div>')
@@ -283,12 +288,25 @@ $(document).ready(function() {
 	}
 
 	var save_data = function () {
-		console.log('called function save_data');
+		console.log('called OLD function save_data');
 		data_items.forEach(function(item, index, array) {
 			if (data[item] === null) {
 				console.log('data null for item, removing', item, data[item])
 				localStorage.remove(item);
 			} else {
+				localStorage.setItem(item, data[item]);
+			}
+		});
+	}
+
+	var save_data_new = function () {
+		console.log('called NEW function save_data');
+		data.forEach(function(item, index, array) {
+			if (data[item] === null) {
+				console.log('data null for item, removing', item, data[item])
+				localStorage.remove(item);
+			} else {
+				console.log('data exists for item, saving', item, data[item])
 				localStorage.setItem(item, data[item]);
 			}
 		});
