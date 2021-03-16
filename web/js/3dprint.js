@@ -228,7 +228,7 @@ $(document).ready(function() {
 			.click(function() { update_screen();	});
 		L.append(menudiv);
 
-		leftbar_items.forEach(function(item, index, array) {
+		leftbar_items.forEach(function(item, index) {
 			var label = leftbar_labels[item]+': ';
 			var outerdiv = $('<div>'+label+'</div>')
 				.addClass("data");
@@ -244,7 +244,7 @@ $(document).ready(function() {
 		var B = $(".blocks");
 		var innerdiv;
 
-		block_list.forEach(function(block, index, array) {
+		block_list.forEach(function(block, index) {
 			var outerdiv = $('<div>(B'+index+')</div>')
 				.attr('id', block)
 				.addClass("block")
@@ -259,7 +259,7 @@ $(document).ready(function() {
 
 	var clear_all_data = function () {
 		console.log('called function clear_all_data');
-		data_items.forEach(function(item, index, array) {
+		data_items.forEach(function(item, index) {
 			console.log('DELETE', item);
 			localStorage.removeItem(item);
 		});
@@ -268,7 +268,7 @@ $(document).ready(function() {
 	var load_data = function () {
 		console.log('called function load_data');
 		reset_machines();
-		data_items.forEach(function(item, index, array) {
+		data_items.forEach(function(item, index) {
 			temp = localStorage.getItem(item);
 			if (temp === null) {
 				// console.log("fixed", item, temp, "->", BLANK);
@@ -276,7 +276,7 @@ $(document).ready(function() {
 			}
 			data[item] = temp;
 		});
-		block_list.forEach(function(block_id, index, array) {
+		block_list.forEach(function(block_id, index) {
 			blocktype = data[block_id+'_type'];
 			if (blocktype === BLANK) {
 				// console.log("blocktype was blank", blocktype);
@@ -289,7 +289,7 @@ $(document).ready(function() {
 
 	var save_data = function () {
 		console.log('called OLD function save_data');
-		data_items.forEach(function(item, index, array) {
+		data_items.forEach(function(item, index) {
 			if (data[item] === null) {
 				console.log('data null for item, removing', item, data[item])
 				localStorage.remove(item);
@@ -301,7 +301,7 @@ $(document).ready(function() {
 
 	var save_data_new = function () {
 		console.log('called NEW function save_data');
-		data.forEach(function(item, index, array) {
+		Object.keys(data).forEach(function(item, index) {
 			if (data[item] === null) {
 				console.log('data null for item, removing', item, data[item])
 				localStorage.remove(item);
@@ -314,7 +314,7 @@ $(document).ready(function() {
 
 	var update_screen = function () {
 		console.log('called function update_screen');
-		data_items.forEach(function(item, index, array) {
+		data_items.forEach(function(item, index) {
 			$('#data_'+item).html(data[item]);
 		});
 	}
@@ -322,11 +322,11 @@ $(document).ready(function() {
 	var initialize_data = function () {
 		console.log('called function initialize_data');
 		// initialize all leftbar_items to zero
-		leftbar_items.forEach(function(item, index, array) {
+		leftbar_items.forEach(function(item, index) {
 			data[item] = 0;
 		});
 		// initialize all block_items to BLANK
-		block_items.forEach(function(item, index, array) {
+		block_items.forEach(function(item, index) {
 			data[item] = BLANK;
 		});
 		// then set particular values
