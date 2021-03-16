@@ -264,7 +264,7 @@ $(document).ready(function() {
 		});
 		block_list.forEach(function(block_id, index) {
 			blocktype = data[block_id+'_type'];
-			if ((blocktype !== undefined) and (blocktype !== BLANK)) {
+			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
 				var m = new Machine(block_id, blocktype, false);
 			}
 		});
