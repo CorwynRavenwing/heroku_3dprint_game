@@ -1,6 +1,6 @@
 /* 3dprint_game/js/3dprint.js */
 
-var data     = {};
+var data_RENAMED_BREAK_PLEASE     = {};
 var machines = [];
 var menus    = [];
 var meters   = [];
@@ -36,10 +36,10 @@ class Meter {
 	}
 
 	update_display() {
-		var M = $(this.meter_id);
-		var D = data[this.data_id];
-		console.log('Meter: updating display', this.data_id, D);
-		M.html(D);
+		var met = $(this.meter_id);
+		var dat = D.getItem(this.data_id);
+		console.log('Meter: updating display', this.data_id, dat);
+		met.html(dat);
 	}
 }
 
@@ -59,13 +59,14 @@ class Block {
 			.addClass("type");
 		outerdiv.append(innerdiv);
 		BB.append(outerdiv);
+		blocks.push(this);
 	}
 
 	update_display() {
-		var B = $(this.block_id);
-		//var D = data[this.data_id];
-		//console.log('Meter: updating display', this.data_id, D);
-		//B.html(D);
+		var blk = $(this.block_id);
+		//var dat = D.getItem(this.data_id);
+		//console.log('Block: updating display', this.block_id, dat);
+		//blk.html(dat);
 	}
 }
 
@@ -91,17 +92,17 @@ class Machine {
 	constructor(block_id, machine_type, is_new) {
 		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
-		var current_type = data[block_id+'_type'];
+		var current_type = D.getItem(block_id+'_type');
 		if ( current_type === BLANK ) {
 			console.log('OK: block current type blank:', current_type);
 		} else if ( current_type === machine_type ) {
 			console.log('OK: block current type correct:', current_type);
 		} else {
-			console.log('error: data['+block_id+'_type]', data[block_id+'_type'], 'should be', BLANK, 'or', machine_type);
+			console.log('error: ['+block_id+'_type]', current_type, 'should be', BLANK, 'or', machine_type);
 			// should throw an error here
 			return;
 		}
-		data[block_id+'_type'] = machine_type;
+		D.setItem(block_id+'_type', machine_type);
 
 		var innerdiv;
 		var outerdiv = $('#'+block_id)
@@ -136,56 +137,56 @@ class Machine {
 		if (is_new) {
 			// set default values here
 
-			data[block_id+'_running'] = "UNKNOWN";
-			data[block_id+'_input'  ] = "UNKNOWN";
-			data[block_id+'_output' ] = "UNKNOWN";
-			data[block_id+'_time'   ] = "UNKNOWN";
-			data[block_id+'_auto'   ] = "UNKNOWN";
+			D.setItem(block_id+'_running', "UNKNOWN");
+			D.setItem(block_id+'_input'  , "UNKNOWN");
+			D.setItem(block_id+'_output' , "UNKNOWN");
+			D.setItem(block_id+'_time'   , "UNKNOWN");
+			D.setItem(block_id+'_auto'   , "UNKNOWN");
 
 			this.machine_type = machine_type;
 
 			switch (machine_type) {
 				case "blank":
-					data[block_id+'_running'] = null;
-					data[block_id+'_input'  ] = null;
-					data[block_id+'_output' ] = null;
-					data[block_id+'_time'   ] = null;
-					data[block_id+'_auto'   ] = null;
+					D.setItem(block_id+'_running', null);
+					D.setItem(block_id+'_input'  , null);
+					D.setItem(block_id+'_output' , null);
+					D.setItem(block_id+'_time'   , null);
+					D.setItem(block_id+'_auto'   , null);
 					break;
 
 				case "build":
-					data[block_id+'_running'] = "0";
-					data[block_id+'_input'  ] = "0";
-					data[block_id+'_output' ] = "printer";
-					data[block_id+'_time'   ] = "0";
-					data[block_id+'_auto'   ] = "0";
+					D.setItem(block_id+'_running', "0");
+					D.setItem(block_id+'_input'  , "0");
+					D.setItem(block_id+'_output' , "printer");
+					D.setItem(block_id+'_time'   , "0");
+					D.setItem(block_id+'_auto'   , "0");
 					break;
 
 				case "print":
-					data[block_id+'_running'] = "0";
-					data[block_id+'_input'  ] = "0";
-					data[block_id+'_output' ] = "?";
-					data[block_id+'_time'   ] = "0";
-					data[block_id+'_auto'   ] = "0";
+					D.setItem(block_id+'_running', "0");
+					D.setItem(block_id+'_input'  , "0");
+					D.setItem(block_id+'_output' , "?");
+					D.setItem(block_id+'_time'   , "0");
+					D.setItem(block_id+'_auto'   , "0");
 					break;
 
 				// other cases go here
 
 				default:
-					data[block_id+'_running'] = "?";
-					data[block_id+'_input'  ] = "?";
-					data[block_id+'_output' ] = "?";
-					data[block_id+'_time'   ] = "?";
-					data[block_id+'_auto'   ] = "?";
+					D.setItem(block_id+'_running', "?");
+					D.setItem(block_id+'_input'  , "?");
+					D.setItem(block_id+'_output' , "?");
+					D.setItem(block_id+'_time'   , "?");
+					D.setItem(block_id+'_auto'   , "?");
 					break;
 			} // end switch
 		}
 
-		this.running= data[block_id+'_running'];
-		this.input  = data[block_id+'_input'  ];
-		this.output = data[block_id+'_output' ];
-		this.time   = data[block_id+'_time'   ];
-		this.auto   = data[block_id+'_auto'   ];
+		this.running= D.getItem(block_id+'_running');
+		this.input  = D.getItem(block_id+'_input'  );
+		this.output = D.getItem(block_id+'_output' );
+		this.time   = D.getItem(block_id+'_time'   );
+		this.auto   = D.getItem(block_id+'_auto'   );
 	
 		machines.push(this);
 	}
@@ -196,12 +197,12 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		data[this.block_id+'_type'   ] = BLANK;
-		data[this.block_id+'_running'] = null;
-		data[this.block_id+'_input'  ] = null;
-		data[this.block_id+'_output' ] = null;
-		data[this.block_id+'_time'   ] = null;
-		data[this.block_id+'_auto'   ] = null;
+		D.setItem(this.block_id+'_type'   , BLANK);
+		D.setItem(this.block_id+'_running', null);
+		D.setItem(this.block_id+'_input'  , null);
+		D.setItem(this.block_id+'_output' , null);
+		D.setItem(this.block_id+'_time'   , null);
+		D.setItem(this.block_id+'_auto'   , null);
 
 		$('#'+this.block_id)
 			.removeClass('type_'+this.machine_type)
@@ -237,6 +238,88 @@ var reset_machines = function () {
 	machines = [];
 }
 
+class Data {
+	data_store = {};
+
+	constructor() {
+		x();
+	}
+
+	keys() {
+		return Object.keys(data_store);
+	}
+
+	getItem(key) {
+		return data_store[key];
+	}
+
+	setItem(key, value) {
+		data_store[key] = value;
+	}
+
+	add(key, value) {
+		data_store[key] += value;
+	}
+
+	subtract(key, value) {
+		this.add(key, -value);
+	}
+
+	remove(key) {
+		this.setItem(key, null);
+	}
+
+	saveItem(key) {
+		var value = this.getItem(key);
+		if (value === null) {
+			console.log('value null for item, removing:', key, value)
+			localStorage.remove(key);
+		} else {
+			localStorage.setItem(key, value);
+		}
+	}
+
+	loadHooks(key) {
+		if (key.endsWith('_type')) {
+			var block_id = key.replace(/_type/, '');
+			var blocktype = this.getItem(key);
+			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
+				var m = new Machine(block_id, blocktype, false);
+			}
+		}
+	}
+
+	loadItem(key) {
+		var value = localStorage.getItem(key);
+		this.setItem(key, value);
+		this.loadHooks(key);
+	}
+
+	saveAll() {
+		console.log('called function saveAll');
+		this.keys().forEach(function(item, index) {
+			this.saveItem(key);
+		});
+	}
+
+	loadAll() {
+		console.log('called function loadAll');
+		reset_machines();
+
+		Object.keys(localStorage).forEach(function(item, index) {
+			this.loadItem(key);
+		});
+	}
+
+	clearAll() {
+		console.log('called function clearAll');
+		this.keys().forEach(function(item, index) {
+			console.log('DELETE', item);
+			localStorage.removeItem(item);
+		});
+	}
+}
+
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
 		$(".blocks").html("Sorry! No Web Storage support. You need a more recent browser.");
@@ -262,8 +345,8 @@ $(document).ready(function() {
 	var x;
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
-		block_list.push( block_id );
-		block_data.push( block_id+'_type');
+		block_list.push(block_id);
+		block_data.push(block_id+'_type');
 	}
 
 	block_items = block_data;
@@ -294,47 +377,24 @@ $(document).ready(function() {
 		});
 	}
 
+	var D = new Data();
+
 	var clear_all_data = function () {
-		console.log('called function clear_all_data');
-		data_items.forEach(function(item, index) {
-			console.log('DELETE', item);
-			localStorage.removeItem(item);
-		});
+		D.clearAll();
 	}
 
 	var load_data = function () {
-		console.log('called function load_data');
-		reset_machines();
-
-		Object.keys(localStorage).forEach(function(item, index) {
-			data[item] = localStorage.getItem(item);
-
-			if (item.endsWith('_type')) {
-				block_id = item.replace(/_type/, '');
-				blocktype = data[item];
-				if ((blocktype !== undefined) && (blocktype !== BLANK)) {
-					var m = new Machine(block_id, blocktype, false);
-				}
-			}
-		});
+		D.loadAll();
 	}
 
 	var save_data = function () {
-		console.log('called function save_data');
-		Object.keys(data).forEach(function(item, index) {
-			if (data[item] === null) {
-				console.log('data null for item, removing:', item, data[item])
-				localStorage.remove(item);
-			} else {
-				localStorage.setItem(item, data[item]);
-			}
-		});
+		D.saveAll();
 	}
 
 	var update_screen = function () {
 		console.log('called function update_screen');
 		data_items.forEach(function(item, index) {
-			$('#data_'+item).html(data[item]);
+			$('#data_'+item).html(D.getItem(item));
 		});
 	}
 
@@ -342,16 +402,16 @@ $(document).ready(function() {
 		console.log('called function initialize_data');
 		// initialize all leftbar_items to zero
 		leftbar_items.forEach(function(item, index) {
-			data[item] = 0;
+			D.setItem(item, 0);
 		});
 		// initialize all block_items to BLANK
 		block_items.forEach(function(item, index) {
-			data[item] = BLANK;
+			D.setItem(item, BLANK);
 		});
 		// then set particular values
-		data['filament'] = 10;
-		data['kits'] = 1;
-		data['version'] = 1;
+		D.setItem('filament', 10);
+		D.setItem('kits',      1);
+		D.setItem('version',   1);
 		var m = new Machine('block_10', 'build', true);
 	}
 
@@ -360,7 +420,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!data['version']) {
+	if (!D.getItem('version')) {
 		initialize_data();
 		save_data();
 	}
