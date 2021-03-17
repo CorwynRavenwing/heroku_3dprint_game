@@ -48,17 +48,17 @@ class Block {
 
 	constructor(block, index) {
 		this.block_id = block;
-		var B = $(".blocks");
+		var BB = $(".blocks");
 
 		var outerdiv = $('<div>(B'+index+')</div>')
 			.attr('id', block)
 			.addClass("block")
 			.addClass('type_blank');
-		innerdiv = $('<div>[type]</div>')
+		var innerdiv = $('<div>[type]</div>')
 			.attr('id', 'data_'+block+'_type')
 			.addClass("type");
 		outerdiv.append(innerdiv);
-		B.append(outerdiv);
+		BB.append(outerdiv);
 	}
 
 	update_display() {
@@ -288,7 +288,7 @@ $(document).ready(function() {
 	var setup_blocks = function () {
 		console.log('called function setup_blocks');
 		var B;
-		
+
 		block_list.forEach(function(block, index) {
 			B = new Block(block, index);
 		});
