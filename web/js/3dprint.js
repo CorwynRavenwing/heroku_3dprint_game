@@ -43,6 +43,32 @@ class Meter {
 	}
 }
 
+class Block {
+	block_id = "variable initialize";
+
+	constructor(block, index) {
+		this.block_id = block;
+		var B = $(".blocks");
+
+		var outerdiv = $('<div>(B'+index+')</div>')
+			.attr('id', block)
+			.addClass("block")
+			.addClass('type_blank');
+		innerdiv = $('<div>[type]</div>')
+			.attr('id', 'data_'+block+'_type')
+			.addClass("type");
+		outerdiv.append(innerdiv);
+		B.append(outerdiv);
+	}
+
+	update_display() {
+		var B = $(this.block_id);
+		//var D = data[this.data_id];
+		//console.log('Meter: updating display', this.data_id, D);
+		//B.html(D);
+	}
+}
+
 class Machine {
 
 	running = "variable initialize";
@@ -246,8 +272,7 @@ $(document).ready(function() {
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
-		var L = $(".leftbar");
-		var M;
+		var M, D;
 
 		M = new Menu('CLEAR',  clear_all_data	);
 		M = new Menu('RESET',  initialize_data	);
@@ -255,7 +280,6 @@ $(document).ready(function() {
 		M = new Menu('SAVE',   save_data		);
 		M = new Menu('UPDATE', update_screen	);
 
-		var D;
 		leftbar_items.forEach(function(item, index) {
 			D = new Meter(leftbar_labels[item],item)
 		});
@@ -263,19 +287,10 @@ $(document).ready(function() {
 
 	var setup_blocks = function () {
 		console.log('called function setup_blocks');
-		var B = $(".blocks");
-		var innerdiv;
-
+		var B;
+		
 		block_list.forEach(function(block, index) {
-			var outerdiv = $('<div>(B'+index+')</div>')
-				.attr('id', block)
-				.addClass("block")
-				.addClass('type_blank');
-			innerdiv = $('<div>[type]</div>')
-				.attr('id', 'data_'+block+'_type')
-				.addClass("type");
-			outerdiv.append(innerdiv);
-			B.append(outerdiv);
+			B = new Block(block, index);
 		});
 	}
 
@@ -295,25 +310,13 @@ $(document).ready(function() {
 			data[item] = localStorage.getItem(item);
 
 			if (item.endsWith('_type')) {
-				console.log('item.endswith(_type) true:', item);
 				block_id = item.replace(/_type/, '');
-				console.log('... found block_id', block_id);
 				blocktype = data[item];
 				if ((blocktype !== undefined) && (blocktype !== BLANK)) {
 					var m = new Machine(block_id, blocktype, false);
 				}
-			} else {
-				console.log('item.endswith(_type) false:', item);
 			}
 		});
-		/*
-		block_list.forEach(function(block_id, index) {
-			blocktype = data[block_id+'_type'];
-			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
-				var m = new Machine(block_id, blocktype, false);
-			}
-		});
-		*/
 	}
 
 	var save_data = function () {
@@ -323,7 +326,6 @@ $(document).ready(function() {
 				console.log('data null for item, removing:', item, data[item])
 				localStorage.remove(item);
 			} else {
-				// console.log('data exists for item, saving', item, data[item])
 				localStorage.setItem(item, data[item]);
 			}
 		});
