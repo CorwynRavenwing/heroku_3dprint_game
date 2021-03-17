@@ -1,17 +1,55 @@
 /* 3dprint_game/js/3dprint.js */
 
-var data = {};
+var data     = {};
 var machines = [];
+var menus    = [];
+var meters   = [];
 
 const BLANK = "BLANK";		// @todo: make this "" at some later time
 
+class Menu {
+	constructor(label, click_function) {
+		var L = $(".leftbar");
+		var menudiv = $('<div>'+label+'</div>')
+			.addClass("menu")
+			.click(click_function);
+		L.append(menudiv);
+		menus.push(this);
+	}
+}
+
+class Meter {
+	data_id  = "variable initialize";
+	meter_id = "variable initialize";
+
+	constructor(label, item) {
+		var L = $(".leftbar");
+		this.data_id  = item;
+		this.meter_id = 'data_'+item;
+		var outerdiv = $('<div>'+label+': '+'</div>')
+			.addClass("data");
+		var innerdiv = $('<div>?</div>')
+			.attr('id', this.meter_id)
+		outerdiv.append(innerdiv);
+		L.append(outerdiv);
+		meters.push(this);
+	}
+
+	update_display() {
+		var M = $(this.meter_id);
+		var D = data[this.data_id];
+		console.log('Meter: updating display', this.data_id, D);
+		M.html(D);
+	}
+}
+
 class Machine {
 
-	runing = "variable initialize";
-	input  = "variable initialize";
-	output = "variable initialize";
-	time   = "variable initialize";
-	auto   = "variable initialize";
+	running = "variable initialize";
+	input   = "variable initialize";
+	output  = "variable initialize";
+	time    = "variable initialize";
+	auto    = "variable initialize";
 
 	/*
 	 * @input block_id
@@ -209,41 +247,17 @@ $(document).ready(function() {
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
 		var L = $(".leftbar");
-		var menudiv;
+		var M;
 
-		menudiv = $('<div>CLEAR</div>')
-			.addClass("menu")
-			.click(function() { clear_all_data();	});
-		L.append(menudiv);
+		M = new Menu('CLEAR',  clear_all_data	);
+		M = new Menu('RESET',  initialize_data	);
+		M = new Menu('LOAD',   load_data		);
+		M = new Menu('SAVE',   save_data		);
+		M = new Menu('UPDATE', update_screen	);
 
-		menudiv = $('<div>RESET</div>')
-			.addClass("menu")
-			.click(function() { initialize_data();	});
-		L.append(menudiv);
-
-		menudiv = $('<div>LOAD</div>')
-			.addClass("menu")
-			.click(function() { load_data();		});
-		L.append(menudiv);
-
-		menudiv = $('<div>SAVE</div>')
-			.addClass("menu")
-			.click(function() { save_data();		});
-		L.append(menudiv);
-
-		menudiv = $('<div>UPDATE</div>')
-			.addClass("menu")
-			.click(function() { update_screen();	});
-		L.append(menudiv);
-
+		var D;
 		leftbar_items.forEach(function(item, index) {
-			var label = leftbar_labels[item]+': ';
-			var outerdiv = $('<div>'+label+'</div>')
-				.addClass("data");
-			var innerdiv = $('<div>0</div>')
-				.attr('id', 'data_'+item)
-			outerdiv.append(innerdiv);
-			L.append(outerdiv);
+			D = new Meter(leftbar_labels[item],item)
 		});
 	}
 
