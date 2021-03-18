@@ -298,8 +298,8 @@ class Data {
 
 	saveAll() {
 		console.log('called function saveAll');
-		this.keys().forEach(function(item, index) {
-			this.saveItem(key);
+		this.keys().forEach(function(item) {
+			this.saveItem(item);
 		});
 	}
 
@@ -308,15 +308,14 @@ class Data {
 		reset_machines();
 
 		var T = this;
-
-		Object.keys(localStorage).forEach(function(item, index) {
-			T.loadItem(key);
+		Object.keys(localStorage).forEach(function(item) {
+			T.loadItem(item);
 		});
 	}
 
 	clearAll() {
 		console.log('called function clearAll');
-		this.keys().forEach(function(item, index) {
+		this.keys().forEach(function(item) {
 			console.log('DELETE', item);
 			localStorage.removeItem(item);
 		});
