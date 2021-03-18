@@ -251,15 +251,15 @@ class Data {
 	}
 
 	getItem(key) {
-		return data_store[key];
+		return this.data_store[key];
 	}
 
 	setItem(key, value) {
-		data_store[key] = value;
+		this.data_store[key] = value;
 	}
 
 	add(key, value) {
-		data_store[key] += value;
+		this.data_store[key] += value;
 	}
 
 	subtract(key, value) {
