@@ -4,6 +4,7 @@ var data_RENAMED_BREAK_PLEASE     = {};
 var machines = [];
 var menus    = [];
 var meters   = [];
+var blocks   = [];
 
 const BLANK = "BLANK";		// @todo: make this "" at some later time
 
