@@ -307,8 +307,10 @@ class Data {
 		console.log('called function loadAll');
 		reset_machines();
 
+		T = this;
+
 		Object.keys(localStorage).forEach(function(item, index) {
-			loadItem(key);
+			T.loadItem(key);
 		});
 	}
 
