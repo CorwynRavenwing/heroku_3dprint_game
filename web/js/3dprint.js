@@ -308,7 +308,7 @@ class Data {
 		reset_machines();
 
 		Object.keys(localStorage).forEach(function(item, index) {
-			this.loadItem(key);
+			loadItem(key);
 		});
 	}
 
