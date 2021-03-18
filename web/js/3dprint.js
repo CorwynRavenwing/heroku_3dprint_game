@@ -192,7 +192,7 @@ class Machine {
 	}
 
 	update_display() {
-		x();
+		console.log('called Machine.update_display');
 	}
 
 	shutdown_commands() {
@@ -242,7 +242,7 @@ class Data {
 	data_store = {};
 
 	constructor() {
-		x();
+		console.log('called Data constructor');
 	}
 
 	keys() {
