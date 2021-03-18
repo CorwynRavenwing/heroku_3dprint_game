@@ -256,7 +256,7 @@ class Data {
 	}
 
 	keys() {
-		return Object.keys(data_store);
+		return Object.keys(this.data_store);
 	}
 
 	getItem(key) {
