@@ -307,8 +307,10 @@ class Data {
 
 	saveAll() {
 		console.log('called function saveAll');
+		
+		var T = this;
 		this.keys().forEach(function(item) {
-			this.saveItem(item);
+			T.saveItem(item);
 		});
 	}
 
