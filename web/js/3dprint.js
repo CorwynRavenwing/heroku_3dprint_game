@@ -113,7 +113,7 @@ class Machine {
 			// should throw an error here
 			return;
 		}
-		
+
 		this.machine_type = machine_type;
 		this.data_object.setItem(block_id+'_type', machine_type);
 
@@ -276,6 +276,7 @@ class Data {
 			console.log('value null for item, removing:', key, value)
 			localStorage.remove(key);
 		} else {
+			console.log('setting value for item:', key, value)
 			localStorage.setItem(key, value);
 		}
 	}
