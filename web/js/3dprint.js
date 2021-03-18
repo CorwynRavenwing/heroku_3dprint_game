@@ -323,6 +323,17 @@ class Data {
 			localStorage.removeItem(item);
 		});
 	}
+
+	display() {
+		console.log('called function Data.display');
+		var T = this;
+		this.keys().forEach(function(item) {
+			console.log('...setting display for item', item);
+			$('#data_'+item).html(T.getItem(item));
+		});
+	}
+
+
 }
 
 $(document).ready(function() {
@@ -397,10 +408,8 @@ $(document).ready(function() {
 	}
 
 	var update_screen = function () {
-		console.log('called function update_screen');
-		data_items.forEach(function(item, index) {
-			$('#data_'+item).html(D.getItem(item));
-		});
+		D.display();
+		// should also run this on Blocks or Machines group
 	}
 
 	var initialize_data = function () {
