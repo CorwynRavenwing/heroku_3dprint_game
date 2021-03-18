@@ -20,13 +20,16 @@ class Menu {
 }
 
 class Meter {
+	data_object = null;
+
 	data_id  = "variable initialize";
 	meter_id = "variable initialize";
 
-	constructor(label, item) {
-		var L = $(".leftbar");
+	constructor(label, item, data_object) {
+		this.data_object = data_object;
 		this.data_id  = item;
 		this.meter_id = 'data_'+item;
+		var L = $(".leftbar");
 		var outerdiv = $('<div>'+label+': '+'</div>')
 			.addClass("data");
 		var innerdiv = $('<div>?</div>')
@@ -37,18 +40,21 @@ class Meter {
 	}
 
 	update_display() {
-		var met = $(this.meter_id);
-		var dat = D.getItem(this.data_id);
-		console.log('Meter: updating display', this.data_id, dat);
-		met.html(dat);
+		var meter_ob = $(this.meter_id);
+		var value = this.data_object.getItem(this.data_id);
+		console.log('Meter: updating display', this.data_id, value);
+		meter_ob.html(value);
 	}
 }
 
 class Block {
+	data_object = null;
+
 	block_id = "variable initialize";
 
-	constructor(block, index) {
+	constructor(block, index, data_object) {
 		this.block_id = block;
+		this.data_object = data_object;
 		var BB = $(".blocks");
 
 		var outerdiv = $('<div>(B'+index+')</div>')
@@ -65,13 +71,15 @@ class Block {
 
 	update_display() {
 		var blk = $(this.block_id);
-		//var dat = D.getItem(this.data_id);
+		//var dat = this.data_object.getItem(this.data_id);
 		//console.log('Block: updating display', this.block_id, dat);
 		//blk.html(dat);
 	}
 }
 
 class Machine {
+
+	data_object = null;
 
 	running = "variable initialize";
 	input   = "variable initialize";
@@ -90,10 +98,11 @@ class Machine {
 	 *	FALSE if machine is being loaded from save file
 	 * 		(therefore set variables from save file also)
 	 */
-	constructor(block_id, machine_type, is_new) {
-		console.log('called Machine constructor()', block_id, machine_type, is_new);
+	constructor(block_id, machine_type, data_object, is_new) {
+		console.log('called Machine constructor()', block_id, machine_type, data_object, is_new);
 		this.block_id = block_id;
-		var current_type = D.getItem(block_id+'_type');
+		this.data_object = data_object;
+		var current_type = this.data_object.getItem(block_id+'_type');
 		if ( current_type === BLANK ) {
 			console.log('OK: block current type blank:', current_type);
 		} else if ( current_type === machine_type ) {
@@ -103,7 +112,7 @@ class Machine {
 			// should throw an error here
 			return;
 		}
-		D.setItem(block_id+'_type', machine_type);
+		this.data_object.setItem(block_id+'_type', machine_type);
 
 		var innerdiv;
 		var outerdiv = $('#'+block_id)
@@ -138,56 +147,56 @@ class Machine {
 		if (is_new) {
 			// set default values here
 
-			D.setItem(block_id+'_running', "UNKNOWN");
-			D.setItem(block_id+'_input'  , "UNKNOWN");
-			D.setItem(block_id+'_output' , "UNKNOWN");
-			D.setItem(block_id+'_time'   , "UNKNOWN");
-			D.setItem(block_id+'_auto'   , "UNKNOWN");
+			this.data_object.setItem(block_id+'_running', "UNKNOWN");
+			this.data_object.setItem(block_id+'_input'  , "UNKNOWN");
+			this.data_object.setItem(block_id+'_output' , "UNKNOWN");
+			this.data_object.setItem(block_id+'_time'   , "UNKNOWN");
+			this.data_object.setItem(block_id+'_auto'   , "UNKNOWN");
 
 			this.machine_type = machine_type;
 
 			switch (machine_type) {
 				case "blank":
-					D.setItem(block_id+'_running', null);
-					D.setItem(block_id+'_input'  , null);
-					D.setItem(block_id+'_output' , null);
-					D.setItem(block_id+'_time'   , null);
-					D.setItem(block_id+'_auto'   , null);
+					this.data_object.setItem(block_id+'_running', null);
+					this.data_object.setItem(block_id+'_input'  , null);
+					this.data_object.setItem(block_id+'_output' , null);
+					this.data_object.setItem(block_id+'_time'   , null);
+					this.data_object.setItem(block_id+'_auto'   , null);
 					break;
 
 				case "build":
-					D.setItem(block_id+'_running', "0");
-					D.setItem(block_id+'_input'  , "0");
-					D.setItem(block_id+'_output' , "printer");
-					D.setItem(block_id+'_time'   , "0");
-					D.setItem(block_id+'_auto'   , "0");
+					this.data_object.setItem(block_id+'_running', "0");
+					this.data_object.setItem(block_id+'_input'  , "0");
+					this.data_object.setItem(block_id+'_output' , "printer");
+					this.data_object.setItem(block_id+'_time'   , "0");
+					this.data_object.setItem(block_id+'_auto'   , "0");
 					break;
 
 				case "print":
-					D.setItem(block_id+'_running', "0");
-					D.setItem(block_id+'_input'  , "0");
-					D.setItem(block_id+'_output' , "?");
-					D.setItem(block_id+'_time'   , "0");
-					D.setItem(block_id+'_auto'   , "0");
+					this.data_object.setItem(block_id+'_running', "0");
+					this.data_object.setItem(block_id+'_input'  , "0");
+					this.data_object.setItem(block_id+'_output' , "?");
+					this.data_object.setItem(block_id+'_time'   , "0");
+					this.data_object.setItem(block_id+'_auto'   , "0");
 					break;
 
 				// other cases go here
 
 				default:
-					D.setItem(block_id+'_running', "?");
-					D.setItem(block_id+'_input'  , "?");
-					D.setItem(block_id+'_output' , "?");
-					D.setItem(block_id+'_time'   , "?");
-					D.setItem(block_id+'_auto'   , "?");
+					this.data_object.setItem(block_id+'_running', "?");
+					this.data_object.setItem(block_id+'_input'  , "?");
+					this.data_object.setItem(block_id+'_output' , "?");
+					this.data_object.setItem(block_id+'_time'   , "?");
+					this.data_object.setItem(block_id+'_auto'   , "?");
 					break;
 			} // end switch
 		}
 
-		this.running= D.getItem(block_id+'_running');
-		this.input  = D.getItem(block_id+'_input'  );
-		this.output = D.getItem(block_id+'_output' );
-		this.time   = D.getItem(block_id+'_time'   );
-		this.auto   = D.getItem(block_id+'_auto'   );
+		this.running= this.data_object.getItem(block_id+'_running');
+		this.input  = this.data_object.getItem(block_id+'_input'  );
+		this.output = this.data_object.getItem(block_id+'_output' );
+		this.time   = this.data_object.getItem(block_id+'_time'   );
+		this.auto   = this.data_object.getItem(block_id+'_auto'   );
 	
 		machines.push(this);
 	}
@@ -198,12 +207,12 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		D.setItem(this.block_id+'_type'   , BLANK);
-		D.setItem(this.block_id+'_running', null);
-		D.setItem(this.block_id+'_input'  , null);
-		D.setItem(this.block_id+'_output' , null);
-		D.setItem(this.block_id+'_time'   , null);
-		D.setItem(this.block_id+'_auto'   , null);
+		this.data_object.setItem(this.block_id+'_type'   , BLANK);
+		this.data_object.setItem(this.block_id+'_running', null);
+		this.data_object.setItem(this.block_id+'_input'  , null);
+		this.data_object.setItem(this.block_id+'_output' , null);
+		this.data_object.setItem(this.block_id+'_time'   , null);
+		this.data_object.setItem(this.block_id+'_auto'   , null);
 
 		$('#'+this.block_id)
 			.removeClass('type_'+this.machine_type)
@@ -285,7 +294,7 @@ class Data {
 			var block_id = key.replace(/_type/, '');
 			var blocktype = this.getItem(key);
 			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
-				var m = new Machine(block_id, blocktype, false);
+				var m = new Machine(block_id, blocktype, this.data_object, false);
 			}
 		}
 	}
@@ -355,18 +364,20 @@ $(document).ready(function() {
 
 	var data_items = [].concat(leftbar_items, block_items);
 
+	var D = new Data();
+
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
-		var M, D;
+		var M;
 
-		M = new Menu('CLEAR',  clear_all_data	);
-		M = new Menu('RESET',  initialize_data	);
-		M = new Menu('LOAD',   load_data		);
-		M = new Menu('SAVE',   save_data		);
-		M = new Menu('UPDATE', update_screen	);
+		M = new Menu('CLEAR',  clear_all_data, 	D);
+		M = new Menu('RESET',  initialize_data, D);
+		M = new Menu('LOAD',   load_data,       D);
+		M = new Menu('SAVE',   save_data,       D);
+		M = new Menu('UPDATE', update_screen,   D);
 
 		leftbar_items.forEach(function(item, index) {
-			D = new Meter(leftbar_labels[item],item)
+			M = new Meter(leftbar_labels[item], item, D);
 		});
 	}
 
@@ -375,11 +386,9 @@ $(document).ready(function() {
 		var B;
 
 		block_list.forEach(function(block, index) {
-			B = new Block(block, index);
+			B = new Block(block, index, D);
 		});
 	}
-
-	var D = new Data();
 
 	var clear_all_data = function () {
 		D.clearAll();
@@ -414,7 +423,7 @@ $(document).ready(function() {
 		D.setItem('filament', 10);
 		D.setItem('kits',      1);
 		D.setItem('version',   1);
-		var m = new Machine('block_10', 'build', true);
+		var m = new Machine('block_10', 'build', D, true);
 	}
 
 	setup_leftbar();
