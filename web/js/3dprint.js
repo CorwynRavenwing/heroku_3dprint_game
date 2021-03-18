@@ -1,6 +1,5 @@
 /* 3dprint_game/js/3dprint.js */
 
-var data_RENAMED_BREAK_PLEASE     = {};
 var machines = [];
 var menus    = [];
 var meters   = [];
@@ -92,6 +91,8 @@ class Machine {
 	 *	the ID of the new block, of form "block_28"
 	 * @input machine_type
 	 *	the type of machine this is: currently "blank", "build", "print"
+	 * @input data_object
+	 *	a link to the object of class Data in which we are storing local data
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
 	 *		(therefore set variables to initial or default values)
@@ -112,6 +113,8 @@ class Machine {
 			// should throw an error here
 			return;
 		}
+		
+		this.machine_type = machine_type;
 		this.data_object.setItem(block_id+'_type', machine_type);
 
 		var innerdiv;
@@ -146,14 +149,6 @@ class Machine {
 
 		if (is_new) {
 			// set default values here
-
-			this.data_object.setItem(block_id+'_running', "UNKNOWN");
-			this.data_object.setItem(block_id+'_input'  , "UNKNOWN");
-			this.data_object.setItem(block_id+'_output' , "UNKNOWN");
-			this.data_object.setItem(block_id+'_time'   , "UNKNOWN");
-			this.data_object.setItem(block_id+'_auto'   , "UNKNOWN");
-
-			this.machine_type = machine_type;
 
 			switch (machine_type) {
 				case "blank":
@@ -236,10 +231,6 @@ var reset_machines = function () {
 		m.shutdown_commands();
 	}
 
-	/* OLD WAY -- WHY DOES THIS NOT WORK?
-	machines.forEach( shutdown_machine );
-	*/
-	/* NEW WAY */
 	for (var i=0; i<machines.length; i++) {
 		var m = machines[i];
 		shutdown_machine(m, i);
@@ -307,7 +298,7 @@ class Data {
 
 	saveAll() {
 		console.log('called function saveAll');
-		
+
 		var T = this;
 		this.keys().forEach(function(item) {
 			T.saveItem(item);
