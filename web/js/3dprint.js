@@ -386,7 +386,7 @@ $(document).ready(function() {
 		var x, B;
 		for (x = 0; x < Blocks; x++) {
 			var block_id = 'block_'+x;
-			B = new Block(block, index, D);
+			B = new Block(block_id, x, D);
 		}
 	}
 
