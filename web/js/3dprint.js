@@ -360,8 +360,8 @@ $(document).ready(function() {
 			'UPDATE': update_screen,
 		};
 
-		Object.keys(menu_labels).forEach(function(item, index, arr) {
-			M = new Menu(item, arr[item], D);
+		Object.keys(menu_labels).forEach(function(item, index) {
+			M = new Menu(item, menu_labels[item], D);
 		});
 
 		var leftbar_labels = {
@@ -374,8 +374,8 @@ $(document).ready(function() {
 			'printers': "Printers",
 		};
 
-		Object.keys(leftbar_labels).forEach(function(item, index, arr) {
-			M = new Meter(arr[item], item, D);
+		Object.keys(leftbar_labels).forEach(function(item, index) {
+			M = new Meter(leftbar_labels[item], item, D);
 		});
 	}
 
