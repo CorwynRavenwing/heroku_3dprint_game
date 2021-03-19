@@ -106,7 +106,7 @@ class Machine {
 	 * 		(therefore set variables from save file also)
 	 */
 	constructor(block_id, machine_type, data_object, is_new) {
-		console.log('called Machine constructor()', block_id, machine_type, data_object, is_new);
+		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
 		this.data_object = data_object;
 		var current_type = this.data_object.getItem(block_id+'_type');
@@ -346,57 +346,48 @@ $(document).ready(function() {
 		return;
 	}
 
-	var leftbar_labels = {
-		'version':  "Version",
-		'money':    "Money",
-		'filament': "Filament",
-		'plastic':  "Plastic",
-		'electric': "Electric",
-		'kits':     "Kits",
-		'printers': "Printers",
-	};
-
-	var leftbar_items = Object.keys(leftbar_labels);
-
-	var Blocks = 15;
-
-	var block_list = [];
-	// var block_data = [];
-	var x;
-	for (x = 0; x < Blocks; x++) {
-		var block_id = 'block_'+x;
-		block_list.push(block_id);
-		// block_data.push(block_id+'_type');
-	}
-
-	// var block_items = block_data;
-
-	// var data_items = [].concat(leftbar_items, block_items);
-
 	var D = new Data();
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
 		var M;
 
-		M = new Menu('CLEAR',  clear_all_data, 	D);
-		M = new Menu('RESET',  initialize_data, D);
-		M = new Menu('LOAD',   load_data,       D);
-		M = new Menu('SAVE',   save_data,       D);
-		M = new Menu('UPDATE', update_screen,   D);
+		var menu_labels = {
+			'CLEAR':  clear_all_data,
+			'RESET':  initialize_data,
+			'LOAD':   load_data,
+			'SAVE':   save_data,
+			'UPDATE': update_screen,
+		};
 
-		leftbar_items.forEach(function(item, index) {
-			M = new Meter(leftbar_labels[item], item, D);
+		Object.keys(menu_labels).forEach(function(item, index, arr) {
+			M = new Menu(item, arr[item], D);
+		});
+
+		var leftbar_labels = {
+			'version':  "Version",
+			'money':    "Money",
+			'filament': "Filament",
+			'plastic':  "Plastic",
+			'electric': "Electric",
+			'kits':     "Kits",
+			'printers': "Printers",
+		};
+
+		Object.keys(leftbar_labels).forEach(function(item, index, arr) {
+			M = new Meter(arr[item], item, D);
 		});
 	}
 
 	var setup_blocks = function () {
 		console.log('called function setup_blocks');
-		var B;
-
-		block_list.forEach(function(block, index) {
+		
+		var Blocks = 15;
+		var x, B;
+		for (x = 0; x < Blocks; x++) {
+			var block_id = 'block_'+x;
 			B = new Block(block, index, D);
-		});
+		}
 	}
 
 	var clear_all_data = function () {
@@ -418,24 +409,12 @@ $(document).ready(function() {
 
 	var initialize_data = function () {
 		console.log('called function initialize_data');
-		/* now done inside Meter.constructor()
-		// initialize all leftbar_items to zero
-		leftbar_items.forEach(function(item, index) {
-			D.setItem(item, 0);
-		});
-		*/
 
-		/* now done inside Block.constructor()
-		// initialize all block_items to EMPTY
-		block_items.forEach(function(item, index) {
-			D.setItem(item, EMPTY);
-		});
-		*/
-		// then set particular values
+		reset_machines();
 		D.setItem('filament', 10);
 		D.setItem('kits',      1);
 		D.setItem('version',   1);
-		var m = new Machine('block_10', 'build', D, true);
+		var M = new Machine('block_10', 'build', D, true);
 	}
 
 	setup_leftbar();
