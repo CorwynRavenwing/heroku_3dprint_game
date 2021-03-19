@@ -5,7 +5,7 @@ var menus    = [];
 var meters   = [];
 var blocks   = [];
 
-const BLANK = "BLANK";		// @todo: make this "" at some later time
+const EMPTY = "empty";
 
 class Menu {
 	constructor(label, click_function) {
@@ -28,6 +28,7 @@ class Meter {
 		this.data_object = data_object;
 		this.data_id  = item;
 		this.meter_id = 'data_'+item;
+
 		var L = $(".leftbar");
 		var outerdiv = $('<div>'+label+': '+'</div>')
 			.addClass("data");
@@ -35,6 +36,8 @@ class Meter {
 			.attr('id', this.meter_id)
 		outerdiv.append(innerdiv);
 		L.append(outerdiv);
+
+		data_object.setItem(item, 0);
 		meters.push(this);
 	}
 
@@ -55,16 +58,19 @@ class Block {
 		this.block_id = block;
 		this.data_object = data_object;
 		var BB = $(".blocks");
+		var blocktype_label = block+'_type';
 
 		var outerdiv = $('<div>(B'+index+')</div>')
 			.attr('id', block)
 			.addClass("block")
 			.addClass('type_blank');
 		var innerdiv = $('<div>[type]</div>')
-			.attr('id', 'data_'+block+'_type')
+			.attr('id', 'data_'+blocktype_label)
 			.addClass("type");
 		outerdiv.append(innerdiv);
 		BB.append(outerdiv);
+
+		data_object.setItem(blocktype_label, EMPTY);
 		blocks.push(this);
 	}
 
@@ -104,12 +110,12 @@ class Machine {
 		this.block_id = block_id;
 		this.data_object = data_object;
 		var current_type = this.data_object.getItem(block_id+'_type');
-		if ( current_type === BLANK ) {
+		if ( current_type === EMPTY ) {
 			console.log('OK: block current type blank:', current_type);
 		} else if ( current_type === machine_type ) {
 			console.log('OK: block current type correct:', current_type);
 		} else {
-			console.log('error: ['+block_id+'_type]', current_type, 'should be', BLANK, 'or', machine_type);
+			console.log('error: ['+block_id+'_type]', current_type, 'should be', EMPTY, 'or', machine_type);
 			// should throw an error here
 			return;
 		}
@@ -202,7 +208,7 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		this.data_object.setItem(this.block_id+'_type'   , BLANK);
+		this.data_object.setItem(this.block_id+'_type'   , EMPTY);
 		this.data_object.setItem(this.block_id+'_running', null);
 		this.data_object.setItem(this.block_id+'_input'  , null);
 		this.data_object.setItem(this.block_id+'_output' , null);
@@ -276,7 +282,7 @@ class Data {
 			console.log('value null for item, removing:', key, value)
 			localStorage.remove(key);
 		} else {
-			console.log('setting value for item:', key, value)
+			// console.log('setting value for item:', key, value)
 			localStorage.setItem(key, value);
 		}
 	}
@@ -285,7 +291,7 @@ class Data {
 		if (key.endsWith('_type')) {
 			var block_id = key.replace(/_type/, '');
 			var blocktype = this.getItem(key);
-			if ((blocktype !== undefined) && (blocktype !== BLANK)) {
+			if ((blocktype !== undefined) && (blocktype !== EMPTY)) {
 				var m = new Machine(block_id, blocktype, this, false);
 			}
 		}
@@ -332,8 +338,6 @@ class Data {
 			$('#data_'+item).html(T.getItem(item));
 		});
 	}
-
-
 }
 
 $(document).ready(function() {
@@ -357,17 +361,17 @@ $(document).ready(function() {
 	var Blocks = 15;
 
 	var block_list = [];
-	var block_data = [];
+	// var block_data = [];
 	var x;
 	for (x = 0; x < Blocks; x++) {
 		var block_id = 'block_'+x;
 		block_list.push(block_id);
-		block_data.push(block_id+'_type');
+		// block_data.push(block_id+'_type');
 	}
 
-	block_items = block_data;
+	// var block_items = block_data;
 
-	var data_items = [].concat(leftbar_items, block_items);
+	// var data_items = [].concat(leftbar_items, block_items);
 
 	var D = new Data();
 
@@ -414,14 +418,19 @@ $(document).ready(function() {
 
 	var initialize_data = function () {
 		console.log('called function initialize_data');
+		/* now done inside Meter.constructor()
 		// initialize all leftbar_items to zero
 		leftbar_items.forEach(function(item, index) {
 			D.setItem(item, 0);
 		});
-		// initialize all block_items to BLANK
+		*/
+
+		/* now done inside Block.constructor()
+		// initialize all block_items to EMPTY
 		block_items.forEach(function(item, index) {
-			D.setItem(item, BLANK);
+			D.setItem(item, EMPTY);
 		});
+		*/
 		// then set particular values
 		D.setItem('filament', 10);
 		D.setItem('kits',      1);
