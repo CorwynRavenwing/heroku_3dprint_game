@@ -211,7 +211,7 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		B = this.block_ob;
+		var B = this.block_ob;
 
 		B.set_type(EMPTY);
 
