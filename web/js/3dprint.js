@@ -123,12 +123,18 @@ class Block {
 	}
 
 	action_dispatch(subtype) {
-		alert('block '+this.block_id+' called A_D('+subtype+')');
+		console.log('block '+this.block_id+' called A_D('+subtype+')');
 
-
-
-
-		
+		switch (subtype) {
+			case 'running':
+			case 'input':
+			case 'output':
+			case 'time':
+			case 'auto':
+			default:
+				alert('in switch');
+				break;
+		}
 	}
 
 	update_display() {
@@ -183,11 +189,11 @@ class Machine {
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.add_section('running', 'Run' , 'ON' );
-		B.add_section('input'  , 'In'  , 'GET');
-		B.add_section('output' , 'Out' , 'GO' );
-		B.add_section('time'   , 'Time', ''   );
-		B.add_section('auto'   , 'Auto', 'GO' );
+		B.add_section('running', 'Run' , '(+)');
+		B.add_section('input'  , 'In'  , '(+)');
+		B.add_section('output' , 'Out' , '(?)');
+		B.add_section('time'   , 'Time', '(*)');
+		B.add_section('auto'   , 'Auto', '(+)');
 
 		if (is_new) {
 			// set default values here
@@ -220,11 +226,11 @@ class Machine {
 				// other cases go here
 
 				default:
-					B.set_value('running', "?");
-					B.set_value('input'  , "?");
+					B.set_value('running', "0");
+					B.set_value('input'  , "0");
 					B.set_value('output' , "?");
-					B.set_value('time'   , "?");
-					B.set_value('auto'   , "?");
+					B.set_value('time'   , "0");
+					B.set_value('auto'   , "0");
 					break;
 			} // end switch
 		}
