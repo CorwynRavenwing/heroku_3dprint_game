@@ -88,11 +88,19 @@ class Block {
 			.addClass('type_'+new_type);
 	}
 
-	add_section(subtype) {
-		var innerdiv = $('<div>['+subtype+']</div>')
-			.attr('id', 'data_'+this.block_id+'_'+subtype)
+	add_section(subtype, label, action_text, action_fn) {
+		var outer = $('<div>')
+			.attr('id', 'section_'+this.block_id+'_'+subtype)
 			.addClass(subtype);
-		this.block_ob.append(innerdiv);
+		var inner = $('<span>['+subtype+']</span>')
+			.attr('id', 'data_'+this.block_id+'_'+subtype);
+		var action = $('<span>')
+			.text(action_text)
+			.click(function() {alert('should call action function '+action_fn+' here');});
+		outer.append(label+':&nbsp;');
+		outer.append(inner);
+		outer.append(action);
+		this.block_ob.append(outer);
 	}
 
 	set_value(subtype, value) {
@@ -100,7 +108,7 @@ class Block {
 		this.data_object.setItem(data_id, value);
 		if (value === null) {
 			console.log('called Block.set_value(null)', this.block_id, subtype, null);
-			$('#data_'+data_id).remove();
+			$('#section_'+data_id).remove();
 		}
 	}
 
@@ -156,11 +164,11 @@ class Machine {
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.add_section('running');
-		B.add_section('input');
-		B.add_section('output');
-		B.add_section('time');
-		B.add_section('auto');
+		B.add_section('running', 'Run' , 'ON/OFF'  , 'do_run'   );
+		B.add_section('input'  , 'In'  , 'FETCH'   , 'do_input' );
+		B.add_section('output' , 'Out' , 'COLLECT' , 'do_output');
+		B.add_section('time'   , 'Time', ''        , 'do_time'  );
+		B.add_section('auto'   , 'Auto', 'AUTOMATE', 'do_auto'  );
 
 		if (is_new) {
 			// set default values here
