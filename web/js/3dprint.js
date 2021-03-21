@@ -3,7 +3,7 @@
 var machines = [];
 var menus    = [];
 var meters   = [];
-var blocks   = [];
+var blocks   = {};
 
 const EMPTY = "empty";
 
@@ -51,27 +51,48 @@ class Meter {
 
 class Block {
 	data_object = null;
+	block_ob = null;
 
 	block_id = "variable initialize";
 
-	constructor(block, index, data_object) {
-		this.block_id = block;
+	constructor(block_id, index, data_object) {
+		this.block_id = block_id;
 		this.data_object = data_object;
 		var BB = $(".blocks");
-		var blocktype_label = block+'_type';
+		var blocktype_label = block_id+'_type';
 
-		var outerdiv = $('<div>(B'+index+')</div>')
-			.attr('id', block)
+		this.block_ob = $('<div>(B'+index+')</div>')
+			.attr('id', block_id)
 			.addClass("block")
 			.addClass('type_blank');
 		var innerdiv = $('<div>[type]</div>')
 			.attr('id', 'data_'+blocktype_label)
 			.addClass("type");
-		outerdiv.append(innerdiv);
-		BB.append(outerdiv);
+		this.block_ob.append(innerdiv);
+		BB.append(this.block_ob);
 
-		data_object.setItem(blocktype_label, EMPTY);
-		blocks.push(this);
+		this.set_type(EMPTY);
+
+		blocks[block_id] =this;
+	}
+
+	set_type(new_type) {
+		var blocktype_label = this.block_id+'_type';
+		old_type = this.data_object.getItem(blocktype_label);
+		this.data_object.setItem(blocktype_label, new_type);
+
+		console.log('called Block.set_type()', this.block_id, old_type, '->', new_type);
+
+		this.block_ob
+			.removeClass('type_'+old_type)
+			.addClass('type_'+new_type);
+	}
+
+	add_section(subtype) {
+		var innerdiv = $('<div>['+subtype+']</div>')
+			.attr('id', 'data_'+this.block_id+'_'+subtype)
+			.addClass(subtype);
+		this.block_ob.append(innerdiv);
 	}
 
 	update_display() {
@@ -85,6 +106,7 @@ class Block {
 class Machine {
 
 	data_object = null;
+	block_ob = null;
 
 	running = "variable initialize";
 	input   = "variable initialize";
@@ -123,10 +145,14 @@ class Machine {
 		this.machine_type = machine_type;
 		this.data_object.setItem(block_id+'_type', machine_type);
 
+		this.block_ob = blocks[block_id];
+
+		this.block_ob.set_type(machine_type);
+
 		var innerdiv;
-		var outerdiv = $('#'+block_id)
-			.removeClass('type_blank')
-			.addClass('type_'+machine_type);
+		var outerdiv = $('#'+block_id);
+
+		this.block_ob.add_section('running');
 
 		innerdiv = $('<div>[running]</div>')
 			.attr('id', 'data_'+block_id+'_running')
