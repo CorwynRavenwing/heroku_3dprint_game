@@ -306,9 +306,9 @@ class Data {
 	saveAll() {
 		console.log('called function saveAll');
 
-		var T = this;
+		var self = this;
 		this.keys().forEach(function(item) {
-			T.saveItem(item);
+			self.saveItem(item);
 		});
 	}
 
@@ -316,9 +316,9 @@ class Data {
 		console.log('called function loadAll');
 		reset_machines();
 
-		var T = this;
+		var self = this;
 		Object.keys(localStorage).forEach(function(item) {
-			T.loadItem(item);
+			self.loadItem(item);
 		});
 	}
 
@@ -332,10 +332,10 @@ class Data {
 
 	display() {
 		console.log('called function Data.display');
-		var T = this;
+		var self = this;
 		this.keys().forEach(function(item) {
 			console.log('...setting display for item', item);
-			$('#data_'+item).html(T.getItem(item));
+			$('#data_'+item).html(self.getItem(item));
 		});
 	}
 }
