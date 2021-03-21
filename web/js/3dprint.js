@@ -95,6 +95,15 @@ class Block {
 		this.block_ob.append(innerdiv);
 	}
 
+	set_value(subtype, value) {
+		var data_id = this.block_id+'_'+subtype;
+		this.data_object.setItem(data_id, value);
+		if (value === null) {
+			console.log('called Block.set_value(null)', this.block_id, subtype, null);
+			$('#data_'+data_id).remove();
+		}
+	}
+
 	update_display() {
 		var blk = $(this.block_id);
 		//var dat = this.data_object.getItem(this.data_id);
@@ -107,12 +116,6 @@ class Machine {
 
 	data_object = null;
 	block_ob = null;
-
-	running = "variable initialize";
-	input   = "variable initialize";
-	output  = "variable initialize";
-	time    = "variable initialize";
-	auto    = "variable initialize";
 
 	/*
 	 * @input block_id
@@ -145,85 +148,59 @@ class Machine {
 		this.machine_type = machine_type;
 		this.data_object.setItem(block_id+'_type', machine_type);
 
-		this.block_ob = blocks[block_id];
+		var B = blocks[block_id];
+		this.block_ob = B;
 
-		this.block_ob.set_type(machine_type);
+		B.set_type(machine_type);
 
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		this.block_ob.add_section('running');
-
-		innerdiv = $('<div>[running]</div>')
-			.attr('id', 'data_'+block_id+'_running')
-			.addClass("running");
-		outerdiv.append(innerdiv);
-
-		innerdiv = $('<div>[input]</div>')
-			.attr('id', 'data_'+block_id+'_input')
-			.addClass("input");
-		outerdiv.append(innerdiv);
-
-		innerdiv = $('<div>[output]</div>')
-			.attr('id', 'data_'+block_id+'_output')
-			.addClass("output");
-		outerdiv.append(innerdiv);
-
-		innerdiv = $('<div>[time]</div>')
-			.attr('id', 'data_'+block_id+'_time')
-			.addClass("time");
-		outerdiv.append(innerdiv);
-
-		innerdiv = $('<div>[auto]</div>')
-			.attr('id', 'data_'+block_id+'_auto')
-			.addClass("auto");
-		outerdiv.append(innerdiv);
+		B.add_section('running');
+		B.add_section('input');
+		B.add_section('output');
+		B.add_section('time');
+		B.add_section('auto');
 
 		if (is_new) {
 			// set default values here
 
 			switch (machine_type) {
 				case "blank":
-					this.data_object.setItem(block_id+'_running', null);
-					this.data_object.setItem(block_id+'_input'  , null);
-					this.data_object.setItem(block_id+'_output' , null);
-					this.data_object.setItem(block_id+'_time'   , null);
-					this.data_object.setItem(block_id+'_auto'   , null);
+					B.set_value('running', null);
+					B.set_value('input'  , null);
+					B.set_value('output' , null);
+					B.set_value('time'   , null);
+					B.set_value('auto'   , null);
 					break;
 
 				case "build":
-					this.data_object.setItem(block_id+'_running', "0");
-					this.data_object.setItem(block_id+'_input'  , "0");
-					this.data_object.setItem(block_id+'_output' , "printer");
-					this.data_object.setItem(block_id+'_time'   , "0");
-					this.data_object.setItem(block_id+'_auto'   , "0");
+					B.set_value('running', "0");
+					B.set_value('input'  , "0");
+					B.set_value('output' , "printer");
+					B.set_value('time'   , "0");
+					B.set_value('auto'   , "0");
 					break;
 
 				case "print":
-					this.data_object.setItem(block_id+'_running', "0");
-					this.data_object.setItem(block_id+'_input'  , "0");
-					this.data_object.setItem(block_id+'_output' , "?");
-					this.data_object.setItem(block_id+'_time'   , "0");
-					this.data_object.setItem(block_id+'_auto'   , "0");
+					B.set_value('running', "0");
+					B.set_value('input'  , "0");
+					B.set_value('output' , "?");
+					B.set_value('time'   , "0");
+					B.set_value('auto'   , "0");
 					break;
 
 				// other cases go here
 
 				default:
-					this.data_object.setItem(block_id+'_running', "?");
-					this.data_object.setItem(block_id+'_input'  , "?");
-					this.data_object.setItem(block_id+'_output' , "?");
-					this.data_object.setItem(block_id+'_time'   , "?");
-					this.data_object.setItem(block_id+'_auto'   , "?");
+					B.set_value('running', "?");
+					B.set_value('input'  , "?");
+					B.set_value('output' , "?");
+					B.set_value('time'   , "?");
+					B.set_value('auto'   , "?");
 					break;
 			} // end switch
 		}
-
-		this.running= this.data_object.getItem(block_id+'_running');
-		this.input  = this.data_object.getItem(block_id+'_input'  );
-		this.output = this.data_object.getItem(block_id+'_output' );
-		this.time   = this.data_object.getItem(block_id+'_time'   );
-		this.auto   = this.data_object.getItem(block_id+'_auto'   );
 	
 		machines.push(this);
 	}
@@ -234,22 +211,15 @@ class Machine {
 
 	shutdown_commands() {
 		console.log('called Machine shutdown_commands()', this.block_id);
-		this.data_object.setItem(this.block_id+'_type'   , EMPTY);
-		this.data_object.setItem(this.block_id+'_running', null);
-		this.data_object.setItem(this.block_id+'_input'  , null);
-		this.data_object.setItem(this.block_id+'_output' , null);
-		this.data_object.setItem(this.block_id+'_time'   , null);
-		this.data_object.setItem(this.block_id+'_auto'   , null);
+		B = this.block_ob;
 
-		$('#'+this.block_id)
-			.removeClass('type_'+this.machine_type)
-			.addClass('type_blank');
+		B.set_type(EMPTY);
 
-		$('#data_'+this.block_id+'_running').remove();
-		$('#data_'+this.block_id+'_input'  ).remove();
-		$('#data_'+this.block_id+'_output' ).remove();
-		$('#data_'+this.block_id+'_time'   ).remove();
-		$('#data_'+this.block_id+'_auto'   ).remove();
+		B.set_value('running', null);
+		B.set_value('input'  , null);
+		B.set_value('output' , null);
+		B.set_value('time'   , null);
+		B.set_value('auto'   , null);
 	}
 
 	// other Machine code here ...
