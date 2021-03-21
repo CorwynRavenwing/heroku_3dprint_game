@@ -20,5 +20,8 @@
 		<!-- div.block added here automatically -->
 	</div>
 </div>
+<div class="announce">
+	<!-- announcements added here automatically -->
+</div>
 </body>
 </html>

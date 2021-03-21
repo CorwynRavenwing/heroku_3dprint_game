@@ -446,6 +446,11 @@ $(document).ready(function() {
 		var M = new Machine('block_10', 'build', D, true);
 	}
 
+	var announce = function(announcement) {
+		$('.announcement')
+			.html(announcement);
+	}
+
 	setup_leftbar();
 	setup_blocks();
 
@@ -459,5 +464,7 @@ $(document).ready(function() {
 	update_screen();
 
 	save_data();
+
+	announce("this is a test of the announcement system.  beeeeeep.")
 
 });
