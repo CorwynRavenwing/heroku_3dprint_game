@@ -19,9 +19,9 @@
 		<noscript>Sorry, you need JavaScript to run this game.</noscript>
 		<!-- div.block added here automatically -->
 	</div>
-</div>
-<div class="announce">
-	<!-- announcements added here automatically -->
+	<div class="announce">
+		<!-- announcements added here automatically -->
+	</div>
 </div>
 </body>
 </html>

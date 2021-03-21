@@ -10,12 +10,6 @@ body {
 	width: 95%;
 }
 
-.announce {
-	border: 1px red solid;
-	height: 95%;
-	width: 95%;
-}
-
 .leftbar {
 	border: 1px black solid;
 	float: left;
@@ -44,6 +38,14 @@ body {
 	border: 1px black solid;
 	float: left;
 	height: 99%;
+	margin: 1px;
+	width: 89%;
+}
+
+.announce {
+	border: 1px red solid;
+	float: left;
+	height: 20px;
 	margin: 1px;
 	width: 89%;
 }
