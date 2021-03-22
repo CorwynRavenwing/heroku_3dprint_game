@@ -259,7 +259,7 @@ class Machine {
 		console.log('called Machine.heart_beat()', this.block_id);
 
 
-		
+
 	}
 
 	// other Machine code here ...
@@ -454,7 +454,7 @@ $(document).ready(function() {
 	}
 
 	var heart_beat = function() {
-		machines.
+		machines_heart_beats();
 	}
 
 	var initialize_data = function () {
