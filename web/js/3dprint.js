@@ -447,7 +447,7 @@ $(document).ready(function() {
 	}
 
 	var announce = function(announcement) {
-		$('.announcement')
+		$('.announce')
 			.html(announcement);
 	}
 
