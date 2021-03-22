@@ -243,7 +243,7 @@ class Machine {
 	}
 
 	shutdown_commands() {
-		console.log('called Machine shutdown_commands()', this.block_id);
+		console.log('called Machine.shutdown_commands()', this.block_id);
 		var B = this.block_ob;
 
 		B.set_type(EMPTY);
@@ -253,6 +253,13 @@ class Machine {
 		B.set_value('output' , null);
 		B.set_value('time'   , null);
 		B.set_value('auto'   , null);
+	}
+
+	heart_beat() {
+		console.log('called Machine.heart_beat()', this.block_id);
+
+
+		
 	}
 
 	// other Machine code here ...
@@ -272,6 +279,15 @@ var reset_machines = function () {
 	}
 	console.log('...clearing machines list');
 	machines = [];
+}
+
+var machines_heart_beats = function () {
+	console.log('called machines_heart_beats');
+
+	for (var i=0; i<machines.length; i++) {
+		var m = machines[i];
+		m.heart_beat();
+	}
 }
 
 class Data {
@@ -387,6 +403,7 @@ $(document).ready(function() {
 			'LOAD':   load_data,
 			'SAVE':   save_data,
 			'UPDATE': update_screen,
+			'TICK':   heart_beat,
 		};
 
 		Object.keys(menu_labels).forEach(function(item, index) {
@@ -434,6 +451,10 @@ $(document).ready(function() {
 	var update_screen = function () {
 		D.display();
 		// should also run this on Blocks or Machines group
+	}
+
+	var heart_beat = function() {
+		machines.
 	}
 
 	var initialize_data = function () {
