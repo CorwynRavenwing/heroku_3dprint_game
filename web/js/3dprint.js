@@ -160,22 +160,22 @@ class Block {
 	}
 
 	act_run() {
-		machine_ob.act_run();
+		this.machine_ob.act_run();
 		this.update_display();
 	}
 	
 	act_input() {
-		machine_ob.act_input();
+		this.machine_ob.act_input();
 		this.update_display();
 	}
 	
 	act_output() {
-		machine_ob.act_output();
+		this.machine_ob.act_output();
 		this.update_display();
 	}
 	
 	act_auto() {
-		machine_ob.act_auto();
+		this.machine_ob.act_auto();
 		this.update_display();
 	}
 
