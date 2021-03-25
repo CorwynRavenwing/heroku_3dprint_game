@@ -160,19 +160,23 @@ class Block {
 	}
 
 	act_run() {
-		x;
+		machine_ob.act_run();
+		this.update_display();
 	}
 	
 	act_input() {
-		x;
+		machine_ob.act_input();
+		this.update_display();
 	}
 	
 	act_output() {
-		x;
+		machine_ob.act_output();
+		this.update_display();
 	}
 	
 	act_auto() {
-		x;
+		machine_ob.act_auto();
+		this.update_display();
 	}
 
 	update_display() {
@@ -296,6 +300,26 @@ class Machine {
 		B.update_display();
 	
 		machines.push(this);
+	}
+
+	act_run() {
+		console.log('called machine act_run()');
+		// this.update_display();
+	}
+	
+	act_input() {
+		console.log('called machine act_input()');
+		// this.update_display();
+	}
+	
+	act_output() {
+		console.log('called machine act_output()');
+		// this.update_display();
+	}
+	
+	act_auto() {
+		console.log('called machine act_auto()');
+		// this.update_display();
 	}
 
 	update_display() {
