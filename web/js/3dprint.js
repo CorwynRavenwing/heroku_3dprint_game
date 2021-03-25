@@ -114,7 +114,10 @@ class Block {
 
 	get_value(subtype) {
 		var data_id = this.block_id+'_'+subtype;
-		return this.data_object.getItem(data_id);
+		var temp = this.data_object.getItem(data_id);
+		if (temp === "0")    { temp = 0; }
+		if (parseFloat(temp) { temp = parseFloat(temp); }
+		return temp;
 	}
 
 	set_value(subtype, value) {
