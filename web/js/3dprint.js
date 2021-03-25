@@ -94,7 +94,7 @@ class Block {
 		this.machine_ob = machine_ob;
 	}
 
-	add_section(subtype, label, action_text) {
+	add_section(subtype, label) {
 		var self=this;
 		var outer = $('<div>')
 			.attr('id', 'section_'+this.block_id+'_'+subtype)
@@ -102,7 +102,7 @@ class Block {
 		var inner = $('<span>')
 			.attr('id', 'data_'+this.block_id+'_'+subtype);
 		var action = $('<span>')
-			.text(action_text)
+			.text('NEW')
 			.attr('id', 'act_'+this.block_id+'_'+subtype)
 			.click(function() { self.action_dispatch(subtype); });
 		outer.append(label+':&nbsp;');
@@ -195,6 +195,7 @@ class Block {
 			? '(-)'
 			: '(+)'
 		);
+		this.set_action_label('time', '');
 	}
 } // end class Block
 
@@ -243,11 +244,11 @@ class Machine {
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.add_section('running', 'Run'  , 'TEMP');
-		B.add_section('input'  , 'Input', 'TEMP');
-		B.add_section('output' , 'Make' , 'TEMP');
-		B.add_section('time'   , 'Time' , 'TEMP');
-		B.add_section('auto'   , 'Auto' , 'TEMP');
+		B.add_section('running', 'Run'  );
+		B.add_section('input'  , 'Input');
+		B.add_section('output' , 'Make' );
+		B.add_section('time'   , 'Time' );
+		B.add_section('auto'   , 'Auto' );
 
 		if (is_new) {
 			// set default values here
