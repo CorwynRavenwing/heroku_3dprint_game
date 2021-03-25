@@ -127,7 +127,7 @@ class Block {
 	}
 
 	set_action_label(subtype, new_label) {
-		var act_label_id = 'act_'+this.block_id+'_'+subtype;
+		var act_label_id = '#act_'+this.block_id+'_'+subtype;
 		console.log('set_action_label() called: ', subtype, act_label_id, new_label);
 		var act_ob = $(act_label_id);
 		act_ob.text(new_label);
