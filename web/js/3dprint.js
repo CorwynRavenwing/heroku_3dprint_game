@@ -173,6 +173,7 @@ class Block {
 	}
 
 	update_display() {
+		console.log('called Block.update_display');
 		// var blk = $(this.block_id);
 		this.set_action_label('running',
 			(this.get_value('running'))
