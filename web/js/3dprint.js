@@ -16,7 +16,7 @@ class Menu {
 		L.append(menudiv);
 		menus.push(this);
 	}
-}
+} // end class Menu
 
 class Meter {
 	data_object = null;
@@ -47,11 +47,12 @@ class Meter {
 		console.log('Meter: updating display', this.data_id, value);
 		meter_ob.html(value);
 	}
-}
+} //  end class Meter
 
 class Block {
 	data_object = null;
 	block_ob = null;
+	machine_ob = null;
 
 	block_id = "variable initialize";
 
@@ -88,6 +89,11 @@ class Block {
 			.addClass('type_'+new_type);
 	}
 
+	register_machine(machine_ob) {
+		console.log('called Block.register_machine()', this.block_id);
+		this.machine_ob = machine_ob;
+	}
+
 	add_section(subtype, label, action_text) {
 		var self=this;
 		var outer = $('<div>')
@@ -104,6 +110,11 @@ class Block {
 		outer.append('&nbsp;');
 		outer.append(action);
 		this.block_ob.append(outer);
+	}
+
+	get_value(subtype) {
+		var data_id = this.block_id+'_'+subtype;
+		return this.data_object.getItem(data_id);
 	}
 
 	set_value(subtype, value) {
@@ -127,23 +138,64 @@ class Block {
 
 		switch (subtype) {
 			case 'running':
+				this.act_run();
+				break;
 			case 'input':
+				this.act_input();
+				break;
 			case 'output':
-			case 'time':
+				this.act_output();
+				break;
 			case 'auto':
+				this.act_auto();
+				break;
+			case 'time':
 			default:
-				alert('in switch');
+				console.log('block '+this.block_id+' called A_D: invalid subtype '+subtype);
 				break;
 		}
 	}
 
-	update_display() {
-		var blk = $(this.block_id);
-		//var dat = this.data_object.getItem(this.data_id);
-		//console.log('Block: updating display', this.block_id, dat);
-		//blk.html(dat);
+	act_run() {
+		x;
 	}
-}
+	
+	act_input() {
+		x;
+	}
+	
+	act_output() {
+		x;
+	}
+	
+	act_auto() {
+		x;
+	}
+
+	update_display() {
+		// var blk = $(this.block_id);
+		this.set_action_label('running',
+			(this.get_value('running'))
+			? '(-)'
+			: '(+)'
+		);
+		this.set_action_label('input',
+			(this.get_value('input') > 0)
+			? '(---)'
+			: '(+)'
+		);
+		this.set_action_label('output',
+			(this.get_value('output') == "?")
+			? '(*)'
+			: '(x)'
+		);
+		this.set_action_label('auto',
+			(this.get_value('auto'))
+			? '(-)'
+			: '(+)'
+		);
+	}
+} // end class Block
 
 class Machine {
 
@@ -185,15 +237,16 @@ class Machine {
 		this.block_ob = B;
 
 		B.set_type(machine_type);
+		B.register_machine(this);
 
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.add_section('running', 'Run' , '(+)');
-		B.add_section('input'  , 'In'  , '(+)');
-		B.add_section('output' , 'Out' , '(?)');
-		B.add_section('time'   , 'Time', '(*)');
-		B.add_section('auto'   , 'Auto', '(+)');
+		B.add_section('running', 'Run'  , 'TEMP');
+		B.add_section('input'  , 'Input', 'TEMP');
+		B.add_section('output' , 'Make' , 'TEMP');
+		B.add_section('time'   , 'Time' , 'TEMP');
+		B.add_section('auto'   , 'Auto' , 'TEMP');
 
 		if (is_new) {
 			// set default values here
@@ -234,6 +287,8 @@ class Machine {
 					break;
 			} // end switch
 		}
+
+		B.update_display();
 	
 		machines.push(this);
 	}
@@ -263,7 +318,7 @@ class Machine {
 	}
 
 	// other Machine code here ...
-}
+} // end class Machine
 
 var reset_machines = function () {
 	console.log('called reset_machines');
