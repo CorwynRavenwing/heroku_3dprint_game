@@ -160,22 +160,22 @@ class Block {
 
 	act_run() {
 		this.machine_ob.act_run();
-		this.update_display();
+		update_screen();
 	}
 	
 	act_input() {
 		this.machine_ob.act_input();
-		this.update_display();
+		update_screen();
 	}
 	
 	act_output() {
 		this.machine_ob.act_output();
-		this.update_display();
+		update_screen();
 	}
 	
 	act_auto() {
 		this.machine_ob.act_auto();
-		this.update_display();
+		update_screen();
 	}
 
 	update_display() {
@@ -642,7 +642,16 @@ $(document).ready(function() {
 
 	var update_screen = function () {
 		D.display();
-		// should also run this on Blocks or Machines group
+
+		for (var i=0; i<machines.length; i++) {
+			var m = machines[i];
+			m.update_display();
+		}
+
+		for (var j=0; j<blocks.length; j++) {
+			var b = blocks[j];
+			b.update_display();
+		}
 	}
 
 	var heart_beat = function() {
