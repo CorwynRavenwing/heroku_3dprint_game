@@ -302,83 +302,128 @@ class Machine {
 		machines.push(this);
 	}
 
-	get_value(subtype) {
-		var data_id = this.block_id+'_'+subtype;
-		var temp = this.data_object.getItem(data_id);
-		if (temp === "0")     { temp = 0; }
-		if (parseFloat(temp)) { temp = parseFloat(temp); }
-		return temp;
-	}
-
-	set_value(subtype, value) {
-		var data_id = this.block_id+'_'+subtype;
-		this.data_object.setItem(data_id, value);
-	}
-
-	can_run() {
-		return 1;
-	}
-	
-	can_input() {
-		return 1;
-	}
-	
-	can_output() {
-		return 1;
-	}
-
-	// can_time() // no such function 
-	
-	can_auto() {
-		return 1;
-	}
-
-	act_run() {
-		console.log('called machine act_run()');
-		if (can_run()) {
-			x;
-		} else {
-			announce("can't run, need reason here");
-			return;
+	// GET section
+		get_value(subtype) {
+			var data_id = this.block_id+'_'+subtype;
+			var temp = this.data_object.getItem(data_id);
+			if (temp === "0")     { temp = 0; }
+			if (parseFloat(temp)) { temp = parseFloat(temp); }
+			return temp;
 		}
-		// this.update_display();
-	}
-	
-	act_input() {
-		console.log('called machine act_input()');
-		if (can_input()) {
-			x;
-		} else {
-			announce("can't input, need reason here");
-			return;
-		}
-		// this.update_display();
-	}
-	
-	act_output() {
-		if (can_output()) {
-			x;
-		} else {
-			announce("can't output, need reason here");
-			return;
-		}
-		console.log('called machine act_output()');
-		// this.update_display();
-	}
 
-	// act_time() // no such function
-	
-	act_auto() {
-		if (can_auto()) {
-			x;
-		} else {
-			announce("can't auto, need reason here");
-			return;
+		get_run() {
+			return this.get_value('running');
 		}
-		console.log('called machine act_auto()');
-		// this.update_display();
-	}
+		
+		get_input() {
+			return this.get_value('input');
+		}
+		
+		get_output() {
+			return this.get_value('output');
+		}
 
+		get_time() {
+			return this.get_value('time');
+		}
+		
+		get_auto() {
+			return this.get_value('auto');
+		}
+
+	// SET section
+		set_value(subtype, value) {
+			var data_id = this.block_id+'_'+subtype;
+			this.data_object.setItem(data_id, value);
+		}
+
+		set_run(value) {
+			return this.set_value('running', value);
+		}
+		
+		set_input(value) {
+			return this.set_value('input', value);
+		}
+		
+		set_output(value) {
+			return this.set_value('output', value);
+		}
+
+		set_time(value) {
+			return this.set_value('time', value);
+		}
+		
+		set_auto(value) {
+			return this.set_value('auto', value);
+		}
+
+	// CAN section
+		can_run() {
+			return 1;
+		}
+		
+		can_input() {
+			return 1;
+		}
+		
+		can_output() {
+			return 1;
+		}
+
+		// can_time() // no such function 
+		
+		can_auto() {
+			return 1;
+		}
+
+	// ACT section
+		act_run() {
+			console.log('called machine act_run()');
+			if (this.can_run()) {
+				x;
+			} else {
+				announce("can't run, need reason here");
+				return;
+			}
+			// this.update_display();
+		}
+		
+		act_input() {
+			console.log('called machine act_input()');
+			if (this.can_input()) {
+				x;
+			} else {
+				announce("can't input, need reason here");
+				return;
+			}
+			// this.update_display();
+		}
+		
+		act_output() {
+			if (this.can_output()) {
+				x;
+			} else {
+				announce("can't output, need reason here");
+				return;
+			}
+			console.log('called machine act_output()');
+			// this.update_display();
+		}
+
+		// act_time() // no such function
+		
+		act_auto() {
+			if (this.can_auto()) {
+				x;
+			} else {
+				announce("can't auto, need reason here");
+				return;
+			}
+			console.log('called machine act_auto()');
+			// this.update_display();
+		}
+
+	// OTHER FUNCTIONS section
 	update_display() {
 		console.log('called Machine.update_display');
 	}
