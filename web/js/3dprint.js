@@ -180,7 +180,6 @@ class Block {
 
 	update_display() {
 		console.log('called Block.update_display');
-		// var blk = $(this.block_id);
 		this.set_action_label('running',
 			(this.get_value('running'))
 			? '(-)'
@@ -386,7 +385,6 @@ class Machine {
 			} else {
 				announce("can't run, need reason here");
 			}
-			// this.update_display();
 		}
 		
 		act_input() {
@@ -399,7 +397,6 @@ class Machine {
 				announce("can't input, need reason here");
 				return;
 			}
-			// this.update_display();
 		}
 		
 		act_output() {
@@ -412,7 +409,6 @@ class Machine {
 				return;
 			}
 			console.log('called machine act_output()');
-			// this.update_display();
 		}
 
 		// act_time() // no such function
@@ -427,12 +423,11 @@ class Machine {
 				return;
 			}
 			console.log('called machine act_auto()');
-			// this.update_display();
 		}
 
 	// OTHER FUNCTIONS section
 	update_display() {
-		console.log('called Machine.update_display');
+		console.log('// called Machine.update_display');
 	}
 
 	shutdown_commands() {
@@ -587,8 +582,8 @@ var update_screen = function () {
 		m.update_display();
 	}
 
-	for (var j=0; j<blocks.length; j++) {
-		var b = blocks[j];
+	blocks.keys().forEach(function(block_id) {
+		var b = blocks[block_id];
 		b.update_display();
 	}
 }
