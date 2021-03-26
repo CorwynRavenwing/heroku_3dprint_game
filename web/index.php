@@ -22,9 +22,9 @@
 	<div class="announce">
 		<!-- announcements added here automatically -->
 	</div>
-	<div class="chooser">
-		<!-- chooser added here automatically -->
-	</div>
+</div>
+<div class="chooser">
+	<!-- chooser added here automatically -->
 </div>
 </body>
 </html>
