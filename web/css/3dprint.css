@@ -99,3 +99,11 @@ body {
 .block .auto {
 	color: darkgrey;
 }
+
+.chooser {
+	background-color: lightgreen;
+	border: 2px solid green;
+	height: 100px;
+	width: 250px;
+	z-index: 100;
+}
