@@ -379,18 +379,21 @@ class Machine {
 	// ACT section
 		act_run() {
 			console.log('called machine act_run()');
-			if (this.can_run()) {
+			if (this.get_run()) {
+				set_run(0);
+			} else if (this.can_run()) {
 				x;
 			} else {
 				announce("can't run, need reason here");
-				return;
 			}
 			// this.update_display();
 		}
 		
 		act_input() {
 			console.log('called machine act_input()');
-			if (this.can_input()) {
+			if (this.get_input()) {
+				put_it_back;
+			} else if (this.can_input()) {
 				x;
 			} else {
 				announce("can't input, need reason here");
@@ -400,7 +403,9 @@ class Machine {
 		}
 		
 		act_output() {
-			if (this.can_output()) {
+			if (this.get_output()) {
+				this.set_output("?");
+			} else if (this.can_output()) {
 				x;
 			} else {
 				announce("can't output, need reason here");
@@ -413,7 +418,9 @@ class Machine {
 		// act_time() // no such function
 		
 		act_auto() {
-			if (this.can_auto()) {
+			if (this.get_auto()) {
+				turn_it_off;
+			} else if (this.can_auto()) {
 				x;
 			} else {
 				announce("can't auto, need reason here");
