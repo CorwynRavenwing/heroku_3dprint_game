@@ -112,26 +112,25 @@ class Block {
 		this.block_ob.append(outer);
 	}
 
-	get_value(subtype) {
+	remove_section(subtype) {
 		var data_id = this.block_id+'_'+subtype;
-		var temp = this.data_object.getItem(data_id);
-		if (temp === "0")     { temp = 0; }
-		if (parseFloat(temp)) { temp = parseFloat(temp); }
-		return temp;
+		$('#section_'+data_id).remove();
+	}
+
+	get_value(subtype) {
+		return this.machine_ob.get_value(subtype);
 	}
 
 	set_value(subtype, value) {
-		var data_id = this.block_id+'_'+subtype;
-		this.data_object.setItem(data_id, value);
+		this.machine_ob.set_value(subtype, value);
 		if (value === null) {
-			console.log('called Block.set_value(null)', this.block_id, subtype, null);
-			$('#section_'+data_id).remove();
+			this.remove_section(subtype);
 		}
 	}
 
 	set_action_label(subtype, new_label) {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
-		console.log('set_action_label() called: ', subtype, act_label_id, new_label);
+		// console.log('set_action_label() called: ', subtype, act_label_id, new_label);
 		var act_ob = $(act_label_id);
 		act_ob.text(new_label);
 	}
@@ -209,6 +208,7 @@ class Block {
 class Machine {
 
 	data_object = null;
+	block_id = null;
 	block_ob = null;
 
 	/*
@@ -302,22 +302,79 @@ class Machine {
 		machines.push(this);
 	}
 
+	get_value(subtype) {
+		var data_id = this.block_id+'_'+subtype;
+		var temp = this.data_object.getItem(data_id);
+		if (temp === "0")     { temp = 0; }
+		if (parseFloat(temp)) { temp = parseFloat(temp); }
+		return temp;
+	}
+
+	set_value(subtype, value) {
+		var data_id = this.block_id+'_'+subtype;
+		this.data_object.setItem(data_id, value);
+	}
+
+	can_run() {
+		return 1;
+	}
+	
+	can_input() {
+		return 1;
+	}
+	
+	can_output() {
+		return 1;
+	}
+
+	// can_time() // no such function 
+	
+	can_auto() {
+		return 1;
+	}
+
 	act_run() {
 		console.log('called machine act_run()');
+		if (can_run()) {
+			x;
+		} else {
+			announce("can't run, need reason here");
+			return;
+		}
 		// this.update_display();
 	}
 	
 	act_input() {
 		console.log('called machine act_input()');
+		if (can_input()) {
+			x;
+		} else {
+			announce("can't input, need reason here");
+			return;
+		}
 		// this.update_display();
 	}
 	
 	act_output() {
+		if (can_output()) {
+			x;
+		} else {
+			announce("can't output, need reason here");
+			return;
+		}
 		console.log('called machine act_output()');
 		// this.update_display();
 	}
+
+	// act_time() // no such function
 	
 	act_auto() {
+		if (can_auto()) {
+			x;
+		} else {
+			announce("can't auto, need reason here");
+			return;
+		}
 		console.log('called machine act_auto()');
 		// this.update_display();
 	}
@@ -562,6 +619,7 @@ $(document).ready(function() {
 	load_data();
 
 	if (!D.getItem('version')) {
+		announce("Initializing data ...");
 		initialize_data();
 		save_data();
 	}
@@ -569,7 +627,5 @@ $(document).ready(function() {
 	update_screen();
 
 	save_data();
-
-	announce("this is a test of the announcement system.  beeeeeep.")
 
 });
