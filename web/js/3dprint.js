@@ -180,27 +180,29 @@ class Block {
 
 	update_display() {
 		console.log('called Block.update_display');
-		this.set_action_label('running',
-			(this.get_value('running'))
-			? '(-)'
-			: '(+)'
-		);
-		this.set_action_label('input',
-			(this.get_value('input') > 0)
-			? '(---)'
-			: '(+)'
-		);
-		this.set_action_label('output',
-			(this.get_value('output') == "?")
-			? '(*)'
-			: '(x)'
-		);
-		this.set_action_label('auto',
-			(this.get_value('auto'))
-			? '(-)'
-			: '(+)'
-		);
-		this.set_action_label('time', '');
+		if (this.machine_ob) {
+			this.set_action_label('running',
+				(this.get_value('running'))
+				? '(-)'
+				: '(+)'
+			);
+			this.set_action_label('input',
+				(this.get_value('input') > 0)
+				? '(---)'
+				: '(+)'
+			);
+			this.set_action_label('output',
+				(this.get_value('output') == "?")
+				? '(*)'
+				: '(x)'
+			);
+			this.set_action_label('auto',
+				(this.get_value('auto'))
+				? '(-)'
+				: '(+)'
+			);
+			this.set_action_label('time', '');
+		} // endif machine_ob
 	}
 } // end class Block
 
