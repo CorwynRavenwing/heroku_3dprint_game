@@ -582,7 +582,7 @@ var update_screen = function () {
 		m.update_display();
 	}
 
-	blocks.keys().forEach(function(block_id) {
+	Object.keys(blocks).forEach(function(block_id) {
 		var b = blocks[block_id];
 		b.update_display();
 	});
