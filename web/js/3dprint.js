@@ -590,9 +590,18 @@ var update_screen = function () {
 	});
 }
 
-var announce = function(announcement) {
+var announce = function (announcement) {
 	$('.announce')
 		.html(announcement);
+}
+
+var chooser = function (choices, current_value) {
+	$('.chooser').show();
+
+
+
+
+	return "DEFAULT";
 }
 
 $(document).ready(function() {
@@ -661,13 +670,15 @@ $(document).ready(function() {
 	}
 
 	var initialize_data = function () {
-		console.log('called function initialize_data');
+		announce("Initializing ...");
 
 		reset_machines();
 		D.setItem('filament', 10);
 		D.setItem('kits',      1);
 		D.setItem('version',   1);
 		var M = new Machine('block_10', 'build', D, true);
+
+		announce("Welcome to the 3D Printer game.");
 	}
 
 	setup_leftbar();
@@ -676,7 +687,6 @@ $(document).ready(function() {
 	load_data();
 
 	if (!D.getItem('version')) {
-		announce("Initializing data ...");
 		initialize_data();
 		save_data();
 	}
@@ -684,5 +694,11 @@ $(document).ready(function() {
 	update_screen();
 
 	save_data();
+
+	var choices = {"Pick One": "", "Choice 1": "ch1", "Choice 2": "ch2", "Choice 5": "ch5"};
+
+	var chosen = chooser(choices, "ch5");
+
+	announce("Choser picked "+chosen);
 
 });
