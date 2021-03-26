@@ -27,7 +27,9 @@
 	<div class="header">
 		Chooser Header
 	</div>
-	<!-- chooser added here automatically -->
+	<div class="body">
+		<!-- chooser added here automatically -->
+	</div>
 </div>
 </body>
 </html>

@@ -103,8 +103,18 @@ body {
 .chooser {
 	background-color: lightgreen;
 	border: 2px solid green;
+	display: none;
 	height: 100px;
-	margin: auto;
+	margin: 15% 40%;  /* why does 'auto' not work? */
+	position: absolute;
 	width: 250px;
 	z-index: 100;
+}
+
+.chooser .header {
+	text-align: center;
+}
+
+.chooser .body {
+	text-align: center;
 }
