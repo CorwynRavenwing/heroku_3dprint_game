@@ -380,9 +380,9 @@ class Machine {
 		act_run() {
 			console.log('called machine act_run()');
 			if (this.get_run()) {
-				set_run(0);
+				this.set_run(0);
 			} else if (this.can_run()) {
-				x;
+				this.set_run(1);
 			} else {
 				announce("can't run, need reason here");
 			}
@@ -403,7 +403,7 @@ class Machine {
 		}
 		
 		act_output() {
-			if (this.get_output()) {
+			if (this.get_output() != "?") {
 				this.set_output("?");
 			} else if (this.can_output()) {
 				x;
@@ -419,9 +419,9 @@ class Machine {
 		
 		act_auto() {
 			if (this.get_auto()) {
-				turn_it_off;
+				this.set_auto(0);
 			} else if (this.can_auto()) {
-				x;
+				this.set_auto(1);
 			} else {
 				announce("can't auto, need reason here");
 				return;
