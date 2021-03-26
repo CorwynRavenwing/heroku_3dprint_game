@@ -585,7 +585,7 @@ var update_screen = function () {
 	blocks.keys().forEach(function(block_id) {
 		var b = blocks[block_id];
 		b.update_display();
-	}
+	});
 }
 
 var announce = function(announcement) {
