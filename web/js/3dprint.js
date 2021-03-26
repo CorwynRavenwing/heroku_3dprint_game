@@ -577,13 +577,32 @@ class Data {
 	}
 }
 
+var D = new Data();
+
+var update_screen = function () {
+	D.display();
+
+	for (var i=0; i<machines.length; i++) {
+		var m = machines[i];
+		m.update_display();
+	}
+
+	for (var j=0; j<blocks.length; j++) {
+		var b = blocks[j];
+		b.update_display();
+	}
+}
+
+var announce = function(announcement) {
+	$('.announce')
+		.html(announcement);
+}
+
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
 		$(".blocks").html("Sorry! No Web Storage support. You need a more recent browser.");
 		return;
 	}
-
-	var D = new Data();
 
 	var setup_leftbar = function () {
 		console.log('called function setup_leftbar');
@@ -640,20 +659,6 @@ $(document).ready(function() {
 		D.saveAll();
 	}
 
-	var update_screen = function () {
-		D.display();
-
-		for (var i=0; i<machines.length; i++) {
-			var m = machines[i];
-			m.update_display();
-		}
-
-		for (var j=0; j<blocks.length; j++) {
-			var b = blocks[j];
-			b.update_display();
-		}
-	}
-
 	var heart_beat = function() {
 		machines_heart_beats();
 	}
@@ -666,11 +671,6 @@ $(document).ready(function() {
 		D.setItem('kits',      1);
 		D.setItem('version',   1);
 		var M = new Machine('block_10', 'build', D, true);
-	}
-
-	var announce = function(announcement) {
-		$('.announce')
-			.html(announcement);
 	}
 
 	setup_leftbar();
