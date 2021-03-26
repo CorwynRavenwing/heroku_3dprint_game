@@ -24,6 +24,9 @@
 	</div>
 </div>
 <div class="chooser">
+	<div class="header">
+		Chooser Header
+	</div>
 	<!-- chooser added here automatically -->
 </div>
 </body>

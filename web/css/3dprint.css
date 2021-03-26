@@ -104,6 +104,7 @@ body {
 	background-color: lightgreen;
 	border: 2px solid green;
 	height: 100px;
+	margin: auto;
 	width: 250px;
 	z-index: 100;
 }
