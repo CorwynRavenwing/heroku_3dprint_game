@@ -520,7 +520,6 @@ class Data {
 		console.log('called function Data.display');
 		var self = this;
 		this.keys().forEach(function(item) {
-			console.log('...setting display for item', item);
 			$('#data_'+item).html(self.getItem(item));
 		});
 	}
