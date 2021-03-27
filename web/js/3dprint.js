@@ -346,6 +346,15 @@ class Machine {
 		set_input(value) {
 			return this.set_value('input', value);
 		}
+
+		add_input(value) {
+			var old_input = this.get_value('input');
+			return this.set_value('input', old_input + value);
+		}
+
+		subtract_input(value) {
+			return this.add_input(-value);
+		}
 		
 		set_output(value) {
 			return this.set_value('output', value);
@@ -394,11 +403,17 @@ class Machine {
 		
 		can_input() {
 			if (this.get_output() == "?") { return 0; } // can't input if no output
-			switch (machine_type) {
+			var input_available = 0;
+			switch (this.machine_type) {
 				case "build":
+					var build_source = this.get_output() + '-kit';
+					input_available = this.data_object.getItem(build_source);
+					return (input_available >= 1);
 					break;
 
 				case "print":
+					input_available = this.data_object.getItem('filament');
+					return (input_available >= 1);
 					break;
 
 				case "blank":	// blank machine has no input
@@ -424,10 +439,14 @@ class Machine {
 			console.log('called machine act_run()');
 			if (this.get_run()) {
 				this.set_run(0);
-				this.set_time(0);
+				// leave remaining time on the clock
 			} else if (this.can_run()) {
 				this.set_run(1);
-				this.set_time(100);		// possibly other number here, depending?
+				if (! this.get_time()) {
+					var time_required = 100;		// possibly other number here, depending?
+					this.set_time(time_required);
+				}
+				// else just finish the current timer
 			} else {
 				announce("can't run, need reason here");
 			}
@@ -435,10 +454,27 @@ class Machine {
 		
 		act_input() {
 			console.log('called machine act_input()');
+			var build_source = "";
+			switch (this.machine_type) {
+				case "build":
+					build_source = this.get_output() + '-kit';
+					break;
+
+				case "print":
+					build_source = 'filament';
+					break;
+
+				default:
+					build_source = 'INVALID';
+					break;
+			} // end switch
 			if (this.get_input()) {
-				put_it_back;
+				var current_input = get_input();
+				this.data_object.add(build_source, current_input);
+				this.subtract_input(current_input);
 			} else if (this.can_input()) {
-				x;
+				this.data_object.subtract(build_source, 1);
+				this.add_input(1)
 			} else {
 				announce("can't input, need reason here");
 				return;
@@ -454,7 +490,7 @@ class Machine {
 				var outputs_list = this.possible_outputs();
 
 				var success_fn = function (value, text) {
-					announce("callback function called with value="+value+", text="+text);
+					announce("Okay, starting to make "+text);
 					self.set_output(value);
 				};
 
@@ -758,9 +794,9 @@ $(document).ready(function() {
 		announce("Initializing ...");
 
 		reset_machines();
-		D.setItem('filament', 10);
-		D.setItem('kits',      1);
-		D.setItem('version',   1);
+		D.setItem('filament',   10);
+		D.setItem('printer-kit', 1);
+		D.setItem('version',  0.09);
 		var M = new Machine('block_10', 'build', D, true);
 
 		announce("Welcome to the 3D Printer game.");

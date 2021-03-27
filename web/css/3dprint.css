@@ -128,9 +128,16 @@ body {
 	float: left;
 	font-weight: bold;
 	height: 2em;
-	justify-content: space-between;
 	margin: 0.5em;
 	padding: 0.1em;
 	text-align: center;
-	width: 200px;
+	width: 100px;
+}
+
+.chooser .button #ok {
+	background-color: lightgreen;
+}
+
+.chooser .button #cancel {
+	background-color: pink;
 }
