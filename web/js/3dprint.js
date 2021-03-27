@@ -615,28 +615,17 @@ var chooser = function (headline, choices, current_value, callback) {
 		}
 	});
 
-	// selector.("option[value='"+current_value+"']").attr("selected", "selected");
-
 	selector.change(function(){
-		alert('called chooser(): onChange() fired');
+		var chosen_option = selector.find("option:selected");
+		var text  = chosen_option.text();
+		var value = chosen_option.val();
 
-		var text = selector.find("option:selected").text();
-		alert('called chooser(): text='+text);
+		callback(value, text);
 
-		callback(text);
-		alert('callback called with text '+text);
-
-		choose_head
-			.text("[headline]");
-		alert('called chooser(): cleared headline');
-		selector
-			.remove();
-		alert('called chooser(): cleared selector');
-
+		choose_head.text("[headline]");
+		selector.remove();
 		$('.chooser').hide();
 	});
-
-	alert('called chooser(): end');
 }
 
 $(document).ready(function() {
@@ -734,10 +723,10 @@ $(document).ready(function() {
 
 	var choices = {"Pick One": "", "Choice 1": "ch1", "Choice 2": "ch2", "Choice 5": "ch5"};
 
-	var success_fn = function(text) { announce("callback function called with text "+text); };
+	var success_fn = function(value, text) { announce("callback function called with value="+value+", text="+text); };
 
 	chooser(headline, choices, "ch5", success_fn);
 
-	announce("Choser called");
+	announce("Chooser called");
 
 });
