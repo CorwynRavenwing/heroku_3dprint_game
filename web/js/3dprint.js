@@ -363,7 +363,7 @@ class Machine {
 		possible_outputs() {
 			var outputs_list = {};
 
-			switch (machine_type) {
+			switch (this.machine_type) {
 				case "build":
 					outputs_list["Printer"]="printer";
 					break;
@@ -705,13 +705,13 @@ $(document).ready(function() {
 		});
 
 		var leftbar_labels = {
-			'version':  "Version",
-			'money':    "Money",
-			'filament': "Filament",
-			'plastic':  "Plastic",
-			'electric': "Electric",
-			'kits':     "Kits",
-			'printers': "Printers",
+			'version':     "Version",
+			'money':       "Money",
+			'filament':    "Filament",
+			'plastic':     "Plastic",
+			'electric':    "Electric",
+			'printer-kit': "Printer-Kit",
+			'printer':     "Printer",
 		};
 
 		Object.keys(leftbar_labels).forEach(function(item, index) {
