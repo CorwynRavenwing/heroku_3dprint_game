@@ -193,8 +193,8 @@ class Block {
 			);
 			this.set_action_label('output',
 				(this.get_value('output') == "?")
-				? '(*)'
-				: '(x)'
+				? '(set)'
+				: '(&times;)'
 			);
 			this.set_action_label('auto',
 				(this.get_value('auto'))
@@ -211,6 +211,7 @@ class Machine {
 	data_object = null;
 	block_id = null;
 	block_ob = null;
+	machine_type = null;
 
 	/*
 	 * @input block_id
@@ -307,8 +308,8 @@ class Machine {
 		get_value(subtype) {
 			var data_id = this.block_id+'_'+subtype;
 			var temp = this.data_object.getItem(data_id);
-			if (temp === "0")     { temp = 0; }
 			if (parseFloat(temp)) { temp = parseFloat(temp); }
+			if (temp === "0")     { temp = 0; }
 			return temp;
 		}
 
@@ -358,12 +359,51 @@ class Machine {
 			return this.set_value('auto', value);
 		}
 
+	// helper functions
+		possible_outputs() {
+			var outputs_list = {};
+
+			switch (machine_type) {
+				case "build":
+					outputs_list["Printer"]="printer";
+					break;
+
+				case "print":
+					outputs_list["Doodad"]="doodad";
+					outputs_list["Printer-Kit"]="printer-kit";
+					break;
+
+				case "blank":	// blank machine has no output
+				default:		// unknown machine has no output
+					return {};
+					break;
+				}
+			} // end switch
+
+			return outputs_list;
+		}
+
 	// CAN section
 		can_run() {
+			if (! this.get_input()) 	  { return 0; }	// can't run if no input
+			if (this.get_output() == "?") { return 0; } // can't run if no output
 			return 1;
 		}
 		
 		can_input() {
+			if (this.get_output() == "?") { return 0; } // can't input if no output
+			switch (machine_type) {
+				case "build":
+					break;
+
+				case "print":
+					break;
+
+				case "blank":	// blank machine has no input
+				default:		// unknown machine has no input
+					return 0;
+					break;
+			} // end switch
 			return 1;
 		}
 		
@@ -382,8 +422,10 @@ class Machine {
 			console.log('called machine act_run()');
 			if (this.get_run()) {
 				this.set_run(0);
+				this.set_time(0);
 			} else if (this.can_run()) {
 				this.set_run(1);
+				this.set_time(100);		// possibly other number here, depending?
 			} else {
 				announce("can't run, need reason here");
 			}
@@ -405,7 +447,18 @@ class Machine {
 			if (this.get_output() != "?") {
 				this.set_output("?");
 			} else if (this.can_output()) {
-				x;
+				var self = this;	// do I need this?
+				var headline = "Choose Output"
+
+				var outputs_list = self.possible_outputs();
+
+				var success_fn = function (value, text) {
+					announce("callback function called with value="+value+", text="+text);
+					this.set_output(value);
+				};
+
+				chooser(headline, outputs_list, "?", success_fn);
+
 			} else {
 				announce("can't output, need reason here");
 				return;
@@ -723,7 +776,7 @@ $(document).ready(function() {
 
 	var choices = {"Pick One": "", "Choice 1": "ch1", "Choice 2": "ch2", "Choice 5": "ch5"};
 
-	var success_fn = function(value, text) { announce("callback function called with value="+value+", text="+text); };
+	var success_fn = function (value, text) { announce("callback function called with value="+value+", text="+text); };
 
 	chooser(headline, choices, "ch5", success_fn);
 
