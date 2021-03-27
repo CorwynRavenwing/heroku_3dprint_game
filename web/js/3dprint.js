@@ -595,13 +595,50 @@ var announce = function (announcement) {
 		.html(announcement);
 }
 
-var chooser = function (choices, current_value) {
+var chooser = function (headline, choices, current_value, callback) {
+	alert('called chooser(): begin')
 	$('.chooser').show();
+	var choose_head = $('.chooser .head')
+		.text(headline);
+	var choose_body = $('.chooser .body');
+	var selector = $('<select>')
+		.attr("id", "chooser_selector")
+		.appendTo(choose_body);
 
+	Object.keys(choices).foreach(function(optionText){
+		var optionValue = choices[item];
+		var opt = $('<option>')
+			.val(optionValue)
+			.text(optionText)
+			.appendTo(selector);
+		if (optionValue == current_value) {
 
+			opt.attr("selected", "selected");
+		}
+	});
 
+	// selector.("option[value='"+current_value+"']").attr("selected", "selected");
 
-	return "DEFAULT";
+	selector.onChange(function(){
+		alert('called chooser(): onChange() fired');
+
+		var text = selector.("option:selected").text();
+		alert('called chooser(): text='+text);
+
+		callback(text);
+		alert('callback called with text '+text);
+
+		choose_head
+			.text("[headline]");
+		alert('called chooser(): cleared headline');
+		selector
+			.remove();
+		alert('called chooser(): cleared selector');
+
+		$('.chooser').hide();
+	});
+
+	alert('called chooser(): end')
 }
 
 $(document).ready(function() {
@@ -695,10 +732,14 @@ $(document).ready(function() {
 
 	save_data();
 
+	var headline = "Headline for Chooser";
+
 	var choices = {"Pick One": "", "Choice 1": "ch1", "Choice 2": "ch2", "Choice 5": "ch5"};
 
-	var chosen = chooser(choices, "ch5");
+	var success_fn = function(text) { announce("callback function called with text "+text); };
 
-	announce("Choser picked "+chosen);
+	chooser(headline choices, "ch5", success_fn);
+
+	announce("Choser called");
 
 });
