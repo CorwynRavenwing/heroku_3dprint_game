@@ -622,7 +622,7 @@ var chooser = function (headline, choices, current_value, callback) {
 	selector.onChange(function(){
 		alert('called chooser(): onChange() fired');
 
-		var text = selector.("option:selected").text();
+		var text = selector.find("option:selected").text();
 		alert('called chooser(): text='+text);
 
 		callback(text);
