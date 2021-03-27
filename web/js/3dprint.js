@@ -605,7 +605,7 @@ var chooser = function (headline, choices, current_value, callback) {
 		.attr("id", "chooser_selector")
 		.appendTo(choose_body);
 
-	Object.keys(choices).foreach(function(optionText){
+	Object.keys(choices).forEach(function(optionText){
 		var optionValue = choices[item];
 		var opt = $('<option>')
 			.val(optionValue)
