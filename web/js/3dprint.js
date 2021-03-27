@@ -363,6 +363,8 @@ class Machine {
 		possible_outputs() {
 			var outputs_list = {};
 
+			outputs_list["Please Choose"]="?";
+
 			switch (this.machine_type) {
 				case "build":
 					outputs_list["Printer"]="printer";
