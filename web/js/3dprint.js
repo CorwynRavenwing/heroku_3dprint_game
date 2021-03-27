@@ -638,7 +638,7 @@ var chooser = function (headline, choices, current_value, callback) {
 		$('.chooser').hide();
 	});
 
-	alert('called chooser(): end')
+	alert('called chooser(): end');
 }
 
 $(document).ready(function() {
@@ -738,7 +738,7 @@ $(document).ready(function() {
 
 	var success_fn = function(text) { announce("callback function called with text "+text); };
 
-	chooser(headline choices, "ch5", success_fn);
+	chooser(headline, choices, "ch5", success_fn);
 
 	announce("Choser called");
 
