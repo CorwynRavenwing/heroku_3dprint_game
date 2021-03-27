@@ -596,7 +596,6 @@ var announce = function (announcement) {
 }
 
 var chooser = function (headline, choices, current_value, callback) {
-	alert('called chooser(): begin')
 	$('.chooser').show();
 	var choose_head = $('.chooser .head')
 		.text(headline);
@@ -612,14 +611,13 @@ var chooser = function (headline, choices, current_value, callback) {
 			.text(optionText)
 			.appendTo(selector);
 		if (optionValue == current_value) {
-
 			opt.attr("selected", "selected");
 		}
 	});
 
 	// selector.("option[value='"+current_value+"']").attr("selected", "selected");
 
-	selector.onChange(function(){
+	selector.change(function(){
 		alert('called chooser(): onChange() fired');
 
 		var text = selector.find("option:selected").text();
