@@ -132,7 +132,7 @@ class Block {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
 		// console.log('set_action_label() called: ', subtype, act_label_id, new_label);
 		var act_ob = $(act_label_id);
-		act_ob.text(new_label);
+		act_ob.html(new_label);
 	}
 
 	action_dispatch(subtype) {
@@ -771,15 +771,4 @@ $(document).ready(function() {
 	update_screen();
 
 	save_data();
-
-	var headline = "Headline for Chooser";
-
-	var choices = {"Pick One": "", "Choice 1": "ch1", "Choice 2": "ch2", "Choice 5": "ch5"};
-
-	var success_fn = function (value, text) { announce("callback function called with value="+value+", text="+text); };
-
-	chooser(headline, choices, "ch5", success_fn);
-
-	announce("Chooser called");
-
 });

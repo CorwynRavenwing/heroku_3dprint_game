@@ -30,6 +30,10 @@
 	<div class="body">
 		<!-- chooser added here automatically -->
 	</div>
+	<div class="footer">
+		<div class="button" id="cancel">Cancel</div>
+		<div class="button" id="ok">OK</div>
+	</div>
 </div>
 </body>
 </html>
