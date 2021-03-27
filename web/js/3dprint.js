@@ -377,7 +377,7 @@ class Machine {
 				default:		// unknown machine has no output
 					return {};
 					break;
-				}
+
 			} // end switch
 
 			return outputs_list;
