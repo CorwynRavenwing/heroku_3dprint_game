@@ -449,14 +449,13 @@ class Machine {
 			if (this.get_output() != "?") {
 				this.set_output("?");
 			} else if (this.can_output()) {
-				var self = this;	// do I need this?
+				var self = this;
 				var headline = "Choose Output"
-
-				var outputs_list = self.possible_outputs();
+				var outputs_list = this.possible_outputs();
 
 				var success_fn = function (value, text) {
 					announce("callback function called with value="+value+", text="+text);
-					this.set_output(value);
+					self.set_output(value);
 				};
 
 				chooser(headline, outputs_list, "?", success_fn);
@@ -652,7 +651,7 @@ var announce = function (announcement) {
 
 var chooser = function (headline, choices, current_value, callback) {
 	$('.chooser').show();
-	var choose_head = $('.chooser .head')
+	var choose_head = $('.chooser .header')
 		.text(headline);
 	var choose_body = $('.chooser .body');
 	var selector = $('<select>')
@@ -670,16 +669,23 @@ var chooser = function (headline, choices, current_value, callback) {
 		}
 	});
 
-	selector.change(function(){
+	var hide_chooser = function () {
+		choose_head.text("[headline]");
+		selector.remove();
+		$('.chooser').hide();
+	}
+
+	$('.chooser #ok').click(function(){
 		var chosen_option = selector.find("option:selected");
 		var text  = chosen_option.text();
 		var value = chosen_option.val();
 
 		callback(value, text);
+		hide_chooser();
+	});
 
-		choose_head.text("[headline]");
-		selector.remove();
-		$('.chooser').hide();
+	$('.chooser #cancel').click(function(){
+		hide_chooser();
 	});
 }
 

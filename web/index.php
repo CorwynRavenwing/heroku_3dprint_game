@@ -25,7 +25,7 @@
 </div>
 <div class="chooser">
 	<div class="header">
-		Chooser Header
+		[initial headline]
 	</div>
 	<div class="body">
 		<!-- chooser added here automatically -->
