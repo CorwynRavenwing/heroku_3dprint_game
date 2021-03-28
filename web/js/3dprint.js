@@ -193,7 +193,7 @@ class Block {
 			);
 			this.set_action_label('output',
 				(this.get_value('output') == "?")
-				? '(set)'
+				? '(+)'
 				: '(&times;)'
 			);
 			this.set_action_label('auto',
@@ -424,6 +424,7 @@ class Machine {
 			return 1;
 		}
 		
+		// I can't imagine a reason to ever not allow setting output
 		can_output() {
 			return 1;
 		}
@@ -431,6 +432,9 @@ class Machine {
 		// can_time() // no such function 
 		
 		can_auto() {
+			if (! this.get_input()) 	  { return 0; }	// can't auto if no input
+			if (this.get_output() == "?") { return 0; } // can't auto if no output
+			if (this.data_object.getItem('helpinghands') < 1) { return 0; } // need HH to auto
 			return 1;
 		}
 
@@ -512,8 +516,10 @@ class Machine {
 		
 		act_auto() {
 			if (this.get_auto()) {
+				this.data_object.add('helpinghands', 1);
 				this.set_auto(0);
 			} else if (this.can_auto()) {
+				this.data_object.subtract('helpinghands', 1);
 				this.set_auto(1);
 			} else {
 				announce("can't auto, need reason here");
