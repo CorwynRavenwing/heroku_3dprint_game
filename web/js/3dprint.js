@@ -425,11 +425,13 @@ class Machine {
 				case "build":
 					var build_source = this.get_output() + '-kit';
 					input_available = this.data_object.getItem(build_source);
+					this.error_message = "Not enough "+build_source+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
 
 				case "print":
 					input_available = this.data_object.getItem('filament');
+					this.error_message = "Not enough "+'filament'+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
 
