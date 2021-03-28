@@ -654,7 +654,7 @@ class Machine {
 						}
 						var my_output = this.get_output();
 						announce("... created a "+my_output);
-						this.data_object.addItem(my_output, 1);
+						this.data_object.add(my_output, 1);
 						this.set_run(0);
 					}
 					this.subtract_time(1);
