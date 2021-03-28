@@ -424,13 +424,13 @@ class Machine {
 			switch (this.machine_type) {
 				case "build":
 					var build_source = this.get_output() + '-kit';
-					input_available = this.data_object.getItem(build_source);
+					input_available = this.data_object.getNumber(build_source);
 					this.error_message = "Not enough "+build_source+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
 
 				case "print":
-					input_available = this.data_object.getItem('filament');
+					input_available = this.data_object.getNumber('filament');
 					this.error_message = "Not enough "+'filament'+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
@@ -465,7 +465,7 @@ class Machine {
 				this.error_message = "can't automate if no output";
 				return 0;
 			}
-			if (this.data_object.getItem('helpinghands') < 1) {
+			if (this.data_object.getNumber('helpinghands') < 1) {
 				this.error_message = "need Helping Hands to automate";
 				return 0;
 			}
@@ -672,12 +672,16 @@ class Data {
 		return this.data_store[key];
 	}
 
+	getNumber(key) {
+		return parseFloat(this.getItem(key));
+	}
+
 	setItem(key, value) {
 		this.data_store[key] = value;
 	}
 
 	add(key, value) {
-		this.data_store[key] += value;
+		this.setItem(key, this.getNumber(key) + value;
 	}
 
 	subtract(key, value) {
@@ -894,7 +898,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!D.getItem('version')) {
+	if (!D.getNumber('version')) {
 		initialize_data();
 		save_data();
 	}
