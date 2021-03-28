@@ -474,25 +474,32 @@ class Machine {
 		}
 
 	// ACT section
+		act_run_off() {
+			this.set_run(0);
+			// leave remaining time on the clock
+		}
+
+		act_run_on() {
+			this.set_run(1);
+			if (! this.get_time()) {
+				var time_required = 10;		// this number should depend on type,output?
+				this.set_time(time_required);
+			}
+			// else just finish the current timer
+		}
+
 		act_run() {
 			console.log('called machine act_run()');
 			if (this.get_run()) {
-				this.set_run(0);
-				// leave remaining time on the clock
+				this.act_run_off();
 			} else if (this.can_run()) {
-				this.set_run(1);
-				if (! this.get_time()) {
-					var time_required = 10;		// possibly other number here, depending?
-					this.set_time(time_required);
-				}
-				// else just finish the current timer
+				this.act_run_on();
 			} else {
 				announce( this.error_message );
 			}
 		}
-		
-		act_input() {
-			console.log('called machine act_input()');
+
+		act_input_source() {
 			var build_source = "";
 			switch (this.machine_type) {
 				case "build":
@@ -507,62 +514,94 @@ class Machine {
 					build_source = 'INVALID';
 					break;
 			} // end switch
+
+			return build_source;
+		}
+
+		act_input_off() {
+			var build_source = this.act_input_source();
+			var current_input = this.get_input();
+			announce("returning "+current_input+" "+build_source+" to stock");
+			this.data_object.add(build_source, current_input);
+			this.subtract_input(current_input);
+		}
+
+		act_input_on() {
+			var build_source = this.act_input_source();
+			announce("adding 1 "+build_source+" to input");
+			this.data_object.subtract(build_source, 1);
+			this.add_input(1)
+		}
+		
+		act_input() {
+			console.log('called machine act_input()');
 			if (this.get_input()) {
-				var current_input = this.get_input();
-				announce("returning "+current_input+" "+build_source+" to stock");
-				this.data_object.add(build_source, current_input);
-				this.subtract_input(current_input);
+				this.act_input_off();
 			} else if (this.can_input()) {
-				announce("adding 1 "+build_source+" to input");
-				this.data_object.subtract(build_source, 1);
-				this.add_input(1)
+				this.act_input_on();
 			} else {
 				announce( this.error_message );
 				return;
 			}
+		}
+
+		act_output_off() {
+			this.act_auto_off();
+			this.act_run_off();
+			this.act_input_off();
+			this.set_output("?");
+		}
+
+		act_output_on() {
+			var self = this;
+			var headline = "Choose Output"
+			var outputs_list = this.possible_outputs();
+
+			var success_fn = function (value, text) {
+				if (value == "?") {
+					announce("Okay, canceled");
+				} else {
+					announce("Okay, starting to make "+text);
+				}
+				self.set_output(value);
+				update_screen();
+			};
+
+			chooser(headline, outputs_list, "?", success_fn);
 		}
 		
 		act_output() {
 			if (this.get_output() != "?") {
-				this.set_output("?");
+				this.act_output_off();
 			} else if (this.can_output()) {
-				var self = this;
-				var headline = "Choose Output"
-				var outputs_list = this.possible_outputs();
-
-				var success_fn = function (value, text) {
-					if (value == "?") {
-						announce("Okay, canceled");
-					} else {
-						announce("Okay, starting to make "+text);
-					}
-					self.set_output(value);
-					update_screen();
-				};
-
-				chooser(headline, outputs_list, "?", success_fn);
-
+				this.act_output_on();
 			} else {
 				announce( this.error_message );
 				return;
 			}
-			console.log('called machine act_output()');
 		}
 
 		// act_time() // no such function
+
+		act_auto_off() {
+			this.data_object.add('helpinghands', 1);
+			this.set_auto(0);
+		}
+
+		act_auto_on() {
+			this.data_object.subtract('helpinghands', 1);
+			this.set_auto(1);
+		}
 		
 		act_auto() {
 			if (this.get_auto()) {
-				this.data_object.add('helpinghands', 1);
-				this.set_auto(0);
+				this.act_auto_off();
 			} else if (this.can_auto()) {
-				this.data_object.subtract('helpinghands', 1);
-				this.set_auto(1);
+				this.act_auto_on();
 			} else {
 				announce( this.error_message );
 				return;
 			}
-			console.log('called machine act_auto()');
 		}
 
 	// OTHER FUNCTIONS section
