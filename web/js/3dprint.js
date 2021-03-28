@@ -457,10 +457,6 @@ class Machine {
 		// can_time() // no such function 
 		
 		can_auto() {
-			if (! this.get_input()) 	  {
-				this.error_message = "can't automate if no input";
-				return 0;
-			}
 			if (this.get_output() == "?") {
 				this.error_message = "can't automate if no output";
 				return 0;
@@ -519,11 +515,13 @@ class Machine {
 		}
 
 		act_input_off() {
-			var build_source = this.act_input_source();
-			var current_input = this.get_input();
-			announce("returning "+current_input+" "+build_source+" to stock");
-			this.data_object.add(build_source, current_input);
-			this.subtract_input(current_input);
+			if (this.get_input()) {
+				var build_source = this.act_input_source();
+				var current_input = this.get_input();
+				announce("returning "+current_input+" "+build_source+" to stock");
+				this.data_object.add(build_source, current_input);
+				this.subtract_input(current_input);
+			}
 		}
 
 		act_input_on() {
@@ -584,8 +582,10 @@ class Machine {
 		// act_time() // no such function
 
 		act_auto_off() {
-			this.data_object.add('helpinghands', 1);
-			this.set_auto(0);
+			if (this.get_auto()) {
+				this.data_object.add('helpinghands', 1);
+				this.set_auto(0);
+			}
 		}
 
 		act_auto_on() {
@@ -605,29 +605,54 @@ class Machine {
 		}
 
 	// OTHER FUNCTIONS section
-	update_display() {
-		console.log('// called Machine.update_display');
-	}
+		update_display() {
+			console.log('// called Machine.update_display');
+		}
 
-	shutdown_commands() {
-		console.log('called Machine.shutdown_commands()', this.block_id);
-		var B = this.block_ob;
+		shutdown_commands() {
+			console.log('called Machine.shutdown_commands()', this.block_id);
+			var B = this.block_ob;
 
-		B.set_type(EMPTY);
+			B.set_type(EMPTY);
 
-		B.set_value('running', null);
-		B.set_value('input'  , null);
-		B.set_value('output' , null);
-		B.set_value('time'   , null);
-		B.set_value('auto'   , null);
-	}
+			B.set_value('running', null);
+			B.set_value('input'  , null);
+			B.set_value('output' , null);
+			B.set_value('time'   , null);
+			B.set_value('auto'   , null);
+		}
 
-	heart_beat() {
-		console.log('called Machine.heart_beat()', this.block_id);
+		heart_beat() {
+			console.log('called Machine.heart_beat()', this.block_id);
 
+			// if auto, set a bunch of things here
 
+			if (this.get_run()) {
+				if (this.get_input() <= 0) {
+					announce("Ran out of input: stopping");
+					this.set_run(0);
+				} else {
+					// printers use input incrementally
+					if (this.machine_type == "print") {
+						this.subtract_input(0.001);
+						announce("... used 0.001 filament");
+					}
+					if (this.get_time() <= 0) {
+						// non-printers use input all at once
+						if (this.machine_type != "print") {
+							this.subtract_input(1);
+							announce("... used 1 input object");
+						}
+						var my_output = this.get_output();
+						announce("... created a "+my_output);
+						this.data_object.addItem(my_output, 1);
+						this.set_run(0);
+					}
+				}
+			} // endif get_run
 
-	}
+			// should call update here
+		}
 
 	// other Machine code here ...
 } // end class Machine
