@@ -349,8 +349,8 @@ class Machine {
 		}
 
 		add_input(value) {
-			var old_input = this.get_value('input');
-			return this.set_value('input', old_input + value);
+			var old_input = this.get_input();
+			return this.set_input(old_input + value);
 		}
 
 		subtract_input(value) {
@@ -363,6 +363,15 @@ class Machine {
 
 		set_time(value) {
 			return this.set_value('time', value);
+		}
+
+		add_time(value) {
+			var old_time = this.get_time();
+			return this.set_time(old_time + value);
+		}
+
+		subtract_time() {
+			return this.add_time(-value);
 		}
 		
 		set_auto(value) {
@@ -648,6 +657,7 @@ class Machine {
 						this.data_object.addItem(my_output, 1);
 						this.set_run(0);
 					}
+					this.subtract_time(1);
 				}
 			} // endif get_run
 
