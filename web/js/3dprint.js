@@ -681,7 +681,7 @@ class Data {
 	}
 
 	add(key, value) {
-		this.setItem(key, this.getNumber(key) + value;
+		this.setItem(key, this.getNumber(key) + value);
 	}
 
 	subtract(key, value) {
