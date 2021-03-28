@@ -507,9 +507,11 @@ class Machine {
 			} // end switch
 			if (this.get_input()) {
 				var current_input = get_input();
+				announce("returning "+current_input+" "+build_source+" to stock");
 				this.data_object.add(build_source, current_input);
 				this.subtract_input(current_input);
 			} else if (this.can_input()) {
+				announce("adding 1 "+build_source+" to input");
 				this.data_object.subtract(build_source, 1);
 				this.add_input(1)
 			} else {
