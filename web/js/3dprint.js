@@ -370,7 +370,7 @@ class Machine {
 			return this.set_time(old_time + value);
 		}
 
-		subtract_time() {
+		subtract_time(value) {
 			return this.add_time(-value);
 		}
 		
