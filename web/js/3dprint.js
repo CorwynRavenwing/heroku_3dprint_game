@@ -877,13 +877,15 @@ $(document).ready(function() {
 		});
 
 		var leftbar_labels = {
-			'version':     "Version",
-			'money':       "Money",
-			'filament':    "Filament",
-			'plastic':     "Plastic",
-			'electric':    "Electric",
-			'printer-kit': "Printer-Kit",
-			'printer':     "Printer",
+			'version':          "Version",
+			'money':            "Money",
+			'filament':         "Filament",
+			'plastic':          "Plastic",
+			'kwh':              "kW-h",
+			'printer-kit':      "Printer Kit",
+			'printer':          "Printer",
+			'helpinghands-kit': "Helping Hands Kit",
+			'helpinghands':     "Helping Hands",
 		};
 
 		Object.keys(leftbar_labels).forEach(function(item, index) {
@@ -904,10 +906,13 @@ $(document).ready(function() {
 
 	var clear_all_data = function () {
 		D.clearAll();
+		// maybe should then call load_data() next?
+		update_screen();
 	}
 
 	var load_data = function () {
 		D.loadAll();
+		update_screen();
 	}
 
 	var save_data = function () {
@@ -916,6 +921,7 @@ $(document).ready(function() {
 
 	var heart_beat = function() {
 		machines_heart_beats();
+		update_screen();
 	}
 
 	var initialize_data = function () {
