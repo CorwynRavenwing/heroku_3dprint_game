@@ -212,6 +212,7 @@ class Machine {
 	block_id = null;
 	block_ob = null;
 	machine_type = null;
+	error_message = "";
 
 	/*
 	 * @input block_id
@@ -384,25 +385,41 @@ class Machine {
 					outputs_list["Printer-Kit"]="printer-kit";
 					break;
 
-				case "blank":	// blank machine has no output
-				default:		// unknown machine has no output
+				case "blank":
+					this.error_message = "blank machine has no output";
+					return {};
+					break;
+
+				default:
+					this.error_message = "unknown machine has no output";
 					return {};
 					break;
 
 			} // end switch
 
+			this.error_message = "";
 			return outputs_list;
 		}
 
 	// CAN section
 		can_run() {
-			if (! this.get_input()) 	  { return 0; }	// can't run if no input
-			if (this.get_output() == "?") { return 0; } // can't run if no output
+			if (! this.get_input()) 	  {
+				this.error_message = "Can't run if no input";
+				return 0;
+			}
+			if (this.get_output() == "?") {
+				this.error_message = "Can't run if no output";
+				return 0;
+			}
+			this.error_message = "";
 			return 1;
 		}
 		
 		can_input() {
-			if (this.get_output() == "?") { return 0; } // can't input if no output
+			if (this.get_output() == "?") {
+				this.error_message = "Can't input if no output";
+				return 0;
+			}
 			var input_available = 0;
 			switch (this.machine_type) {
 				case "build":
@@ -416,25 +433,41 @@ class Machine {
 					return (input_available >= 1);
 					break;
 
-				case "blank":	// blank machine has no input
-				default:		// unknown machine has no input
+				case "blank":
+					this.error_message = "blank machine has no input";
+					return 0;
+					break;
+				default:
+					this.error_message = "unknown machine has no input";
 					return 0;
 					break;
 			} // end switch
+			this.error_message = "";
 			return 1;
 		}
 		
 		// I can't imagine a reason to ever not allow setting output
 		can_output() {
+			this.error_message = "";
 			return 1;
 		}
 
 		// can_time() // no such function 
 		
 		can_auto() {
-			if (! this.get_input()) 	  { return 0; }	// can't auto if no input
-			if (this.get_output() == "?") { return 0; } // can't auto if no output
-			if (this.data_object.getItem('helpinghands') < 1) { return 0; } // need HH to auto
+			if (! this.get_input()) 	  {
+				this.error_message = "can't automate if no input";
+				return 0;
+			}
+			if (this.get_output() == "?") {
+				this.error_message = "can't automate if no output";
+				return 0;
+			}
+			if (this.data_object.getItem('helpinghands') < 1) {
+				this.error_message = "need Helping Hands to automate";
+				return 0;
+			}
+			this.error_message = "";
 			return 1;
 		}
 
@@ -452,7 +485,7 @@ class Machine {
 				}
 				// else just finish the current timer
 			} else {
-				announce("can't run, need reason here");
+				announce( this.error_message );
 			}
 		}
 		
@@ -480,7 +513,7 @@ class Machine {
 				this.data_object.subtract(build_source, 1);
 				this.add_input(1)
 			} else {
-				announce("can't input, need reason here");
+				announce( this.error_message );
 				return;
 			}
 		}
@@ -506,7 +539,7 @@ class Machine {
 				chooser(headline, outputs_list, "?", success_fn);
 
 			} else {
-				announce("can't output, need reason here");
+				announce( this.error_message );
 				return;
 			}
 			console.log('called machine act_output()');
@@ -522,7 +555,7 @@ class Machine {
 				this.data_object.subtract('helpinghands', 1);
 				this.set_auto(1);
 			} else {
-				announce("can't auto, need reason here");
+				announce( this.error_message );
 				return;
 			}
 			console.log('called machine act_auto()');
