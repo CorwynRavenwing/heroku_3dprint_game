@@ -673,7 +673,9 @@ class Data {
 	}
 
 	getNumber(key) {
-		return parseFloat(this.getItem(key));
+		var temp = parseFloat(this.getItem(key));
+		if (! temp) { temp = 0; }
+		return temp;
 	}
 
 	setItem(key, value) {
