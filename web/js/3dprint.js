@@ -188,7 +188,7 @@ class Block {
 			);
 			this.set_action_label('input',
 				(this.get_value('input') > 0)
-				? '(---)'
+				? '(-)'
 				: '(+)'
 			);
 			this.set_action_label('output',
@@ -508,7 +508,7 @@ class Machine {
 					break;
 			} // end switch
 			if (this.get_input()) {
-				var current_input = get_input();
+				var current_input = this.get_input();
 				announce("returning "+current_input+" "+build_source+" to stock");
 				this.data_object.add(build_source, current_input);
 				this.subtract_input(current_input);
