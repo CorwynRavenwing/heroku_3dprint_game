@@ -443,7 +443,7 @@ class Machine {
 			} else if (this.can_run()) {
 				this.set_run(1);
 				if (! this.get_time()) {
-					var time_required = 100;		// possibly other number here, depending?
+					var time_required = 10;		// possibly other number here, depending?
 					this.set_time(time_required);
 				}
 				// else just finish the current timer
@@ -490,8 +490,13 @@ class Machine {
 				var outputs_list = this.possible_outputs();
 
 				var success_fn = function (value, text) {
-					announce("Okay, starting to make "+text);
+					if (value == "?") {
+						announce("Okay, canceled");
+					} else {
+						announce("Okay, starting to make "+text);
+					}
 					self.set_output(value);
+					update_screen();
 				};
 
 				chooser(headline, outputs_list, "?", success_fn);
