@@ -85,6 +85,7 @@ class Block {
 			.click(function() { self.action_dispatch('change'); });
 		innerdiv
 			.append(labelspan)
+			.append('&nbsp;')
 			.append(innerspan);
 		this.block_ob.append(innerdiv);
 		BB.append(this.block_ob);
@@ -197,12 +198,12 @@ class Block {
 						if (value == "?") {
 							announce("Okay, canceled");
 						} else {
-							var build_source = this.blocktype_source(value);
+							var build_source = self.blocktype_source(value);
 							var input_available = 0;
 							if (build_source == "nothing") {
 								input_available = 1;
 							} else {
-								input_available = this.data_object.getNumber(build_source);
+								input_available = self.data_object.getNumber(build_source);
 							}
 							if (input_available < 1) {
 								announce("Not enough "+build_source+" available ("+input_available+")");
@@ -211,9 +212,9 @@ class Block {
 								if (build_source == "nothing") {
 									announce("... for free");
 								} else {
-									this.data_object.subtract(build_source, 1);
+									self.data_object.subtract(build_source, 1);
 								}
-								var M = new Machine(this.block_id, value, this.data_object, true);
+								var M = new Machine(self.block_id, value, self.data_object, true);
 							}
 						}
 						update_screen();
