@@ -124,7 +124,7 @@ class Block {
 
 	set_type(new_type) {
 		var blocktype_label = this.block_id+'_type';
-		var old_type = this.data_object.getItem(blocktype_label);
+		var old_type = this.machine_type;
 		this.data_object.setItem(blocktype_label, new_type);
 
 		console.log('called Block.set_type()', this.block_id, old_type, '->', new_type);
