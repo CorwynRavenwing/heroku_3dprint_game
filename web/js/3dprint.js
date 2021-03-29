@@ -49,6 +49,7 @@ class Meter {
 		var value = this.data_object.getItem(this.data_id);
 		console.log('Meter: updating display', this.data_id, value);
 		meter_ob.html(value);
+		is_this_ever_called();
 	}
 } //  end class Meter
 
@@ -263,7 +264,7 @@ class Block {
 	update_display() {
 		console.log('called Block.update_display');
 		this.set_action_label('change',
-			(this.machine_type == 'blank')
+			(this.machine_type == EMPTY)
 			? '(+)'
 			: '(&times;)'
 		);
@@ -872,19 +873,23 @@ class Data {
 		});
 	}
 
-	display() {
-		console.log('called function Data.display');
+	update_display() {
+		console.log('called function Data.update_display');
 		var self = this;
 		this.keys().forEach(function(item) {
 			$('#data_'+item).html(self.getItem(item));
 		});
+	}
+
+	heart_beat() {
+		this.add('time', 1);
 	}
 }
 
 var D = new Data();
 
 var update_screen = function () {
-	D.display();
+	D.update_display();
 
 	for (var i=0; i<machines.length; i++) {
 		var m = machines[i];
@@ -966,6 +971,7 @@ $(document).ready(function() {
 		});
 
 		var leftbar_labels = {
+			"time":             "Time",
 			'version':          "Version",
 			'money':            "Money",
 			'filament':         "Filament",
@@ -1009,6 +1015,7 @@ $(document).ready(function() {
 	}
 
 	var heart_beat = function() {
+		D.heart_beat();
 		machines_heart_beats();
 		update_screen();
 	}
