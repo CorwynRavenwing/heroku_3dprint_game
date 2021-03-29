@@ -72,7 +72,7 @@ class Block {
 			.text('(B'+index+')')
 			.attr('id', block_id)
 			.addClass("block")
-			.addClass('type_blank');
+			.addClass('type_empty');
 		var innerdiv = $('<div>')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass("type");
@@ -310,7 +310,7 @@ class Machine {
 	 * @input block_id
 	 *	the ID of the new block, of form "block_28"
 	 * @input machine_type
-	 *	the type of machine this is: currently "blank", "build", "print"
+	 *	the type of machine this is: currently "empty", "build", "print"
 	 * @input data_object
 	 *	a link to the object of class Data in which we are storing local data
 	 * @input is_new
@@ -325,7 +325,7 @@ class Machine {
 		this.data_object = data_object;
 		var current_type = this.data_object.getItem(block_id+'_type');
 		if ( current_type === EMPTY ) {
-			console.log('OK: block current type blank:', current_type);
+			console.log('OK: block current type empty:', current_type);
 		} else if ( current_type === machine_type ) {
 			console.log('OK: block current type correct:', current_type);
 		} else {
@@ -356,7 +356,7 @@ class Machine {
 			// set default values here
 
 			switch (machine_type) {
-				case "blank":
+				case EMPTY:
 					B.set_value('running', null);
 					B.set_value('input'  , null);
 					B.set_value('output' , null);
@@ -486,8 +486,8 @@ class Machine {
 					outputs_list["Printer-Kit"]="printer-kit";
 					break;
 
-				case "blank":
-					this.error_message = "blank machine has no output";
+				case EMPTY:
+					this.error_message = "empty machine has no output";
 					return {};
 					break;
 
@@ -536,8 +536,8 @@ class Machine {
 					return (input_available >= 1);
 					break;
 
-				case "blank":
-					this.error_message = "blank machine has no input";
+				case EMPTY:
+					this.error_message = "empty machine has no input";
 					return 0;
 					break;
 				default:
