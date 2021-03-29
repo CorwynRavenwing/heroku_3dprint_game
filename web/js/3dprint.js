@@ -71,13 +71,19 @@ class Block {
 			.addClass("block")
 			.addClass('type_blank');
 		var innerdiv = $('<div>')
-			.text('[type]')
-			.attr('id', 'data_'+blocktype_label)
+			.text('[TEMP]')
+			.attr('id', 'div_'+blocktype_label)
 			.addClass("type");
+		var labelspan = $('<span>')
+			.text('[type]')
+			.attr('id', 'data_'+blocktype_label);
 		var innerspan = $('<span>')
 			.text('NEW')
 			.attr('id', 'act_'+block_id+'_change')
 			.click(function() { self.action_dispatch('change'); });
+		innerdiv
+			.append(labelspan)
+			.append(innerspan);
 		this.block_ob.append(innerdiv);
 		BB.append(this.block_ob);
 
@@ -727,6 +733,7 @@ class Machine {
 					if (this.machine_type == "print") {
 						this.subtract_input(0.001);
 						announce("... used 0.001 filament");
+						this.data_object.add('kwh',0.001);
 					}
 					if (this.get_time() <= 0) {
 						// non-printers use input all at once
@@ -963,7 +970,7 @@ $(document).ready(function() {
 			'money':            "Money",
 			'filament':         "Filament",
 			'plastic':          "Plastic",
-			'kwh':              "kW-h",
+			'kwh':              "kW-h Used",
 			'printer-kit':      "Printer Kit",
 			'printer':          "Printer",
 			'helpinghands-kit': "Helping Hands Kit",
