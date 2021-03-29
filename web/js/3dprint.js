@@ -262,12 +262,12 @@ class Block {
 
 	update_display() {
 		console.log('called Block.update_display');
+		this.set_action_label('change',
+			(this.machine_type == 'blank')
+			? '(+)'
+			: '(&times;)'
+		);
 		if (this.machine_ob) {
-			this.set_action_label('change',
-				(this.machine_type == 'blank')
-				? '(+)'
-				: '(&times;)'
-			);
 			this.set_action_label('running',
 				(this.get_value('running'))
 				? '(-)'
