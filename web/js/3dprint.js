@@ -722,6 +722,7 @@ class Machine {
 					announce("Ran out of input: stopping");
 					this.set_run(0);
 				} else {
+					this.subtract_time(1);
 					// printers use input incrementally
 					if (this.machine_type == "print") {
 						this.subtract_input(0.001);
@@ -739,7 +740,6 @@ class Machine {
 						this.set_time(0);
 						this.set_run(0);
 					}
-					this.subtract_time(1);
 				}
 			} // endif get_run
 
