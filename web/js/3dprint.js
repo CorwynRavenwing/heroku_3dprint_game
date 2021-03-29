@@ -68,8 +68,6 @@ class Block {
 		var blocktype_label = block_id+'_type';
 		var self = this;
 
-		this.set_type(EMPTY);
-
 		this.block_ob = $('<div>')
 			.text('(B'+index+')')
 			.attr('id', block_id)
@@ -90,6 +88,8 @@ class Block {
 			.append(innerspan);
 		this.block_ob.append(innerdiv);
 		BB.append(this.block_ob);
+
+		this.set_type(EMPTY);
 
 		blocks[block_id] =this;
 	}
