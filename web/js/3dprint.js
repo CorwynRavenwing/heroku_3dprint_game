@@ -188,7 +188,7 @@ class Block {
 		switch (subtype) {
 			case 'change':
 				if (this.machine_type == EMPTY) {
-					// currently blank: create a block
+					// currently empty: create a block
 
 					var self = this;
 					var headline = "Choose Block Machine"
@@ -222,7 +222,7 @@ class Block {
 
 					chooser(headline, outputs_list, "?", success_fn);
 				} else {
-					// currently non-blank: clear machine
+					// currently non-empty: clear machine
 					announce("sorry, can't clear blocks yet")
 				}
 				break;
