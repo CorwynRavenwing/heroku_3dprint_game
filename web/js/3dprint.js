@@ -57,6 +57,7 @@ class Block {
 	data_object = null;
 	block_ob = null;
 	machine_ob = null;
+	machine_type = null;
 
 	block_id = "variable initialize";
 
@@ -66,6 +67,8 @@ class Block {
 		var BB = $(".blocks");
 		var blocktype_label = block_id+'_type';
 		var self = this;
+
+		this.set_type(EMPTY);
 
 		this.block_ob = $('<div>')
 			.text('(B'+index+')')
@@ -87,8 +90,6 @@ class Block {
 			.append(innerspan);
 		this.block_ob.append(innerdiv);
 		BB.append(this.block_ob);
-
-		this.set_type(EMPTY);
 
 		blocks[block_id] =this;
 	}
@@ -130,6 +131,8 @@ class Block {
 		this.block_ob
 			.removeClass('type_'+old_type)
 			.addClass('type_'+new_type);
+
+		this.machine_type = new_type;
 	}
 
 	register_machine(machine_ob) {
@@ -183,7 +186,7 @@ class Block {
 
 		switch (subtype) {
 			case 'change':
-				if (this.machine_type == "blank") {
+				if (this.machine_type == EMPTY) {
 					// currently blank: create a block
 
 					var self = this;
