@@ -10,7 +10,8 @@ const EMPTY = "empty";
 class Menu {
 	constructor(label, click_function) {
 		var L = $(".leftbar");
-		var menudiv = $('<div>'+label+'</div>')
+		var menudiv = $('<div>')
+			.text(label)
 			.addClass("menu")
 			.click(click_function);
 		L.append(menudiv);
@@ -30,9 +31,11 @@ class Meter {
 		this.meter_id = 'data_'+item;
 
 		var L = $(".leftbar");
-		var outerdiv = $('<div>'+label+': '+'</div>')
+		var outerdiv = $('<div>')
+			.text(label+': ')
 			.addClass("data");
-		var innerdiv = $('<div>?</div>')
+		var innerdiv = $('<div>')
+			.text('?')
 			.attr('id', this.meter_id)
 		outerdiv.append(innerdiv);
 		L.append(outerdiv);
@@ -62,19 +65,52 @@ class Block {
 		var BB = $(".blocks");
 		var blocktype_label = block_id+'_type';
 
-		this.block_ob = $('<div>(B'+index+')</div>')
+		this.block_ob = $('<div>')
+			.text('(B'+index+')')
 			.attr('id', block_id)
 			.addClass("block")
 			.addClass('type_blank');
-		var innerdiv = $('<div>[type]</div>')
+		var innerdiv = $('<div>')
+			.text('[type]')
 			.attr('id', 'data_'+blocktype_label)
 			.addClass("type");
+		var innerspan = $('<span>')
+			.text('NEW')
+			.attr('id', 'act_'+block_id+'_change')
+			.click(function() { self.action_dispatch('change'); });
 		this.block_ob.append(innerdiv);
 		BB.append(this.block_ob);
 
 		this.set_type(EMPTY);
 
 		blocks[block_id] =this;
+	}
+
+	// what types of machine are currently possible?
+	blocktype_list() {
+		var outputs_list = {};
+
+		outputs_list["Select One"]="?";
+
+		outputs_list["Builder"]="build";
+		outputs_list["Printer"]="print";
+		outputs_list["Mail"]   ="mail";
+
+		return outputs_list;
+	}
+
+	// what object gets consumed creating each type of machine?
+	blocktype_source(new_type) {
+		var retVal = "";
+		switch (new_type) {
+			case "build":   retVal = "nothing"; break;
+			case "print":   retVal = "printer"; break;
+			case "mail":    retVal = "nothing"; break;
+			default:
+				console.log('block '+this.block_id+' called blocktype_source: invalid new_type '+new_type);
+				break;
+		}
+		return retVal;
 	}
 
 	set_type(new_type) {
@@ -139,6 +175,46 @@ class Block {
 		console.log('block '+this.block_id+' called A_D('+subtype+')');
 
 		switch (subtype) {
+			case 'change':
+				if (this.machine_type == "blank") {
+					// currently blank: create a block
+
+					var self = this;
+					var headline = "Choose Block Machine"
+					var outputs_list = this.blocktype_list();
+
+					var success_fn = function (value, text) {
+						if (value == "?") {
+							announce("Okay, canceled");
+						} else {
+							var build_source = this.blocktype_source(value);
+							var input_available = 0;
+							if (build_source == "nothing") {
+								input_available = 1;
+							} else {
+								input_available = this.data_object.getNumber(build_source);
+							}
+							if (input_available < 1) {
+								announce("Not enough "+build_source+" available ("+input_available+")");
+							} else {
+								announce("Okay, setting this block up as a "+text);
+								if (build_source == "nothing") {
+									announce("... for free");
+								} else {
+									this.data_object.subtract(build_source, 1);
+								}
+								var M = new Machine(this.block_id, value, this.data_object, true);
+							}
+						}
+						update_screen();
+					};
+
+					chooser(headline, outputs_list, "?", success_fn);
+				} else {
+					// currently non-blank: clear machine
+					announce("sorry, can't clear blocks yet")
+				}
+				break;
 			case 'running':
 				this.act_run();
 				break;
@@ -181,6 +257,11 @@ class Block {
 	update_display() {
 		console.log('called Block.update_display');
 		if (this.machine_ob) {
+			this.set_action_label('change'
+				(this.machine_type == 'blank')
+				? '(+)'
+				: '(&times;)'
+			);
 			this.set_action_label('running',
 				(this.get_value('running'))
 				? '(-)'
@@ -655,6 +736,7 @@ class Machine {
 						var my_output = this.get_output();
 						announce("... created a "+my_output);
 						this.data_object.add(my_output, 1);
+						this.set_time(0);
 						this.set_run(0);
 					}
 					this.subtract_time(1);
