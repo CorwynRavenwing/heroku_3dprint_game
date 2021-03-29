@@ -70,7 +70,11 @@ body {
 }
 
 .type_print {
-	background-color: lightgrey;
+	background-color: pink;
+}
+
+.type_mail {
+	background-color: tan;
 }
 
 /* @todo: other types go here */
