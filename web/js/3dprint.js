@@ -64,6 +64,7 @@ class Block {
 		this.data_object = data_object;
 		var BB = $(".blocks");
 		var blocktype_label = block_id+'_type';
+		var self = this;
 
 		this.block_ob = $('<div>')
 			.text('(B'+index+')')
@@ -71,7 +72,6 @@ class Block {
 			.addClass("block")
 			.addClass('type_blank');
 		var innerdiv = $('<div>')
-			.text('[TEMP]')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass("type");
 		var labelspan = $('<span>')
