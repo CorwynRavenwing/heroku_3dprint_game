@@ -13,5 +13,3 @@ class Menu {
 		menus.push(this);
 	}
 } // end class Menu
-
-module.exports.Menu = Menu;
