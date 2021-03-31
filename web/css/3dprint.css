@@ -34,7 +34,7 @@ body {
 	text-align: center;
 }
 
-.leftvar .meter.zero {
+.leftbar .meter.zero {
 	border: 1px grey dashed;
 	color: lightgrey;
 	font-weight: normal;
