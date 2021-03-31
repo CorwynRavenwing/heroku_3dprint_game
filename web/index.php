@@ -7,11 +7,11 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="css/3dprint.css">
 <script type="text/javascript" src="public/static/jquery/jquery.js"></script>
-<script type="text/javascript" src="js/3dprint-menu.js"></script>
-<script type="text/javascript" src="js/3dprint-meter.js"></script>
-<script type="text/javascript" src="js/3dprint-block.js"></script>
-<script type="text/javascript" src="js/3dprint-machine.js"></script>
-<script type="text/javascript" src="js/3dprint-data.js"></script>
+<script type="text/javascript" src="js/3d-menu.js"></script>
+<script type="text/javascript" src="js/3d-meter.js"></script>
+<script type="text/javascript" src="js/3d-block.js"></script>
+<script type="text/javascript" src="js/3d-machine.js"></script>
+<script type="text/javascript" src="js/3d-data.js"></script>
 <script type="text/javascript" src="js/3dprint.js"></script>
 <title>3d Print Game</title>
 </head>
