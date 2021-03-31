@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/3d-block.js"></script>
 <script type="text/javascript" src="js/3d-machine.js"></script>
 <script type="text/javascript" src="js/3d-data.js"></script>
+<script type="text/javascript" src="js/3d-chooser.js"></script>
 <script type="text/javascript" src="js/3dprint.js"></script>
 <title>3d Print Game</title>
 </head>
