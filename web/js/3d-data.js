@@ -1,4 +1,4 @@
-/* 3dprint_game/js/3dprint-data.js */
+/* 3dprint_game/js/3d-data.js */
 
 class Data {
 	data_store = {};

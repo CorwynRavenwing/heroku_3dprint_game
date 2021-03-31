@@ -1,4 +1,4 @@
-/* 3dprint_game/js/3dprint-machine.js */
+/* 3dprint_game/js/3d-machine.js */
 
 var machines = [];
 

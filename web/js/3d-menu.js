@@ -1,4 +1,4 @@
-/* 3dprint_game/js/3dprint-menu.js */
+/* 3dprint_game/js/3d-menu.js */
 
 var menus    = [];
 
