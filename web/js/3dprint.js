@@ -59,43 +59,43 @@ var chooser = function (headline, choices, current_value, callback) {
 	});
 }
 
+var clear_all_data = function () {
+	D.clearAll();
+	load_data();
+	// update_screen();
+}
+
+var load_data = function () {
+	D.loadAll();
+	update_screen();
+}
+
+var save_data = function () {
+	D.saveAll();
+}
+
+var heart_beat = function() {
+	D.heart_beat();
+	machines_heart_beats();
+	update_screen();
+}
+
+var initialize_data = function () {
+	announce("Initializing ...");
+
+	reset_machines();
+	D.setItem('filament',   10);
+	D.setItem('printer-kit', 1);
+	D.setItem('version',  0.09);
+	var M = new Machine('block_10', 'build', D, true);
+
+	announce("Welcome to the 3D Printer game.");
+}
+
 $(document).ready(function() {
 	if (typeof(Storage) === "undefined") {
 		$(".blocks").html("Sorry! No Web Storage support. You need a more recent browser.");
 		return;
-	}
-
-	var clear_all_data = function () {
-		D.clearAll();
-		load_data();
-		// update_screen();
-	}
-
-	var load_data = function () {
-		D.loadAll();
-		update_screen();
-	}
-
-	var save_data = function () {
-		D.saveAll();
-	}
-
-	var heart_beat = function() {
-		D.heart_beat();
-		machines_heart_beats();
-		update_screen();
-	}
-
-	var initialize_data = function () {
-		announce("Initializing ...");
-
-		reset_machines();
-		D.setItem('filament',   10);
-		D.setItem('printer-kit', 1);
-		D.setItem('version',  0.09);
-		var M = new Machine('block_10', 'build', D, true);
-
-		announce("Welcome to the 3D Printer game.");
 	}
 
 	setup_menus();
