@@ -11,7 +11,8 @@ class Meter {
 	constructor(label, item, data_object) {
 		this.data_object = data_object;
 		this.data_id  = item;
-		this.meter_id = 'meter_'+item;
+		var meter_id = 'meter_'+item;
+		this.meter_id = '#'+meter_id;
 
 		var L = $(".leftbar");
 		var outerdiv = $('<div>')
@@ -19,7 +20,7 @@ class Meter {
 			.addClass("meter");
 		var innerdiv = $('<div>')
 			.text('?')
-			.attr('id', this.meter_id)
+			.attr('id', meter_id)
 		outerdiv.append(innerdiv);
 		L.append(outerdiv);
 
@@ -34,6 +35,11 @@ class Meter {
 		value = Math.round( value * 1000 ) / 1000;
 		console.log('Meter: updating display', this.data_id, value);
 		meter_ob.html(value);
+		if (value == 0) {
+			meter_ob.parent().addClass('zero');
+		} else {
+			meter_ob.parent().removeClass('zero');
+		}
 	}
 } //  end class Meter
 
