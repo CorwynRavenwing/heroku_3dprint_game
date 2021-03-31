@@ -12,6 +12,11 @@ var update_screen = function () {
 		var b = blocks[block_id];
 		b.update_display();
 	});
+
+	for (var i=0; i<meters.length; i++) {
+		var m = meters[i];
+		m.update_display();
+	}
 }
 
 var announce = function (announcement) {

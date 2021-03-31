@@ -30,9 +30,10 @@ class Meter {
 	update_display() {
 		var meter_ob = $(this.meter_id);
 		var value = this.data_object.getItem(this.data_id);
+		value = parseFloat(value);
+		value = Math.round( value * 1000 ) / 1000;
 		console.log('Meter: updating display', this.data_id, value);
 		meter_ob.html(value);
-		is_this_ever_called();
 	}
 } //  end class Meter
 
