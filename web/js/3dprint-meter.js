@@ -35,3 +35,24 @@ class Meter {
 		is_this_ever_called();
 	}
 } //  end class Meter
+
+var setup_meters = function () {
+	var M;
+
+	var leftbar_labels = {
+		"time":             "Time",
+		'version':          "Version",
+		'money':            "Money",
+		'filament':         "Filament",
+		'plastic':          "Plastic",
+		'kwh':              "kW-h Used",
+		'printer-kit':      "Printer Kit",
+		'printer':          "Printer",
+		'helpinghands-kit': "Helping Hands Kit",
+		'helpinghands':     "Helping Hands",
+	};
+
+	Object.keys(leftbar_labels).forEach(function(item, index) {
+		M = new Meter(leftbar_labels[item], item, D);
+	});
+}

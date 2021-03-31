@@ -65,56 +65,10 @@ $(document).ready(function() {
 		return;
 	}
 
-	var setup_leftbar = function () {
-		console.log('called function setup_leftbar');
-		var M;
-
-		var menu_labels = {
-			'CLEAR':  clear_all_data,
-			'RESET':  initialize_data,
-			'LOAD':   load_data,
-			'SAVE':   save_data,
-			'UPDATE': update_screen,
-			'TICK':   heart_beat,
-		};
-
-		Object.keys(menu_labels).forEach(function(item, index) {
-			M = new Menu(item, menu_labels[item], D);
-		});
-
-		var leftbar_labels = {
-			"time":             "Time",
-			'version':          "Version",
-			'money':            "Money",
-			'filament':         "Filament",
-			'plastic':          "Plastic",
-			'kwh':              "kW-h Used",
-			'printer-kit':      "Printer Kit",
-			'printer':          "Printer",
-			'helpinghands-kit': "Helping Hands Kit",
-			'helpinghands':     "Helping Hands",
-		};
-
-		Object.keys(leftbar_labels).forEach(function(item, index) {
-			M = new Meter(leftbar_labels[item], item, D);
-		});
-	}
-
-	var setup_blocks = function () {
-		console.log('called function setup_blocks');
-		
-		var Blocks = 15;
-		var x, B;
-		for (x = 0; x < Blocks; x++) {
-			var block_id = 'block_'+x;
-			B = new Block(block_id, x, D);
-		}
-	}
-
 	var clear_all_data = function () {
 		D.clearAll();
-		// maybe should then call load_data() next?
-		update_screen();
+		load_data();
+		// update_screen();
 	}
 
 	var load_data = function () {
@@ -144,7 +98,8 @@ $(document).ready(function() {
 		announce("Welcome to the 3D Printer game.");
 	}
 
-	setup_leftbar();
+	setup_menus();
+	setup_meters();
 	setup_blocks();
 
 	load_data();

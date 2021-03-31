@@ -106,4 +106,3 @@ class Data {
 }
 
 var D = new Data();
-

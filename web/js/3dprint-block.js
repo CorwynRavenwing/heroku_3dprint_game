@@ -246,3 +246,12 @@ class Block {
 		} // endif machine_ob
 	}
 } // end class Block
+
+var setup_blocks = function () {
+	var Blocks = 15;
+	var x, B;
+	for (x = 0; x < Blocks; x++) {
+		var block_id = 'block_'+x;
+		B = new Block(block_id, x, D);
+	}
+}
