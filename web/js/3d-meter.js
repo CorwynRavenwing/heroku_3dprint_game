@@ -5,18 +5,18 @@ var meters   = [];
 class Meter {
 	data_object = null;
 
-	data_id  = "variable initialize";
-	meter_id = "variable initialize";
+	data_id  = null;
+	meter_id = null;
 
 	constructor(label, item, data_object) {
 		this.data_object = data_object;
 		this.data_id  = item;
-		this.meter_id = 'data_'+item;
+		this.meter_id = 'meter_'+item;
 
 		var L = $(".leftbar");
 		var outerdiv = $('<div>')
-			.text(label+': ')
-			.addClass("data");
+			.html(label+':&nbsp;')
+			.addClass("meter");
 		var innerdiv = $('<div>')
 			.text('?')
 			.attr('id', this.meter_id)

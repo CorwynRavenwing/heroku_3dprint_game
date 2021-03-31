@@ -18,7 +18,7 @@
 <body>
 <div class="outer">
 	<div class="leftbar">
-		<!-- div.data, containing Label: div#data_x, added here automatically -->
+		<!-- div.meter, containing Label: div#meter_x, added here automatically -->
 	</div>
 	<div class="blocks">
 		<noscript>Sorry, you need JavaScript to run this game.</noscript>

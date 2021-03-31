@@ -7,8 +7,7 @@ class Block {
 	block_ob = null;
 	machine_ob = null;
 	machine_type = null;
-
-	block_id = "variable initialize";
+	block_id = null;
 
 	constructor(block_id, index, data_object) {
 		this.block_id = block_id;
