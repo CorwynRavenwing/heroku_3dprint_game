@@ -37,6 +37,7 @@ body {
 .leftbar .meter.zero {
 	border: 1px grey dashed;
 	color: grey;
+	font-size: 0.5em;
 	font-weight: normal;
 }
 
