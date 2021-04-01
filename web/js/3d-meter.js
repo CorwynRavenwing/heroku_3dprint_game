@@ -3,8 +3,6 @@
 // uses 'D3d = new Data()'' from 3d-data.js
 // uses 'T3d = new Things()' from 3d-things.js
 
-var meters   = [];
-
 class Meter {
 	data_id  = null;
 	meter_id = null;
@@ -30,7 +28,6 @@ class Meter {
 		lb.append(outerdiv);
 
 		D3d.setItem(item, 0);
-		meters.push(this);
 	}
 
 	update_display() {
@@ -53,9 +50,34 @@ class Meter {
 	}
 } //  end class Meter
 
-var setup_meters = function () {
-	var M;
+class Meters {
+	meter_store = {};
 
+	constructor() {
+		// nothing to do here yet
+	}
+
+	create_meter(p_name) {
+		if (! this.get(p_name)) {
+			var ob = new Meter(p_name);
+			this.put(p_name, ob);
+		}
+	}
+
+	get(p_name) {
+		return this.meter_store[p_name];
+	}
+
+	put(p_name, ob) {
+		this.meter_store[p_name] = ob;
+	}
+
+} //  end class Meters
+
+M3d = new Meters();
+
+// Function setup_meters() must ONLY be called after document.ready
+var setup_meters = function () {
 	var leftbar_array = [
 		"time",
 		'version',
@@ -65,11 +87,11 @@ var setup_meters = function () {
 		'plastic',
 		'printer-kit',
 		'printer',
-		'helpinghands-kit',
-		'helpinghands',
+		// 'helpinghands-kit',
+		// 'helpinghands',
 	];
 
-	leftbar_array.forEach(function(item, index) {
-		M = new Meter(item);
+	leftbar_array.forEach(function(item) {
+		M3d.create_meter(item);
 	});
 }
