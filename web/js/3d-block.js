@@ -162,7 +162,7 @@ class Block {
 								} else {
 									D3d.subtract(build_source, 1);
 								}
-								var M = new Machine(self.block_id, value, D3d, true);
+								var M = new Machine(self.block_id, value, true);
 							}
 						}
 						update_screen();

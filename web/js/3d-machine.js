@@ -3,8 +3,6 @@
 var machines = [];
 
 class Machine {
-
-	// data_object = null;
 	block_id = null;
 	block_ob = null;
 	machine_type = null;
@@ -24,18 +22,15 @@ class Machine {
 	 *		"print"		(     printer: turns filament into any Printable)
 	 *		"recycle"	(TODO free: fetches milk-bottles)
 	 *		"shred"		(TODO shredder: turns milk-bottles into plastic)
-//	 * @input data_object
-//	 *	a link to the object of class Data in which we are storing local data
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
 	 *		(therefore set variables to initial or default values)
 	 *	FALSE if machine is being loaded from save file
 	 * 		(therefore set variables from save file also)
 	 */
-	constructor(block_id, machine_type, data_object, is_new) {
+	constructor(block_id, machine_type, is_new) {
 		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
-		// this.data_object = data_object;
 		var current_type = D3d.getItem(block_id+'_type');
 		if ( current_type === "empty" ) {
 			console.log('OK: block current type empty:', current_type);

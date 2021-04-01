@@ -54,7 +54,7 @@ class Data {
 			var block_id = key.replace(/_type/, '');
 			var blocktype = this.getItem(key);
 			if ((blocktype !== undefined) && (blocktype !== "empty")) {
-				var m = new Machine(block_id, blocktype, this, false);
+				var m = new Machine(block_id, blocktype, false);
 			}
 		}
 	}
