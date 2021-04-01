@@ -23,20 +23,20 @@ class Things {
 
 	constructor() {
 		// non-physical:
-		x('time',               0,   0,   0.00, "Time")
-		x('version',            0,   0,   0.00, "Version")
-		x('money',              0,   0,   0.00, "Money")
+		this.x('time',               0,   0,   0.00, "Time")
+		this.x('version',            0,   0,   0.00, "Version")
+		this.x('money',              0,   0,   0.00, "Money")
 		// neither printed nor built:
-		x('kwh',                0,   0,   0.10, "kW-h Used")
-		x('filament',           0,   0,  10.00, "Filament")
-		x('plastic',            0,   0,   5.00, "Plastic")
+		this.x('kwh',                0,   0,   0.10, "kW-h Used")
+		this.x('filament',           0,   0,  10.00, "Filament")
+		this.x('plastic',            0,   0,   5.00, "Plastic")
 		// printed:
-		x('doodad',            10,   0,   0.50, "Doodad")
+		this.x('doodad',            10,   0,   0.50, "Doodad")
 		// machines: printed then built:
-		x('printer-kit',      500,   0, 150.00, "Printer Kit")
-		x('printer',            0, 200, 300.00, "Printer")
-		x('helpinghands-kit', 100,   0, 250.00, "Helping Hands Kit")
-		x('helpinghands',       0, 100, 500.00, "Helping Hands")
+		this.x('printer-kit',      500,   0, 150.00, "Printer Kit")
+		this.x('printer',            0, 200, 300.00, "Printer")
+		this.x('helpinghands-kit', 100,   0, 250.00, "Helping Hands Kit")
+		this.x('helpinghands',       0, 100, 500.00, "Helping Hands")
 	}
 
 	x(p_name, p_print, p_build, p_price, p_desc) {
