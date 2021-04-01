@@ -164,8 +164,13 @@ class Machine {
 		
 		set_output(value) {
 			this.set_value('output', value);
-			// @TODO: maybe only do this if it works?  Else clear it?
-			this.output_ob = T3d.get(value);
+		}
+
+		act_output_fix() {
+			var output = this.get_output();
+			this.output_ob = T3d.get(output);
+
+			console.log('act_output_fix() called:', output, output_ob);
 		}
 
 		set_time(value) {
@@ -306,6 +311,8 @@ class Machine {
 		}
 
 		act_run_on() {
+			console.log('called machine act_run_on()');
+			this.act_output_fix();
 			this.set_run(1);
 			if (! this.get_time()) {
 				var time_required = 0;
