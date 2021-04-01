@@ -65,37 +65,37 @@ class Machine {
 
 			switch (machine_type) {
 				case "empty":
-					B.set_value('running', null);
-					B.set_value('input'  , null);
-					B.set_value('output' , null);
-					B.set_value('time'   , null);
-					B.set_value('auto'   , null);
+					B.set_run(null);
+					B.set_input(null);
+					B.set_output(null);
+					B.set_time(null);
+					B.set_auto(null);
 					break;
 
 				case "build":
-					B.set_value('running', "0");
-					B.set_value('input'  , "0");
-					B.set_value('output' , "printer");
-					B.set_value('time'   , "0");
-					B.set_value('auto'   , "0");
+					B.set_run("0");
+					B.set_input("0");
+					B.set_output("printer");
+					B.set_time("0");
+					B.set_auto("0");
 					break;
 
 				case "print":
-					B.set_value('running', "0");
-					B.set_value('input'  , "0");
-					B.set_value('output' , "?");
-					B.set_value('time'   , "0");
-					B.set_value('auto'   , "0");
+					B.set_run("0");
+					B.set_input("0");
+					B.set_output("?");
+					B.set_time("0");
+					B.set_auto("0");
 					break;
 
 				// other cases go here
 
 				default:
-					B.set_value('running', "0");
-					B.set_value('input'  , "0");
-					B.set_value('output' , "?");
-					B.set_value('time'   , "0");
-					B.set_value('auto'   , "0");
+					B.set_run("0");
+					B.set_input("0");
+					B.set_output("?");
+					B.set_time("0");
+					B.set_auto("0");
 					break;
 			} // end switch
 		}
