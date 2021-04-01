@@ -1,5 +1,7 @@
 /* 3dprint_game/js/3d-meter.js */
 
+// uses 'T = new Things()' from 3d-things.js
+
 var meters   = [];
 
 class Meter {
@@ -8,11 +10,14 @@ class Meter {
 	data_id  = null;
 	meter_id = null;
 
-	constructor(label, item, data_object) {
+	constructor(OLDlabel, item, data_object) {
 		this.data_object = data_object;
 		this.data_id  = item;
 		var meter_id = 'meter_'+item;
 		this.meter_id = '#'+meter_id;
+
+		var thing = T.get(item)
+		var label = thing.desc;
 
 		var L = $(".leftbar");
 		var outerdiv = $('<div>')
@@ -53,10 +58,10 @@ var setup_meters = function () {
 		'filament':         "Filament",
 		'plastic':          "Plastic",
 		'kwh':              "kW-h Used",
-		'printer-kit':      "Printer Kit",
-		'printer':          "Printer",
-		'helpinghands-kit': "Helping Hands Kit",
-		'helpinghands':     "Helping Hands",
+		'printer-kit':      "DONTUSETHIS Kit",
+		'printer':          "DONTUSETHIS",
+		'helpinghands-kit': "DONTUSETHIS EITHER Kit",
+		'helpinghands':     "DONTUSETHIS EITHER",
 	};
 
 	Object.keys(leftbar_labels).forEach(function(item, index) {

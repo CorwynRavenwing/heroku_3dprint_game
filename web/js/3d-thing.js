@@ -32,11 +32,14 @@ class Things {
 		this.x('plastic',            0,   0,   5.00, "Plastic")
 		// printed:
 		this.x('doodad',            10,   0,   0.50, "Doodad")
-		// machines: printed then built:
-		this.x('printer-kit',      500,   0, 150.00, "Printer Kit")
-		this.x('printer',            0, 200, 300.00, "Printer")
-		this.x('helpinghands-kit', 100,   0, 250.00, "Helping Hands Kit")
-		this.x('helpinghands',       0, 100, 500.00, "Helping Hands")
+		this.x('doohickey',         50,   0,   3.00, "Doohickey")
+		this.x('thingamabob',      200,   0,  10.00, "Thingamabob")
+		this.x('thingy',          1000,   0, 100.00, "Fiendish Thingy")
+		// printed as X-kit, then built:
+		this.y('printer',          500, 200, 300.00, "Printer")
+		this.y('helpinghands',     100, 100, 500.00, "Helping Hands")
+		this.y('extruder',        1000, 100, 300.00, "Extruder")
+		this.y('shredder',        2000, 200, 200.00, "Shredder")
 	}
 
 	x(p_name, p_print, p_build, p_price, p_desc) {
@@ -44,6 +47,11 @@ class Things {
 			var ob = new Thing(p_name, p_print, p_build, p_price, p_desc);
 			this.put(p_name, ob);
 		}
+	}
+
+	y(p_name, p_print, p_build, p_price, p_desc) {
+		this.x(p_name+'-kit', p_print,       0, p_price*0.75, p_desc+' Kit')
+		this.x(p_name       ,       0, p_build, p_price     , p_desc       )
 	}
 
 	get(p_name) {
