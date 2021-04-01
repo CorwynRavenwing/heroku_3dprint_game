@@ -27,10 +27,10 @@ var announce = function (announcement) {
 		.appendTo(announce_block);
 	var n = announce_block
 		.children()
-		.count();
+		.length;
 	if (n > 5) {
 		announce_block
-			.children()[0]
+			.find(':first-child')
 			.remove();
 	}
 
