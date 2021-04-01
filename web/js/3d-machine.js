@@ -4,7 +4,7 @@ var machines = [];
 
 class Machine {
 
-	data_object = null;
+	// data_object = null;
 	block_id = null;
 	block_ob = null;
 	machine_type = null;
@@ -24,8 +24,8 @@ class Machine {
 	 *		"print"		(     printer: turns filament into any Printable)
 	 *		"recycle"	(TODO free: fetches milk-bottles)
 	 *		"shred"		(TODO shredder: turns milk-bottles into plastic)
-	 * @input data_object
-	 *	a link to the object of class Data in which we are storing local data
+//	 * @input data_object
+//	 *	a link to the object of class Data in which we are storing local data
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
 	 *		(therefore set variables to initial or default values)
@@ -35,8 +35,8 @@ class Machine {
 	constructor(block_id, machine_type, data_object, is_new) {
 		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
-		this.data_object = data_object;
-		var current_type = this.data_object.getItem(block_id+'_type');
+		// this.data_object = data_object;
+		var current_type = D3d.getItem(block_id+'_type');
 		if ( current_type === "empty" ) {
 			console.log('OK: block current type empty:', current_type);
 		} else if ( current_type === machine_type ) {
@@ -48,7 +48,7 @@ class Machine {
 		}
 
 		this.machine_type = machine_type;
-		this.data_object.setItem(block_id+'_type', machine_type);
+		D3d.setItem(block_id+'_type', machine_type);
 
 		var B = blocks[block_id];
 		this.block_ob = B;
@@ -113,7 +113,7 @@ class Machine {
 	// GET section
 		get_value(subtype) {
 			var data_id = this.block_id+'_'+subtype;
-			var temp = this.data_object.getItem(data_id);
+			var temp = D3d.getItem(data_id);
 			if (temp === "0") {
 				temp = 0;
 			} else if (parseFloat(temp)) {
@@ -147,7 +147,7 @@ class Machine {
 	// SET section
 		set_value(subtype, value) {
 			var data_id = this.block_id+'_'+subtype;
-			this.data_object.setItem(data_id, value);
+			D3d.setItem(data_id, value);
 		}
 
 		set_run(value) {
@@ -244,13 +244,13 @@ class Machine {
 			switch (this.machine_type) {
 				case "build":
 					var build_source = this.get_output() + '-kit';
-					input_available = this.data_object.getNumber(build_source);
+					input_available = D3d.getNumber(build_source);
 					this.error_message = "Not enough "+build_source+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
 
 				case "print":
-					input_available = this.data_object.getNumber('filament');
+					input_available = D3d.getNumber('filament');
 					this.error_message = "Not enough "+'filament'+" available ("+input_available+")";
 					return (input_available >= 1);
 					break;
@@ -281,7 +281,7 @@ class Machine {
 				this.error_message = "can't automate if no output";
 				return 0;
 			}
-			if (this.data_object.getNumber('helpinghands') < 1) {
+			if (D3d.getNumber('helpinghands') < 1) {
 				this.error_message = "need Helping Hands to automate";
 				return 0;
 			}
@@ -339,7 +339,7 @@ class Machine {
 				var build_source = this.act_input_source();
 				var current_input = this.get_input();
 				announce("returning "+current_input+" "+build_source+" to stock");
-				this.data_object.add(build_source, current_input);
+				D3d.add(build_source, current_input);
 				this.subtract_input(current_input);
 			}
 		}
@@ -347,7 +347,7 @@ class Machine {
 		act_input_on() {
 			var build_source = this.act_input_source();
 			announce("adding 1 "+build_source+" to input");
-			this.data_object.subtract(build_source, 1);
+			D3d.subtract(build_source, 1);
 			this.add_input(1)
 		}
 		
@@ -403,13 +403,13 @@ class Machine {
 
 		act_auto_off() {
 			if (this.get_auto()) {
-				this.data_object.add('helpinghands', 1);
+				D3d.add('helpinghands', 1);
 				this.set_auto(0);
 			}
 		}
 
 		act_auto_on() {
-			this.data_object.subtract('helpinghands', 1);
+			D3d.subtract('helpinghands', 1);
 			this.set_auto(1);
 		}
 		
@@ -457,7 +457,7 @@ class Machine {
 					if (this.machine_type == "print") {
 						this.subtract_input(0.001);
 						announce("... used 0.001 filament");
-						this.data_object.add('kwh',0.001);
+						D3d.add('kwh',0.001);
 					}
 					if (this.get_time() <= 0) {
 						// non-printers use input all at once
@@ -467,7 +467,7 @@ class Machine {
 						}
 						var my_output = this.get_output();
 						announce("... created a "+my_output);
-						this.data_object.add(my_output, 1);
+						D3d.add(my_output, 1);
 						this.set_time(0);
 						this.set_run(0);
 					}

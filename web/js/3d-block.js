@@ -5,15 +5,13 @@
 var blocks   = {};
 
 class Block {
-	// data_object = null;
 	block_ob = null;
 	machine_ob = null;
 	machine_type = null;
 	block_id = null;
 
-	constructor(block_id, index, data_object) {
+	constructor(block_id, index) {
 		this.block_id = block_id;
-		// this.data_object = data_object;
 		var BB = $(".blocks");
 		var blocktype_label = block_id+'_type';
 		var self = this;
@@ -253,6 +251,6 @@ var setup_blocks = function () {
 	var index, B;
 	for (index = 0; index < Blocks; index++) {
 		var block_id = 'block_'+index;
-		B = new Block(block_id, index, D3d);
+		B = new Block(block_id, index);
 	}
 }
