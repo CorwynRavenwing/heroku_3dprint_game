@@ -7,6 +7,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="stylesheet" href="css/3dprint.css">
 <script type="text/javascript" src="public/static/jquery/jquery.js"></script>
+<script type="text/javascript" src="js/3d-thing.js"></script>
 <script type="text/javascript" src="js/3d-menu.js"></script>
 <script type="text/javascript" src="js/3d-meter.js"></script>
 <script type="text/javascript" src="js/3d-block.js"></script>
