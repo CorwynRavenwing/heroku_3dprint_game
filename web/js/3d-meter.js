@@ -72,7 +72,7 @@ var setup_meters = function () {
 		'helpinghands',
 	];
 
-	Object.keys(leftbar_array).forEach(function(item, index) {
+	leftbar_array.forEach(function(item, index) {
 		M = new Meter(item, D);
 	});
 }
