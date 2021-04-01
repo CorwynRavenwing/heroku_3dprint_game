@@ -1,5 +1,7 @@
 /* 3dprint_game/js/3d-data.js */
 
+// Uses 'M3d = new Meters()' from 3d-meter.js
+
 class Data {
 	data_store = {};
 
@@ -28,6 +30,7 @@ class Data {
 
 	add(key, value) {
 		this.setItem(key, this.getNumber(key) + value);
+		M3d.create_meter(key);
 	}
 
 	subtract(key, value) {

@@ -57,6 +57,14 @@ class Meters {
 		// nothing to do here yet
 	}
 
+	get(p_name) {
+		return this.meter_store[p_name];
+	}
+
+	put(p_name, ob) {
+		this.meter_store[p_name] = ob;
+	}
+
 	create_meter(p_name) {
 		if (! this.get(p_name)) {
 			var ob = new Meter(p_name);
@@ -64,12 +72,11 @@ class Meters {
 		}
 	}
 
-	get(p_name) {
-		return this.meter_store[p_name];
-	}
-
-	put(p_name, ob) {
-		this.meter_store[p_name] = ob;
+	update_display() {
+		Object.keys(meter_store).forEach(function(p_name) {
+			var m = meter_store[p_name];
+			m.update_display();
+		});
 	}
 
 } //  end class Meters

@@ -15,10 +15,8 @@ var update_screen = function () {
 		b.update_display();
 	});
 
-	for (var i=0; i<meters.length; i++) {
-		var m = meters[i];
-		m.update_display();
-	}
+	M3d.update_display();
+
 }
 
 var announce = function (announcement) {
