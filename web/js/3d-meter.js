@@ -12,7 +12,7 @@ class Meter {
 
 	previous_value = null;
 
-	constructor(OLDlabel, item, data_object) {
+	constructor(item, data_object) {
 		this.data_object = data_object;
 		this.data_id  = item;
 		var meter_id = 'meter_'+item;
@@ -72,6 +72,6 @@ var setup_meters = function () {
 	};
 
 	Object.keys(leftbar_labels).forEach(function(item, index) {
-		M = new Meter(leftbar_labels[item], item, D);
+		M = new Meter(item, D);
 	});
 }
