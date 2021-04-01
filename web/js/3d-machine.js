@@ -476,19 +476,17 @@ class Machine {
 		heart_beat() {
 			console.log('called Machine.heart_beat()', this.block_id);
 
-			// if auto, set a bunch of things here
-
 			if (this.get_run()) {
 				if (this.get_input() <= 0) {
 					announce("Ran out of input: stopping");
 					this.set_run(0);
 				} else {
 					this.subtract_time(1);
+					D3d.add('kwh',0.001);
 					var incremental_input = (this.machine_type == "print");
 					if (incremental_input) {
 						this.subtract_input(0.001);
-						announce("... used 0.001 filament");
-						D3d.add('kwh',0.001);
+						announce("... used 0.001 "+this.act_input_source());
 					}
 					if (this.get_time() <= 0) {
 						if (! incremental_input) {
@@ -504,7 +502,8 @@ class Machine {
 				}
 			} // endif get_run
 
-			// should call update here
+			// if auto, set a bunch of things here
+
 		}
 
 	// other Machine code here ...

@@ -36,7 +36,7 @@ class Meter {
 		value = parseFloat(value);
 		value = Math.round( value * 1000 ) / 1000;
 		if (this.previous_value != value) {
-			console.log('Meter: updating display', this.data_id, value);
+			// console.log('Meter: updating display', this.data_id, value);
 			meter_ob.html(value);
 			if (value == 0) {
 				meter_ob.parent().addClass('zero');
@@ -45,7 +45,7 @@ class Meter {
 			}
 			this.previous_value = value;
 		} else {
-			console.log('Meter: display was static', value, this.previous_value);
+			// console.log('Meter: display was static', value, this.previous_value);
 		}
 	}
 } //  end class Meter

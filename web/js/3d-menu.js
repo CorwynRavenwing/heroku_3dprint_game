@@ -14,6 +14,7 @@ class Menu {
 	}
 } // end class Menu
 
+// function setup_menus must ONLY be called after document.ready
 var setup_menus = function () {
 	var M;
 
@@ -23,7 +24,7 @@ var setup_menus = function () {
 		'LOAD':   load_data,
 		'SAVE':   save_data,
 		'UPDATE': update_screen,
-		'TICK':   heart_beat,
+		'HB +/-': toggle_heart_beats,
 	};
 
 	Object.keys(menu_labels).forEach(function(item, index) {

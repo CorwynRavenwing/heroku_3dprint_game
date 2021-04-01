@@ -45,6 +45,20 @@ var heart_beat = function() {
 	update_screen();
 }
 
+var hb_object = null;
+var hb_ticks = 1000;
+var toggle_heart_beats = function() {
+	console.log('called function toggle_heart_beats()');
+	if (hb_object) {
+		console.log('--- stopping heart beat');
+		clearInterval(hb_object);
+	} else {
+		x
+		console.log('+++ starting heart beat');
+		setInterval(hb_object, hb_ticks);
+	}
+}
+
 var initialize_data = function () {
 	announce("Initializing ...");
 
