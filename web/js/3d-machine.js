@@ -5,6 +5,7 @@ var machines = [];
 class Machine {
 	block_id = null;
 	block_ob = null;
+	output_ob = null;
 	machine_type = null;
 	error_message = "";
 
@@ -14,11 +15,10 @@ class Machine {
 	 * @input machine_type
 	 *	the type of machine this is:
 	 *		"buyer"		(TODO free: turns money into any Buyable)
-	 *		"boxer"		(TODO free: turns any Salable X into X-boxed)
 	 *		"build"		(     free: turns X-kit into X)
 	 *		"empty"		(     free: a block doing nothing)
 	 *		"extrude"	(TODO extruder: turns plastic into filament)
-	 *		"mail"		(TODO free: exchanges any Salable X-boxed for money)
+	 *		"mail"		(TODO free: exchanges any Salable for money)
 	 *		"print"		(     printer: turns filament into any Printable)
 	 *		"recycle"	(TODO free: fetches milk-bottles)
 	 *		"shred"		(TODO shredder: turns milk-bottles into plastic)
@@ -191,13 +191,14 @@ class Machine {
 
 			switch (this.machine_type) {
 				case "build":
-					outputs_array[]="printer";
+					outputs_array.push("printer");
 					break;
 
 				case "print":
-					outputs_array[]="doodad";
-					outputs_array[]="printer-kit";
-					outputs_array[]="helpinghands-kit";
+					outputs_array.push("doodad");
+					outputs_array.push("doohickey");
+					outputs_array.push("printer-kit");
+					outputs_array.push("helpinghands-kit");
 					break;
 
 				case "empty":
@@ -251,32 +252,33 @@ class Machine {
 				this.error_message = "Can't input if no output";
 				return 0;
 			}
+			var build_source = null;
 			var input_available = 0;
 			switch (this.machine_type) {
 				case "build":
 					var build_source = this.get_output() + '-kit';
-					input_available = D3d.getNumber(build_source);
-					this.error_message = "Not enough "+build_source+" available ("+input_available+")";
-					return (input_available >= 1);
 					break;
 
 				case "print":
-					input_available = D3d.getNumber('filament');
-					this.error_message = "Not enough "+'filament'+" available ("+input_available+")";
-					return (input_available >= 1);
+					var build_source = 'filament';
 					break;
 
 				case "empty":
 					this.error_message = "empty machine has no input";
 					return 0;
 					break;
+
 				default:
 					this.error_message = "unknown machine has no input";
 					return 0;
 					break;
 			} // end switch
-			this.error_message = "";
-			return 1;
+
+			input_available = D3d.getNumber(build_source);
+			this.error_message = "Not enough "+build_source+" available ("+input_available+")";
+			return (input_available >= 1);
+			// this.error_message = "";
+			// return 1;
 		}
 		
 		// I can't imagine a reason to ever not allow setting output
