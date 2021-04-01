@@ -1,7 +1,7 @@
 /* 3dprint_game/js/3d-meter.js */
 
-// uses 'D = new Data()'' from 3d-data.js
-// uses 'T = new Things()' from 3d-things.js
+// uses 'D3d = new Data()'' from 3d-data.js
+// uses 'T3d = new Things()' from 3d-things.js
 
 var meters   = [];
 
@@ -16,10 +16,10 @@ class Meter {
 		var meter_id = 'meter_'+item;
 		this.meter_id = '#'+meter_id;
 
-		var thing = T.get(item)
+		var thing = T3d.get(item)
 		var label = thing.desc;
 
-		var L = $(".leftbar");
+		var lb = $(".leftbar");
 		var outerdiv = $('<div>')
 			.html(label+':&nbsp;')
 			.addClass("meter");
@@ -27,15 +27,15 @@ class Meter {
 			.text('?')
 			.attr('id', meter_id)
 		outerdiv.append(innerdiv);
-		L.append(outerdiv);
+		lb.append(outerdiv);
 
-		D.setItem(item, 0);
+		D3d.setItem(item, 0);
 		meters.push(this);
 	}
 
 	update_display() {
 		var meter_ob = $(this.meter_id);
-		var value = D.getItem(this.data_id);
+		var value = D3d.getItem(this.data_id);
 		value = parseFloat(value);
 		value = Math.round( value * 1000 ) / 1000;
 		if (this.previous_value != value) {

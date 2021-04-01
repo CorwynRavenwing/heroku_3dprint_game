@@ -1,7 +1,9 @@
 /* 3dprint_game/js/3dprint.js */
 
+// uses 'D3d = new Data()'' from 3d.data.js
+
 var update_screen = function () {
-	D.update_display();
+	D3d.update_display();
 
 	for (var i=0; i<machines.length; i++) {
 		var m = machines[i];
@@ -25,22 +27,22 @@ var announce = function (announcement) {
 }
 
 var clear_all_data = function () {
-	D.clearAll();
+	D3d.clearAll();
 	load_data();
 	// update_screen();
 }
 
 var load_data = function () {
-	D.loadAll();
+	D3d.loadAll();
 	update_screen();
 }
 
 var save_data = function () {
-	D.saveAll();
+	D3d.saveAll();
 }
 
 var heart_beat = function() {
-	D.heart_beat();
+	D3d.heart_beat();
 	machines_heart_beats();
 	update_screen();
 }
@@ -49,10 +51,10 @@ var initialize_data = function () {
 	announce("Initializing ...");
 
 	reset_machines();
-	D.setItem('filament',   10);
-	D.setItem('printer-kit', 1);
-	D.setItem('version',  0.09);
-	var M = new Machine('block_10', 'build', D, true);
+	D3d.setItem('filament',   10);
+	D3d.setItem('printer-kit', 1);
+	D3d.setItem('version',  0.09);
+	var M = new Machine('block_10', 'build', D3d, true);
 
 	announce("Welcome to the 3D Printer game.");
 }
@@ -69,7 +71,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!D.getNumber('version')) {
+	if (!D3d.getNumber('version')) {
 		initialize_data();
 		save_data();
 	}

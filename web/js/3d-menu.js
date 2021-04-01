@@ -4,12 +4,12 @@ var menus    = [];
 
 class Menu {
 	constructor(label, click_function) {
-		var L = $(".leftbar");
+		var lb = $(".leftbar");
 		var menudiv = $('<div>')
 			.text(label)
 			.addClass("menu")
 			.click(click_function);
-		L.append(menudiv);
+		lb.append(menudiv);
 		menus.push(this);
 	}
 } // end class Menu
@@ -27,6 +27,6 @@ var setup_menus = function () {
 	};
 
 	Object.keys(menu_labels).forEach(function(item, index) {
-		M = new Menu(item, menu_labels[item], D);
+		M = new Menu(item, menu_labels[item]);
 	});
 }

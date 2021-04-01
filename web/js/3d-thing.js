@@ -16,7 +16,7 @@ class Thing {
 
 		console.log("called Thing.constructor()", p_name, p_print, p_build, p_price, p_desc);
 	}
-}
+} // end class Thing
 
 class Things {
 	thing_store = {};
@@ -61,6 +61,6 @@ class Things {
 	put(p_name, ob) {
 		this.thing_store[p_name] = ob;
 	}
-}
+} // end class Things
 
-var T = new Things();
+var T3d = new Things();

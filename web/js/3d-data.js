@@ -105,4 +105,4 @@ class Data {
 	}
 }
 
-var D = new Data();
+var D3d = new Data();
