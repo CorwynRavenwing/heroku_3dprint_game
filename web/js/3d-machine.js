@@ -170,7 +170,7 @@ class Machine {
 			var output = this.get_output();
 			this.output_ob = T3d.get(output);
 
-			console.log('act_output_fix() called:', output, output_ob);
+			console.log('act_output_fix() called:', output, this.output_ob);
 		}
 
 		set_time(value) {
