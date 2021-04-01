@@ -65,37 +65,37 @@ class Machine {
 
 			switch (machine_type) {
 				case "empty":
-					B.set_run(null);
-					B.set_input(null);
-					B.set_output(null);
-					B.set_time(null);
-					B.set_auto(null);
+					B.set_value('run', null);
+					B.set_value('input', null);
+					B.set_value('output', null);
+					B.set_value('time', null);
+					B.set_value('auto', null);
 					break;
 
 				case "build":
-					B.set_run("0");
-					B.set_input("0");
-					B.set_output("printer");
-					B.set_time("0");
-					B.set_auto("0");
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "printer");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
 					break;
 
 				case "print":
-					B.set_run("0");
-					B.set_input("0");
-					B.set_output("?");
-					B.set_time("0");
-					B.set_auto("0");
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "?");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
 					break;
 
 				// other cases go here
 
 				default:
-					B.set_run("0");
-					B.set_input("0");
-					B.set_output("?");
-					B.set_time("0");
-					B.set_auto("0");
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "?");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
 					break;
 			} // end switch
 		}
@@ -169,8 +169,6 @@ class Machine {
 		act_output_fix() {
 			var output = this.get_output();
 			this.output_ob = T3d.get(output);
-
-			console.log('act_output_fix() called:', output, this.output_ob);
 		}
 
 		set_time(value) {
@@ -486,12 +484,12 @@ class Machine {
 					var incremental_input = (this.machine_type == "print");
 					if (incremental_input) {
 						this.subtract_input(0.001);
-						announce("... used 0.001 "+this.act_input_source());
+						// announce("... used 0.001 "+this.act_input_source());
 					}
 					if (this.get_time() <= 0) {
 						if (! incremental_input) {
 							this.subtract_input(1);
-							announce("... used 1 input object");
+							announce("... used 1 input "+this.act_input_source);
 						}
 						var my_output = this.get_output();
 						announce("... created a "+my_output);

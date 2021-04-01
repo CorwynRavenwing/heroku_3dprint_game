@@ -26,7 +26,7 @@
 		<noscript>Sorry, you need JavaScript to run this game.</noscript>
 		<!-- div.block added here automatically -->
 	</div>
-	<div class="announce">
+	<div id="announce" class="announce">
 		<!-- announcements added here automatically -->
 	</div>
 </div>

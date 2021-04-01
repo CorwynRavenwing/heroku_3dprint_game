@@ -20,8 +20,20 @@ var update_screen = function () {
 }
 
 var announce = function (announcement) {
-	$('.announce')
-		.html(announcement);
+	var announce_block = $('#announce');
+	$('div')
+		.addClass('announce')
+		.html(announcement)
+		.appendTo(announce_block);
+	var n = announce_block
+		.children()
+		.count();
+	if (n > 5) {
+		announce_block
+			.children()[0]
+			.remove();
+	}
+
 }
 
 var clear_all_data = function () {
