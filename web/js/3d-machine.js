@@ -146,58 +146,58 @@ class Machine {
 		}
 
 		set_run(value) {
-			return this.set_value('running', value);
+			this.set_value('running', value);
 		}
 		
 		set_input(value) {
-			return this.set_value('input', value);
+			this.set_value('input', value);
 		}
 
 		add_input(value) {
 			var old_input = this.get_input();
-			return this.set_input(old_input + value);
+			this.set_input(old_input + value);
 		}
 
 		subtract_input(value) {
-			return this.add_input(-value);
+			this.add_input(-value);
 		}
 		
 		set_output(value) {
-			return this.set_value('output', value);
+			this.set_value('output', value);
+			// @TODO: maybe only do this if it works?  Else clear it?
+			this.output_ob = T3d.get(value);
 		}
 
 		set_time(value) {
-			return this.set_value('time', value);
+			this.set_value('time', value);
 		}
 
 		add_time(value) {
 			var old_time = this.get_time();
-			return this.set_time(old_time + value);
+			this.set_time(old_time + value);
 		}
 
 		subtract_time(value) {
-			return this.add_time(-value);
+			this.add_time(-value);
 		}
 		
 		set_auto(value) {
-			return this.set_value('auto', value);
+			this.set_value('auto', value);
 		}
 
 	// helper functions
 		possible_outputs() {
-			var outputs_list = {};
-
-			outputs_list["Please Choose"]="?";
+			var outputs_array = [];
 
 			switch (this.machine_type) {
 				case "build":
-					outputs_list["Printer"]="printer";
+					outputs_array[]="printer";
 					break;
 
 				case "print":
-					outputs_list["Doodad"]="doodad";
-					outputs_list["Printer Kit"]="printer-kit";
-					outputs_list["Helping Hands Kit"]="helpinghands-kit";
+					outputs_array[]="doodad";
+					outputs_array[]="printer-kit";
+					outputs_array[]="helpinghands-kit";
 					break;
 
 				case "empty":
@@ -212,7 +212,23 @@ class Machine {
 
 			} // end switch
 
+			var outputs_list = {};
+
+			outputs_list["Please Choose"]="?";
+
+			outputs_array.forEach(function(item){
+				var ob = T3d.get(item);
+				var item_desc = null;
+				if (ob) {
+					item_desc = ob.desc;
+				} else {
+					item_desc = "ERROR: OBJECT NOT FOUND FOR '"+item+"'";
+				}
+				outputs_list[item_desc] = item;
+			});
+
 			this.error_message = "";
+
 			return outputs_list;
 		}
 
