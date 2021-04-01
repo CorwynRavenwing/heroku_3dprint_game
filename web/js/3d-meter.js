@@ -59,7 +59,7 @@ class Meter {
 var setup_meters = function () {
 	var M;
 
-	var leftbar_array = (
+	var leftbar_array = [
 		"time",
 		'version',
 		'money',
@@ -69,8 +69,8 @@ var setup_meters = function () {
 		'printer-kit',
 		'printer',
 		'helpinghands-kit',
-		'helpinghands'
-	);
+		'helpinghands',
+	];
 
 	Object.keys(leftbar_array).forEach(function(item, index) {
 		M = new Meter(item, D);
