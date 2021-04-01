@@ -10,6 +10,8 @@ class Meter {
 	data_id  = null;
 	meter_id = null;
 
+	previous_value = null;
+
 	constructor(OLDlabel, item, data_object) {
 		this.data_object = data_object;
 		this.data_id  = item;
@@ -38,12 +40,17 @@ class Meter {
 		var value = this.data_object.getItem(this.data_id);
 		value = parseFloat(value);
 		value = Math.round( value * 1000 ) / 1000;
-		console.log('Meter: updating display', this.data_id, value);
-		meter_ob.html(value);
-		if (value == 0) {
-			meter_ob.parent().addClass('zero');
+		if (previous_value != value) {
+			console.log('Meter: updating display', this.data_id, value);
+			meter_ob.html(value);
+			if (value == 0) {
+				meter_ob.parent().addClass('zero');
+			} else {
+				meter_ob.parent().removeClass('zero');
+			}
+			previous_value = value;
 		} else {
-			meter_ob.parent().removeClass('zero');
+			console.log('Meter: display was static', value, previous_value);
 		}
 	}
 } //  end class Meter
