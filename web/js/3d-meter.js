@@ -1,11 +1,12 @@
 /* 3dprint_game/js/3d-meter.js */
 
+// uses 'D = new Data()'' from 3d-data.js
 // uses 'T = new Things()' from 3d-things.js
 
 var meters   = [];
 
 class Meter {
-	data_object = null;
+	// data_object = null;
 
 	data_id  = null;
 	meter_id = null;
@@ -13,7 +14,7 @@ class Meter {
 	previous_value = null;
 
 	constructor(item, data_object) {
-		this.data_object = data_object;
+		// this.data_object = data_object;
 		this.data_id  = item;
 		var meter_id = 'meter_'+item;
 		this.meter_id = '#'+meter_id;
@@ -31,13 +32,13 @@ class Meter {
 		outerdiv.append(innerdiv);
 		L.append(outerdiv);
 
-		data_object.setItem(item, 0);
+		D.setItem(item, 0);
 		meters.push(this);
 	}
 
 	update_display() {
 		var meter_ob = $(this.meter_id);
-		var value = this.data_object.getItem(this.data_id);
+		var value = D.getItem(this.data_id);
 		value = parseFloat(value);
 		value = Math.round( value * 1000 ) / 1000;
 		if (this.previous_value != value) {
@@ -68,7 +69,7 @@ var setup_meters = function () {
 		'printer-kit',
 		'printer',
 		'helpinghands-kit',
-		'helpinghands',
+		'helpinghands'
 	);
 
 	Object.keys(leftbar_array).forEach(function(item, index) {
