@@ -21,10 +21,11 @@ var update_screen = function () {
 
 var announce = function (announcement) {
 	var announce_block = $('#announce');
-	$('div')
+	var newblock = $('div')
 		.addClass('announce')
-		.html(announcement)
-		.appendTo(announce_block);
+		.html(announcement);
+	announce_block
+		.append(newblock);
 	var n = announce_block
 		.children()
 		.length;

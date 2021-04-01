@@ -27,7 +27,7 @@ class Things {
 		this.x('version',            0,   0,   0.00, "Version")
 		this.x('money',              0,   0,   0.00, "Money")
 		// neither printed nor built:
-		this.x('kwh',                0,   0,   0.10, "kW-h Used")
+		this.x('kwh',                0,   0,   0.10, "kWh")
 		this.x('filament',           0,   0,  10.00, "Filament")
 		this.x('plastic',            0,   0,   5.00, "Plastic")
 		// printed:
