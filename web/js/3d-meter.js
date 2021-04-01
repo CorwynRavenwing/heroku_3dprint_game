@@ -6,15 +6,12 @@
 var meters   = [];
 
 class Meter {
-	// data_object = null;
-
 	data_id  = null;
 	meter_id = null;
 
 	previous_value = null;
 
-	constructor(item, data_object) {
-		// this.data_object = data_object;
+	constructor(item) {
 		this.data_id  = item;
 		var meter_id = 'meter_'+item;
 		this.meter_id = '#'+meter_id;
@@ -73,6 +70,6 @@ var setup_meters = function () {
 	];
 
 	leftbar_array.forEach(function(item, index) {
-		M = new Meter(item, D);
+		M = new Meter(item);
 	});
 }
