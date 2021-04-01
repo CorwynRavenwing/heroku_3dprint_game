@@ -58,20 +58,20 @@ class Meter {
 var setup_meters = function () {
 	var M;
 
-	var leftbar_labels = {
-		"time":             "Time",
-		'version':          "Version",
-		'money':            "Money",
-		'filament':         "Filament",
-		'plastic':          "Plastic",
-		'kwh':              "kW-h Used",
-		'printer-kit':      "DONTUSETHIS Kit",
-		'printer':          "DONTUSETHIS",
-		'helpinghands-kit': "DONTUSETHIS EITHER Kit",
-		'helpinghands':     "DONTUSETHIS EITHER",
-	};
+	var leftbar_array = (
+		"time",
+		'version',
+		'money',
+		'kwh',
+		'filament',
+		'plastic',
+		'printer-kit',
+		'printer',
+		'helpinghands-kit',
+		'helpinghands',
+	);
 
-	Object.keys(leftbar_labels).forEach(function(item, index) {
+	Object.keys(leftbar_array).forEach(function(item, index) {
 		M = new Meter(item, D);
 	});
 }
