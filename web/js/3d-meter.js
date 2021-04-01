@@ -73,8 +73,9 @@ class Meters {
 	}
 
 	update_display() {
-		Object.keys(this.meter_store).forEach(function(p_name) {
-			var m = this.meter_store[p_name];
+		var self = this;
+		Object.keys(self.meter_store).forEach(function(p_name) {
+			var m = self.meter_store[p_name];
 			m.update_display();
 		});
 	}
