@@ -256,11 +256,8 @@ class Machine {
 			var input_available = 0;
 			switch (this.machine_type) {
 				case "build":
-					var build_source = this.get_output() + '-kit';
-					break;
-
 				case "print":
-					var build_source = 'filament';
+					var build_source = this.act_input_source();
 					break;
 
 				case "empty":
@@ -311,7 +308,21 @@ class Machine {
 		act_run_on() {
 			this.set_run(1);
 			if (! this.get_time()) {
-				var time_required = 10;		// this number should depend on type,output?
+				var time_required = 0;
+				switch (this.machine_type) {
+					case "build":
+						time_required = this.output_ob.build_time;
+						break;
+
+					case "print":
+						time_required = this.output_ob.print_time;
+						break;
+
+					default:
+						time_required = 1000000;
+						this.error_message = "trying to Run with unknown machine type";
+						break;
+				}
 				this.set_time(time_required);
 			}
 			// else just finish the current timer
@@ -466,15 +477,14 @@ class Machine {
 					this.set_run(0);
 				} else {
 					this.subtract_time(1);
-					// printers use input incrementally
-					if (this.machine_type == "print") {
+					var incremental_input = (this.machine_type == "print");
+					if (incremental_input) {
 						this.subtract_input(0.001);
 						announce("... used 0.001 filament");
 						D3d.add('kwh',0.001);
 					}
 					if (this.get_time() <= 0) {
-						// non-printers use input all at once
-						if (this.machine_type != "print") {
+						if (! incremental_input) {
 							this.subtract_input(1);
 							announce("... used 1 input object");
 						}
