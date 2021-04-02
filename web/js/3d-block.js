@@ -10,7 +10,8 @@ class Block {
 	machine_type = null;
 	block_id = null;
 
-	constructor(block_id, group, row) {
+	constructor(group, row, column) {
+		var block_id = 'block_'+group+'_'+row+'_'+column;
 		this.block_id = block_id;
 		var row_id = "g"+group+"r"+row
 		var BR = $(".blocks #"+row_id);
@@ -18,16 +19,8 @@ class Block {
 			var group_id = "g"+group
 			var BG = $(".blocks #"+group_id);
 			if (! BG.length) {
-				var group_label = 'Warehouse #'+group;
-				if (! group) {
-					group_label = 'Your <strike>Basement</strike> Home Office';
-				}
-				BG = $('<div>')
-					.html(group_label)
-					.attr('id', group_id)
-					.addClass("block_group");
-				$(".blocks")
-					.append(BG);
+				console.error("Can't find Block Group with ID "+group_id);
+				return;
 			}
 			BR = $('<div>')
 				.attr('id', row_id)
@@ -268,17 +261,55 @@ class Block {
 	}
 } // end class Block
 
-var setup_blocks = function () {
-	var groups = 2;
-	var rows = 3;
-	var cols = 5;
-	var g, r, c, B;
-	for (g = 0; g < groups; g++) {
-		for (r = 0; r < rows; r++) {
-			for (c = 0; c < cols; c++) {
-				var block_id = 'block_'+g+'_'+r+'_'+c;
-				B = new Block(block_id, g, r);
-			}
+var setup_block_group = function(group, group_label, hide, rows, cols) {
+	var group_id = "g"+group
+	var BG = $(".blocks #"+group_id);
+
+	if (! BG.length) {
+		BG = $('<div>')
+			.html(group_label)
+			.attr('id', group_id)
+			.addClass("block_group");
+		if (hide) {
+			BG.addClass('hide');
 		}
+		$(".blocks")
+			.append(BG);
+	}
+
+	var r, c, B;
+
+	for (r = 0; r < rows; r++) {
+		for (c = 0; c < cols; c++) {
+			B = new Block(g, r, c);
+			// var block_id = B.block_id;
+			// blocks[block_id] = B;
+		}
+	}
+}
+
+var setup_blocks = function () {
+	var groups = 3;
+	var rows, cols, g, r, c, B;
+	for (g = 0; g < groups; g++) {
+		if (g == 0) {
+			rows = 2;
+			cols = 4;
+		} else {
+			rows = 4;
+			cols = 5;
+		}
+
+		var group_label, hide;
+
+		if (g) {
+			group_label = 'Warehouse #'+g;
+			hide = true;
+		} else {
+			group_label = 'Your <strike>Basement</strike> Home Office';
+			hide = false;
+		}
+
+		setup_block_group(g, group_label, hide, rows, cols);
 	}
 }

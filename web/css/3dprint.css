@@ -65,12 +65,17 @@ body {
 .block_group {
 	border: 1px black solid;
 	float: left;
-	/* height: 100%; */
 	margin: 1px;
-	/* min-height: 75px; */
 	text-align: center;
 	vertical-align: middle;
 	width: 99%;
+}
+
+.block_group.hide {
+	border: 1px grey dashed;
+	color: grey;
+	font-size: 0.5em;
+	font-weight: normal;
 }
 
 .block_row {
