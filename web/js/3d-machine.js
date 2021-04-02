@@ -489,7 +489,7 @@ class Machine {
 					if (this.get_time() <= 0) {
 						if (! incremental_input) {
 							this.subtract_input(1);
-							announce("... used 1 input "+this.act_input_source);
+							announce("... used 1 input "+this.act_input_source());
 						}
 						var my_output = this.get_output();
 						announce("... created a "+my_output);
