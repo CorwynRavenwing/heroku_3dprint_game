@@ -27,7 +27,7 @@ class Meter {
 		outerdiv.append(innerdiv);
 		lb.append(outerdiv);
 
-		D3d.setItem(item, 0);
+		D3d.create(item);
 	}
 
 	update_display() {

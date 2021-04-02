@@ -37,6 +37,12 @@ class Data {
 		this.add(key, -value);
 	}
 
+	create(key) {
+		if (! this.getItem(key)) {
+			this.setItem(key, 0);
+		}
+	}
+
 	remove(key) {
 		this.setItem(key, null);
 	}
