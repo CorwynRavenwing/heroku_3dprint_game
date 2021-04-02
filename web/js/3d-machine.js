@@ -394,6 +394,7 @@ class Machine {
 					announce("Okay, starting to make "+text);
 				}
 				self.set_output(value);
+				D3d.create(value);
 				update_screen();
 			};
 
