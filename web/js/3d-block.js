@@ -19,8 +19,8 @@ class Block {
 				.text('row #'+row)
 				.attr('id', row_id)
 				.addClass("block_row");
-			$(".blocks");
-				.append(BR)
+			$(".blocks")
+				.append(BR);
 		}
 		var blocktype_label = block_id+'_type';
 		var self = this;
