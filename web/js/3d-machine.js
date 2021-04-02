@@ -1,7 +1,5 @@
 /* 3dprint_game/js/3d-machine.js */
 
-var machines = [];
-
 class Machine {
 	block_id = null;
 	block_ob = null;
@@ -101,8 +99,6 @@ class Machine {
 		}
 
 		B.update_display();
-	
-		machines.push(this);
 	}
 
 	// GET section
@@ -513,27 +509,56 @@ class Machine {
 	// other Machine code here ...
 } // end class Machine
 
-var reset_machines = function () {
-	console.log('called reset_machines');
+var machines = null;
 
-	var shutdown_machine = function (m, i) {
-		console.log('...shutting down machine #', i, m.block_id);
-		m.shutdown_commands();
+class Machines {
+	machine_store = {};
+
+	constructor() {
+		// nothing to do here yet
 	}
 
-	for (var i=0; i<machines.length; i++) {
-		var m = machines[i];
-		shutdown_machine(m, i);
+	create(block_id, machine_type, is_new) {
+		if (! this.get(block_id)) {
+			var ob = new Machine(block_id, machine_type, is_new);
+			this.put(block_id, ob);
+		}
 	}
-	console.log('...clearing machines list');
-	machines = [];
-}
 
-var machines_heart_beats = function () {
-	// console.log('called machines_heart_beats');
-
-	for (var i=0; i<machines.length; i++) {
-		var m = machines[i];
-		m.heart_beat();
+	get(block_id) {
+		return this.machine_store[block_id];
 	}
-}
+
+	put(block_id, ob) {
+		this.machine_store[block_id] = ob;
+	}
+
+	reset() {
+		console.log('called Machines.reset');
+
+		var shutdown_machine = function (m) {
+			console.log('...shutting down machine ', m.block_id);
+			m.shutdown_commands();
+		}
+
+		Object.keys(machine_store).forEach(function(block_id) {
+			var b = machine_store[block_id];
+			shutdown_machine(m);
+		});
+
+		console.log('...clearing machines list');
+		machine_store = {};
+	}
+
+	heart_beat() {
+		Object.keys(machine_store).forEach(function(block_id) {
+			var b = machine_store[block_id];
+			b.heart_beat();
+		});
+	}
+} // end class Machines
+
+Machines3d = new Machines();
+
+var reset_machines = null;
+var machines_heart_beats = null;

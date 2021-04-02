@@ -82,7 +82,7 @@ class Meters {
 
 } //  end class Meters
 
-M3d = new Meters();
+Meters3d = new Meters();
 
 // Function setup_meters() must ONLY be called after document.ready
 var setup_meters = function () {
@@ -100,6 +100,6 @@ var setup_meters = function () {
 	];
 
 	leftbar_array.forEach(function(item) {
-		M3d.create_meter(item);
+		Meters3d.create_meter(item);
 	});
 }

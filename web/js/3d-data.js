@@ -1,6 +1,7 @@
 /* 3dprint_game/js/3d-data.js */
 
-// Uses 'M3d = new Meters()' from 3d-meter.js
+// Uses 'Meters3d = new Meters()' from 3d-meter.js
+// Uses 'Machines3d = new Machines()' from 3d-machine.js
 
 class Data {
 	data_store = {};
@@ -30,7 +31,7 @@ class Data {
 
 	add(key, value) {
 		this.setItem(key, this.getNumber(key) + value);
-		M3d.create_meter(key);
+		Meters3d.create_meter(key);
 	}
 
 	subtract(key, value) {
@@ -85,7 +86,7 @@ class Data {
 
 	loadAll() {
 		console.log('called function loadAll');
-		reset_machines();
+		Machines3d.reset();
 
 		var self = this;
 		Object.keys(localStorage).forEach(function(item) {

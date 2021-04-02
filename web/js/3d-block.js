@@ -1,6 +1,7 @@
 /* 3dprint_game/js/3d-block.js */
 
-// uses 'D3d = new Data()'' from 3d-data.js
+// uses 'D3d = new Data()' from 3d-data.js
+// uses 'Machines3d = new Machines()' from 3d-machine.js
 
 var blocks   = {};
 
@@ -186,6 +187,9 @@ class Block {
 					chooser(headline, outputs_list, "?", block_success_fn);
 				} else {
 					// currently non-empty: clear machine
+					this.machine_ob.act_output_off();
+					this.machine_ob.shutdown_commands();
+					Machines3d.remove(self.block_id);
 					announce("sorry, can't clear blocks yet")
 				}
 				break;

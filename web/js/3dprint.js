@@ -1,6 +1,7 @@
 /* 3dprint_game/js/3dprint.js */
 
 // uses 'D3d = new Data()'' from 3d.data.js
+// Uses 'Meters3d = new Meters()' from 3d-meter.js
 
 var update_screen = function () {
 	D3d.update_display();
@@ -15,7 +16,7 @@ var update_screen = function () {
 		b.update_display();
 	});
 
-	M3d.update_display();
+	Meters3d.update_display();
 
 }
 
@@ -54,7 +55,7 @@ var save_data = function () {
 
 var heart_beat = function() {
 	D3d.heart_beat();
-	machines_heart_beats();
+	Machines3d.heart_beat();
 	update_screen();
 }
 
@@ -74,11 +75,11 @@ var toggle_heart_beats = function() {
 var initialize_data = function () {
 	announce("Initializing ...");
 
-	reset_machines();
+	Machines3d.reset();
 	D3d.setItem('filament',   10);
 	D3d.setItem('printer-kit', 1);
 	D3d.setItem('version',  0.09);
-	// var M = new Machine('block_10', 'build', D3d, true);
+	// Machines3d.create('block_10', 'build', D3d, true);
 }
 
 $(document).ready(function() {
