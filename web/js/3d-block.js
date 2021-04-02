@@ -10,14 +10,23 @@ class Block {
 	machine_type = null;
 	block_id = null;
 
-	constructor(block_id, index) {
+	constructor(block_id, row) {
 		this.block_id = block_id;
-		var BB = $(".blocks");
+		var row_id = "row"+row
+		var BR = $(".blocks #"+row_id);
+		if (! BR) {
+			BR = $('<div>')
+				.text('row #'+row)
+				.attr('id', row_id)
+				.addClass("block_row");
+			$(".blocks");
+				.append(BR)
+		}
 		var blocktype_label = block_id+'_type';
 		var self = this;
 
 		this.block_ob = $('<div>')
-			.text('(B'+index+')')
+			.text('('+block_id+')')
 			.attr('id', block_id)
 			.addClass("block")
 			.addClass('type_empty');
@@ -36,7 +45,7 @@ class Block {
 			.append('&nbsp;')
 			.append(innerspan);
 		this.block_ob.append(innerdiv);
-		BB.append(this.block_ob);
+		BR.append(this.block_ob);
 
 		this.set_type("empty");
 
@@ -247,10 +256,14 @@ class Block {
 } // end class Block
 
 var setup_blocks = function () {
-	var Blocks = 15;
-	var index, B;
-	for (index = 0; index < Blocks; index++) {
-		var block_id = 'block_'+index;
-		B = new Block(block_id, index);
+	var rows = 3;
+	var cols = 5
+	var x, y, B;
+	for (y = 0; y < rows; y++) {
+		for (x = 0; x < Blocks; x++) {
+			var block_id = 'block_'+x+','+y;
+			B = new Block(block_id, x);
+		}
+
 	}
 }
