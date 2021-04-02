@@ -257,10 +257,10 @@ class Block {
 
 var setup_blocks = function () {
 	var rows = 3;
-	var cols = 5
+	var cols = 5;
 	var x, y, B;
 	for (y = 0; y < rows; y++) {
-		for (x = 0; x < Blocks; x++) {
+		for (x = 0; x < cols; x++) {
 			var block_id = 'block_'+x+','+y;
 			B = new Block(block_id, x);
 		}
