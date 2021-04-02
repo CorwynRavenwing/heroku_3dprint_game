@@ -157,7 +157,7 @@ class Block {
 					var headline = "Choose Block Machine"
 					var outputs_list = this.blocktype_list();
 
-					var success_fn = function (value, text) {
+					var block_success_fn = function (value, text) {
 						if (value == "?") {
 							announce("Okay, canceled");
 						} else {
@@ -183,7 +183,7 @@ class Block {
 						update_screen();
 					};
 
-					chooser(headline, outputs_list, "?", success_fn);
+					chooser(headline, outputs_list, "?", block_success_fn);
 				} else {
 					// currently non-empty: clear machine
 					announce("sorry, can't clear blocks yet")

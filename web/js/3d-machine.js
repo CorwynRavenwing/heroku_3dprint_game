@@ -387,7 +387,7 @@ class Machine {
 			var headline = "Choose Output"
 			var outputs_list = this.possible_outputs();
 
-			var success_fn = function (value, text) {
+			var output_success_fn = function (value, text) {
 				if (value == "?") {
 					announce("Okay, canceled");
 				} else {
@@ -398,7 +398,7 @@ class Machine {
 				update_screen();
 			};
 
-			chooser(headline, outputs_list, "?", success_fn);
+			chooser(headline, outputs_list, "?", output_success_fn);
 		}
 		
 		act_output() {
