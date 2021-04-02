@@ -541,19 +541,19 @@ class Machines {
 			m.shutdown_commands();
 		}
 
-		Object.keys(machine_store).forEach(function(block_id) {
-			var b = machine_store[block_id];
+		Object.keys(this.machine_store).forEach(function(block_id) {
+			var m = this.machine_store[block_id];
 			shutdown_machine(m);
 		});
 
 		console.log('...clearing machines list');
-		machine_store = {};
+		this.machine_store = {};
 	}
 
 	heart_beat() {
-		Object.keys(machine_store).forEach(function(block_id) {
-			var b = machine_store[block_id];
-			b.heart_beat();
+		Object.keys(this.machine_store).forEach(function(block_id) {
+			var m = this.machine_store[block_id];
+			m.heart_beat();
 		});
 	}
 } // end class Machines
