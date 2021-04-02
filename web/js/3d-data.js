@@ -51,7 +51,7 @@ class Data {
 		var value = this.getItem(key);
 		if (value === null) {
 			console.log('value null for item, removing:', key, value)
-			localStorage.remove(key);
+			localStorage.removeItem(key);
 		} else {
 			// console.log('setting value for item:', key, value)
 			localStorage.setItem(key, value);
