@@ -240,7 +240,7 @@ class Machine {
 			switch (this.machine_type) {
 				case "build":
 				case "print":
-					var build_source = this.act_input_source();
+					build_source = this.act_input_source();
 					break;
 
 				case "empty":
@@ -255,10 +255,13 @@ class Machine {
 			} // end switch
 
 			input_available = D3d.getNumber(build_source);
-			this.error_message = "Not enough "+build_source+" available ("+input_available+")";
-			return (input_available >= 1);
-			// this.error_message = "";
-			// return 1;
+			if (input_available >= 1) {
+				this.error_message = "";
+				return 1;
+			} else {
+				this.error_message = "Not enough "+build_source+" available ("+input_available+")";
+				return 0;
+			}
 		}
 		
 		// I can't imagine a reason to ever not allow setting output
@@ -480,7 +483,30 @@ class Machine {
 				}
 			} // endif get_run
 
-			// if auto, set a bunch of things here
+			if (this.get_auto()) {
+				// auto-run, if possible
+				if (! this.get_run()) {
+					if (this.can_run()) {
+						announce('auto: run');
+						this.act_run_on();
+					} else {
+						announce('auto: RUN FAIL, '+this.error_message);
+					}
+				}
+
+				// auto-input, if possible
+				if (this.get_input() <= 0) {
+					if (this.can_input()) {
+						announce('auto: input');
+						this.act_input_on();
+					} else {
+						announce('auto: INPUT FAIL, '+this.error_message);
+					}
+				}
+
+				// auto-set output, if possible -- maybe for 'mail' type?
+
+			}
 
 		}
 

@@ -79,8 +79,6 @@ var initialize_data = function () {
 	D3d.setItem('printer-kit', 1);
 	D3d.setItem('version',  0.09);
 	var M = new Machine('block_10', 'build', D3d, true);
-
-	announce("Welcome to the 3D Printer game.");
 }
 
 $(document).ready(function() {
@@ -98,6 +96,9 @@ $(document).ready(function() {
 	if (!D3d.getNumber('version')) {
 		initialize_data();
 		save_data();
+		announce("Welcome to the 3D Printer game.");
+	} else {
+		announce("Welcome back!");
 	}
 
 	update_screen();
