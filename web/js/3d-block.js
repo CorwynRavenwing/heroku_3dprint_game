@@ -14,7 +14,7 @@ class Block {
 		this.block_id = block_id;
 		var row_id = "row"+row
 		var BR = $(".blocks #"+row_id);
-		if (! BR) {
+		if (! BR.length) {
 			BR = $('<div>')
 				.text('row #'+row)
 				.attr('id', row_id)
