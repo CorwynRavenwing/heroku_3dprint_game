@@ -439,7 +439,7 @@ class Machine {
 
 	// OTHER FUNCTIONS section
 		update_display() {
-			console.log('// called Machine.update_display');
+			// console.log('// called Machine.update_display');
 		}
 
 		shutdown_commands() {
@@ -456,7 +456,7 @@ class Machine {
 		}
 
 		heart_beat() {
-			console.log('called Machine.heart_beat()', this.block_id);
+			// console.log('called Machine.heart_beat()', this.block_id);
 
 			if (this.get_run()) {
 				if (this.get_input() <= 0) {
@@ -468,7 +468,6 @@ class Machine {
 					var incremental_input = (this.machine_type == "print");
 					if (incremental_input) {
 						this.subtract_input(0.001);
-						// announce("... used 0.001 "+this.act_input_source());
 					}
 					if (this.get_time() <= 0) {
 						if (! incremental_input) {
@@ -531,7 +530,7 @@ var reset_machines = function () {
 }
 
 var machines_heart_beats = function () {
-	console.log('called machines_heart_beats');
+	// console.log('called machines_heart_beats');
 
 	for (var i=0; i<machines.length; i++) {
 		var m = machines[i];

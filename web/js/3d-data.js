@@ -102,7 +102,7 @@ class Data {
 	}
 
 	update_display() {
-		console.log('called function Data.update_display');
+		// console.log('called function Data.update_display');
 		var self = this;
 		this.keys().forEach(function(item) {
 			$('#data_'+item).html(self.getItem(item));

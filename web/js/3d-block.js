@@ -214,7 +214,7 @@ class Block {
 	}
 
 	update_display() {
-		console.log('called Block.update_display');
+		// console.log('called Block.update_display');
 		this.set_action_label('change',
 			(this.machine_type == "empty")
 			? '(+)'
