@@ -23,6 +23,7 @@ var chooser = function (headline, choices, current_value, callback) {
 	var hide_chooser = function () {
 		choose_head.text("[headline]");
 		selector.remove();
+		$('.chooser .button').off('click');
 		$('.chooser').hide();
 	}
 
