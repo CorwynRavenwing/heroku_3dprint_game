@@ -75,7 +75,7 @@ class Machine {
 				case "build":
 					B.set_value('run', "0");
 					B.set_value('input', "0");
-					B.set_value('output', "printer");
+					B.set_value('output', "?");
 					B.set_value('time', "0");
 					B.set_value('auto', "0");
 					break;
