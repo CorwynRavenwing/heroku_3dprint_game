@@ -18,15 +18,18 @@ class Block {
 			var group_id = "g"+group
 			var BG = $(".blocks #"+group_id);
 			if (! BG.length) {
+				var group_label = 'Warehouse #'+group;
+				if (! group) {
+					group_label = 'Your <strike>Basement</strike> Home Office';
+				}
 				BG = $('<div>')
-					.text('group '+group)
+					.html(group_label)
 					.attr('id', group_id)
 					.addClass("block_group");
 				$(".blocks")
 					.append(BG);
 			}
 			BR = $('<div>')
-				.text('row #'+row)
 				.attr('id', row_id)
 				.addClass("block_row");
 			BG
