@@ -190,33 +190,13 @@ class Machine {
 
 	// helper functions
 		possible_outputs() {
-			var outputs_array = [];
-
-			switch (this.machine_type) {
-				case "build":
-					outputs_array.push("printer");
-					break;
-
-				case "print":
-					outputs_array.push("doodad");
-					outputs_array.push("doohickey");
-					outputs_array.push("printer-kit");
-					outputs_array.push("helpinghands-kit");
-					break;
-
-				case "empty":
-					this.error_message = "empty machine has no output";
-					return {};
-					break;
-
-				default:
-					this.error_message = "unknown machine has no output";
-					return {};
-					break;
-
-			} // end switch
-
 			var outputs_list = {};
+			var outputs_array = T3d.possible_outputs(this.machine_type);
+
+			if (! outputs_array.length) {
+				this.error_message = "machine has no possible outputs";
+				return {};
+			}
 
 			outputs_list["Please Choose"]="?";
 
@@ -226,7 +206,7 @@ class Machine {
 				if (ob) {
 					item_desc = ob.desc;
 				} else {
-					item_desc = "ERROR: OBJECT NOT FOUND FOR '"+item+"'";
+					item_desc = "["+item+"]";
 				}
 				outputs_list[item_desc] = item;
 			});

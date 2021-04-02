@@ -61,6 +61,34 @@ class Things {
 	put(p_name, ob) {
 		this.thing_store[p_name] = ob;
 	}
+
+	possible_outputs(machine_type) {
+		var outputs_array = [];
+
+		switch (machine_type) {
+			case "build":
+				outputs_array.push("printer");
+				outputs_array.push("helpinghands");
+				break;
+
+			case "print":
+				outputs_array.push("doodad");
+				outputs_array.push("doohickey");
+				outputs_array.push("printer-kit");
+				outputs_array.push("helpinghands-kit");
+				break;
+
+			case "empty":
+				break;
+
+			default:
+				break;
+
+		} // end switch
+
+		return outputs_array;
+	}
+
 } // end class Things
 
 var T3d = new Things();

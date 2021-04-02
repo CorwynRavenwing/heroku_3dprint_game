@@ -49,12 +49,17 @@ body {
 	width: 89%;
 }
 
-.announce {
+.announce-block {
 	border: 1px red solid;
 	float: left;
+	width: 89%;
+}
+
+.announce {
+	border: 1px red solid;
 	height: 20px;
 	margin: 1px;
-	width: 89%;
+	width: 99.5%;
 }
 
 .block {
