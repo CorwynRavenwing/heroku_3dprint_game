@@ -21,7 +21,7 @@ var update_screen = function () {
 
 var announce = function (announcement) {
 	var announce_block = $('#announce');
-	var newblock = $('div')
+	var newblock = $('<div>')
 		.addClass('announce')
 		.html(announcement);
 	announce_block
