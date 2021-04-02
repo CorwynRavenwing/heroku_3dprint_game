@@ -281,8 +281,8 @@ var setup_block_group = function(group, group_label, hide, rows, cols) {
 
 	for (r = 0; r < rows; r++) {
 		for (c = 0; c < cols; c++) {
-			B = new Block(g, r, c);
-			// var block_id = B.block_id;
+			B = new Block(group, r, c);
+			var block_id = B.block_id;
 			// blocks[block_id] = B;
 		}
 	}
