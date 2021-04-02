@@ -72,6 +72,8 @@ body {
 }
 
 .block_group.hide {
+	display: none;
+	/* rest of these are no longer needed: */
 	border: 1px grey dashed;
 	color: grey;
 	font-size: 0.5em;
