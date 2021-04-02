@@ -78,7 +78,7 @@ var initialize_data = function () {
 	D3d.setItem('filament',   10);
 	D3d.setItem('printer-kit', 1);
 	D3d.setItem('version',  0.09);
-	var M = new Machine('block_10', 'build', D3d, true);
+	// var M = new Machine('block_10', 'build', D3d, true);
 }
 
 $(document).ready(function() {
