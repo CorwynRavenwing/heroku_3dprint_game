@@ -6,18 +6,11 @@
 var update_screen = function () {
 	D3d.update_display();
 
-	for (var i=0; i<machines.length; i++) {
-		var m = machines[i];
-		m.update_display();
-	}
+	Machines3d.update_display();
 
-	Object.keys(blocks).forEach(function(block_id) {
-		var b = blocks[block_id];
-		b.update_display();
-	});
+	blocks_update_display();
 
 	Meters3d.update_display();
-
 }
 
 var announce = function (announcement) {

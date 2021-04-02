@@ -265,6 +265,13 @@ class Block {
 	}
 } // end class Block
 
+var blocks_update_display = function () {
+	Object.keys(blocks).forEach(function(block_id) {
+		var b = blocks[block_id];
+		b.update_display();
+	});
+}
+
 var setup_block_group = function(group, group_label, hide, rows, cols) {
 	var group_id = "g"+group
 	var BG = $(".blocks #"+group_id);

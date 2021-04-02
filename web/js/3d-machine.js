@@ -509,8 +509,6 @@ class Machine {
 	// other Machine code here ...
 } // end class Machine
 
-var machines = null;
-
 class Machines {
 	machine_store = {};
 
@@ -550,6 +548,13 @@ class Machines {
 		this.machine_store = {};
 	}
 
+	update_display() {
+		Object.keys(this.machine_store).forEach(function(block_id) {
+			var m = this.machine_store[block_id];
+			m.update_display();
+		});
+	}
+
 	heart_beat() {
 		Object.keys(this.machine_store).forEach(function(block_id) {
 			var m = this.machine_store[block_id];
@@ -560,5 +565,6 @@ class Machines {
 
 Machines3d = new Machines();
 
-var reset_machines = null;
-var machines_heart_beats = null;
+var machines = null;				// delete variable after testing
+var reset_machines = null;			// delete variable after testing
+var machines_heart_beats = null;	// delete variable after testing
