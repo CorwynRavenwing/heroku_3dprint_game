@@ -113,6 +113,7 @@ class Block {
 
 		outputs_list["Select One"]="?";
 
+		self = this;
 		outputs_array.forEach(function(item){
 			var ob = BlockTypes3d.get(item);
 			var item_desc = null;
@@ -120,7 +121,7 @@ class Block {
 			if (ob) {
 				item_desc = ob.desc;
 			} else {
-				console.log('block '+this.block_id+' called blocktype_list: invalid block_type '+item);
+				console.log('block '+self.block_id+' called blocktype_list: invalid block_type '+item);
 				item_desc = "["+item+"]";
 			}
 
