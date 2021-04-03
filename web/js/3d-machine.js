@@ -253,15 +253,23 @@ class Machine {
 			}
 			var build_source = null;
 			var input_available = 0;
+			var input_required = 0;
 			switch (this.machine_type) {
 				case "build":
-				case "buyer":
 				case "extrude":
 				case "print":
 				case "recycle":
 				case "ship":
 				case "shred":
 					build_source = this.act_input_source();
+					input_required = 1;
+					break;
+
+				case "buyer":
+					var output = this.get_output();
+					var output_ob = Thing3d.get(output);
+					var buy_price = output_ob.buy_price;
+					input_required = buy_price;
 					break;
 
 				case "empty":
@@ -276,11 +284,11 @@ class Machine {
 			} // end switch
 
 			input_available = Data3d.getNumber(build_source);
-			if (input_available >= 1) {
+			if (input_available >= input_required) {
 				this.error_message = "";
 				return 1;
 			} else {
-				this.error_message = "Not enough "+build_source+" available ("+input_available+")";
+				this.error_message = "Not enough "+build_source+" available ("+input_available+"/"+input_required+")";
 				return 0;
 			}
 		}
