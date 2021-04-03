@@ -103,7 +103,7 @@ class Block {
 	// what types of machine are currently possible?
 	blocktype_list() {
 		var outputs_list = {};
-		var outputs_array = ();		// TEST ERROR! 	BlockTypes3d.blocktype_list();
+		var outputs_array = [];		// TEST ERROR! 	BlockTypes3d.blocktype_list();
 
 		if (! outputs_array.length) {
 			// this.error_message = "no possible blocktypes";
