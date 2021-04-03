@@ -543,8 +543,9 @@ class Machines {
 			m.shutdown_commands();
 		}
 
-		Object.keys(this.machine_store).forEach(function(block_id) {
-			var m = this.machine_store[block_id];
+		var self = this;
+		Object.keys(self.machine_store).forEach(function(block_id) {
+			var m = self.machine_store[block_id];
 			shutdown_machine(m);
 		});
 
@@ -553,15 +554,17 @@ class Machines {
 	}
 
 	update_display() {
-		Object.keys(this.machine_store).forEach(function(block_id) {
-			var m = this.machine_store[block_id];
+		var self = this;
+		Object.keys(self.machine_store).forEach(function(block_id) {
+			var m = self.machine_store[block_id];
 			m.update_display();
 		});
 	}
 
 	heart_beat() {
-		Object.keys(this.machine_store).forEach(function(block_id) {
-			var m = this.machine_store[block_id];
+		var self = this;
+		Object.keys(self.machine_store).forEach(function(block_id) {
+			var m = self.machine_store[block_id];
 			m.heart_beat();
 		});
 	}
