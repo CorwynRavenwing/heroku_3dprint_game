@@ -36,16 +36,46 @@ class Meter {
 		value = parseFloat(value);
 		value = Math.round( value * 1000 ) / 1000;
 		if (this.previous_value != value) {
-			// console.log('Meter: updating display', this.data_id, value);
+			this.previous_value = value;
+
+
+			switch(this.meter_id) {
+				case "money":
+					value = "$"+value.toFixed(2);
+					break;
+				case "kwh":
+					value = value.toFixed(3);
+					break;
+				case "version":
+					value = value.toFixed(2);
+					break;
+				case "filament":
+					value = value + " m";
+					break;
+				case "plastic":
+					value = value + " kg";
+					break;
+				case "time":
+					var tmp = value;
+					var min = tmp % 60;	tmp = Math.floor(tmp / 60);
+					var hr  = tmp % 60;	tmp = Math.floor(tmp / 60);
+					var day = tmp % 24;	tmp = Math.floor(tmp / 24);
+					var mth = tmp % 30;	tmp = Math.floor(tmp / 30);
+					var rem = tmp;
+					value = "("+value+")"+"<br />"+"r"+rem+" "+mth+"/"+day+" "+hr+":"+min;
+					break;
+
+				default:
+					// keep current format
+					break;
+			}
+
 			meter_ob.html(value);
 			if (value == 0) {
 				meter_ob.parent().addClass('zero');
 			} else {
 				meter_ob.parent().removeClass('zero');
 			}
-			this.previous_value = value;
-		} else {
-			// console.log('Meter: display was static', value, this.previous_value);
 		}
 	}
 } //  end class Meter
