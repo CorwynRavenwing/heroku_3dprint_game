@@ -189,7 +189,7 @@ class Block {
 					// currently non-empty: clear machine
 					this.machine_ob.act_output_off();
 					this.machine_ob.shutdown_commands();
-					Machines3d.remove(self.block_id);
+					Machines3d.remove(this.block_id);
 					announce("sorry, can't clear blocks yet")
 				}
 				break;
