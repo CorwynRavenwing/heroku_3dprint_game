@@ -54,19 +54,21 @@ class Things {
 			var ob = new Thing(p_name, p_print, p_build, p_buyprice, p_sellprice, p_desc);
 			this.put(p_name, ob);
 			if (p_print) {
-				printable_list.push(p_name);
+				this.printable_list.push(p_name);
 			}
 			if (p_build) {
-				buildable_list.push(p_name)
+				this.buildable_list.push(p_name)
 			}
 			if (p_buyprice) {
-				buyable_list.push(p_name);
+				this.buyable_list.push(p_name);
 			}
 			if (p_sellprice) {
-				sell_name = p_name+'-ship';
-				sell_desc = 'Sell a '+p_desc;
+				var sell_name = p_name+'-ship';
+				var sell_desc = 'Sell a '+p_desc;
+				// Note: passing a sell-price into the following line
+				// will cause an infinite loop
 				this.create(sell_name, 0, 0, 0, 0, sell_desc);
-				sellable_list.push(sell_name);
+				this.sellable_list.push(sell_name);
 			}
 		}
 	}
