@@ -18,6 +18,9 @@
 <title>3d Print Game</title>
 </head>
 <body>
+<div class="menubar">
+	<!-- div.menu added here automatically -->
+</div>
 <div class="outer">
 	<div class="leftbar">
 		<!-- div.meter, containing Label: div#meter_x, added here automatically -->

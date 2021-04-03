@@ -4,6 +4,21 @@ body {
 	background-color: lightblue;
 }
 
+.menubar {
+	border: 1px green solid;
+	height: 2em;
+	width: 95%;
+}
+
+.menubar .menu {
+	border: 1px darkgreen solid;
+	color: darkgreen;
+	font-weight: bold;
+	float: left;
+	margin: 1px;
+	text-align: center;
+}
+
 .outer {
 	border: 1px black solid;
 	height: 95%;
@@ -16,14 +31,6 @@ body {
 	height: 99%;
 	margin: 1px;
 	width: 10%
-}
-
-.leftbar .menu {
-	border: 1px darkgreen solid;
-	color: darkgreen;
-	font-weight: bold;
-	margin: 1px;
-	text-align: center;
 }
 
 .leftbar .meter {

@@ -4,7 +4,7 @@ var menus    = [];
 
 class Menu {
 	constructor(label, click_function) {
-		var lb = $(".leftbar");
+		var lb = $(".menubar");
 		var menudiv = $('<div>')
 			.text(label)
 			.addClass("menu")
