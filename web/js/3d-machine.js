@@ -15,13 +15,13 @@ class Machine {
 	 *	the ID of the new block, of form "block_28"
 	 * @input machine_type
 	 *	the type of machine this is:
-	 *		"buyer"		(TODO free: turns money into any Buyable)
+	 *		"buyer"		(     free: turns money into any Buyable)
 	 *		"build"		(     free: turns X-kit into X)
 	 *		"empty"		(     free: a block doing nothing)
 	 *		"extrude"	(TODO extruder: turns plastic into filament)
 	 *		"print"		(     printer: turns filament into any Printable)
 	 *		"recycle"	(TODO free: fetches bottle)
-	 *		"ship"		(TODO free: exchanges any Salable for money)
+	 *		"ship"		(     free: exchanges any Salable for money)
 	 *		"shred"		(TODO shredder: turns bottle into plastic)
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
@@ -523,7 +523,9 @@ class Machine {
 					announce("Okay, chose "+text);
 				}
 				self.set_output(value);
-				Meters3d.create_meter(value);
+				if (self.machine_type != "ship") {
+					Meters3d.create_meter(value);
+				}
 				update_screen();
 			};
 
