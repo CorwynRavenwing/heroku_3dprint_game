@@ -1,6 +1,6 @@
 /* 3dprint_game/js/3d-block.js */
 
-// uses 'D3d = new Data()' from 3d-data.js
+// uses 'Data3d = new Data()' from 3d-data.js
 // uses 'Machines3d = new Machines()' from 3d-machine.js
 
 var blocks   = {};
@@ -157,7 +157,7 @@ class Block {
 	set_type(new_type) {
 		var blocktype_label = this.block_id+'_type';
 		var old_type = this.machine_type;
-		D3d.setItem(blocktype_label, new_type);
+		Data3d.setItem(blocktype_label, new_type);
 
 		console.log('called Block.set_type()', this.block_id, old_type, '->', new_type);
 
@@ -235,7 +235,7 @@ class Block {
 							if (build_source == "") {
 								input_available = 1;
 							} else {
-								input_available = D3d.getNumber(build_source);
+								input_available = Data3d.getNumber(build_source);
 							}
 							if (input_available < 1) {
 								announce("Not enough "+build_source+" available ("+input_available+")");
@@ -244,7 +244,7 @@ class Block {
 								if (build_source == "") {
 									announce("... for free");
 								} else {
-									D3d.subtract(build_source, 1);
+									Data3d.subtract(build_source, 1);
 								}
 								Machines3d.create(self.block_id, value, true);
 							}

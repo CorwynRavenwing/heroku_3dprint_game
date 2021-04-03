@@ -64,7 +64,7 @@ class Things {
 			}
 			if (p_sellprice) {
 				var sell_name = p_name+'-ship';
-				var sell_desc = 'Sell a '+p_desc;
+				var sell_desc = 'Sell '+p_desc;
 				// Note: passing a sell-price into the following line
 				// will cause an infinite loop
 				this.create(sell_name, 0, 0, 0, 0, sell_desc);
@@ -131,4 +131,4 @@ class Things {
 
 } // end class Things
 
-var T3d = new Things();
+var Thing3d = new Things();

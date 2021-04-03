@@ -1,5 +1,8 @@
 /* 3dprint_game/js/3d-machine.js */
 
+// Uses 'Data3d = new Data' from 3d-data.js
+// Uses 'Thing3d = new Things' from 3d-thing.js
+
 class Machine {
 	block_id = null;
 	block_ob = null;
@@ -29,7 +32,7 @@ class Machine {
 	constructor(block_id, machine_type, is_new) {
 		console.log('called Machine constructor()', block_id, machine_type, is_new);
 		this.block_id = block_id;
-		var current_type = D3d.getItem(block_id+'_type');
+		var current_type = Data3d.getItem(block_id+'_type');
 		if ( current_type === "empty" ) {
 			console.log('OK: block current type empty:', current_type);
 		} else if ( current_type === machine_type ) {
@@ -41,7 +44,7 @@ class Machine {
 		}
 
 		this.machine_type = machine_type;
-		D3d.setItem(block_id+'_type', machine_type);
+		Data3d.setItem(block_id+'_type', machine_type);
 
 		var B = blocks[block_id];
 		this.block_ob = B;
@@ -121,7 +124,7 @@ class Machine {
 	// GET section
 		get_value(subtype) {
 			var data_id = this.block_id+'_'+subtype;
-			var temp = D3d.getItem(data_id);
+			var temp = Data3d.getItem(data_id);
 			if (temp === "0") {
 				temp = 0;
 			} else if (parseFloat(temp)) {
@@ -147,7 +150,7 @@ class Machine {
 		get_time() {
 			return this.get_value('time');
 		}
-		
+
 		get_auto() {
 			return this.get_value('auto');
 		}
@@ -155,13 +158,13 @@ class Machine {
 	// SET section
 		set_value(subtype, value) {
 			var data_id = this.block_id+'_'+subtype;
-			D3d.setItem(data_id, value);
+			Data3d.setItem(data_id, value);
 		}
 
 		set_run(value) {
 			this.set_value('running', value);
 		}
-		
+
 		set_input(value) {
 			this.set_value('input', value);
 		}
@@ -174,14 +177,14 @@ class Machine {
 		subtract_input(value) {
 			this.add_input(-value);
 		}
-		
+
 		set_output(value) {
 			this.set_value('output', value);
 		}
 
 		act_output_fix() {
 			var output = this.get_output();
-			this.output_ob = T3d.get(output);
+			this.output_ob = Thing3d.get(output);
 		}
 
 		set_time(value) {
@@ -196,7 +199,7 @@ class Machine {
 		subtract_time(value) {
 			this.add_time(-value);
 		}
-		
+
 		set_auto(value) {
 			this.set_value('auto', value);
 		}
@@ -204,7 +207,7 @@ class Machine {
 	// helper functions
 		possible_outputs() {
 			var outputs_list = {};
-			var outputs_array = T3d.possible_outputs(this.machine_type);
+			var outputs_array = Thing3d.possible_outputs(this.machine_type);
 
 			if (! outputs_array.length) {
 				this.error_message = "machine has no possible outputs";
@@ -214,7 +217,7 @@ class Machine {
 			outputs_list["Please Choose"]="?";
 
 			outputs_array.forEach(function(item){
-				var ob = T3d.get(item);
+				var ob = Thing3d.get(item);
 				var item_desc = null;
 				if (ob) {
 					item_desc = ob.desc;
@@ -272,7 +275,7 @@ class Machine {
 					break;
 			} // end switch
 
-			input_available = D3d.getNumber(build_source);
+			input_available = Data3d.getNumber(build_source);
 			if (input_available >= 1) {
 				this.error_message = "";
 				return 1;
@@ -281,21 +284,21 @@ class Machine {
 				return 0;
 			}
 		}
-		
+
 		// I can't imagine a reason to ever not allow setting output
 		can_output() {
 			this.error_message = "";
 			return 1;
 		}
 
-		// can_time() // no such function 
-		
+		// can_time() // no such function
+
 		can_auto() {
 			if (this.get_output() == "?") {
 				this.error_message = "can't automate if no output";
 				return 0;
 			}
-			if (D3d.getNumber('helpinghands') < 1) {
+			if (Data3d.getNumber('helpinghands') < 1) {
 				this.error_message = "need Helping Hands to automate";
 				return 0;
 			}
@@ -413,21 +416,73 @@ class Machine {
 
 		act_input_off() {
 			if (this.get_input()) {
-				var build_source = this.act_input_source();
-				var current_input = this.get_input();
-				announce("returning "+current_input+" "+build_source+" to stock");
-				D3d.add(build_source, current_input);
-				this.subtract_input(current_input);
+				switch (this.machine_type) {
+					case "build":
+					case "extrude":
+					case "print":
+					case "ship":
+					case "shred":
+						var build_source = this.act_input_source();
+						var current_input = this.get_input();
+						announce("returning "+current_input+" "+build_source+" to stock");
+						Data3d.add(build_source, current_input);
+						this.subtract_input(current_input);
+						break;
+
+					case "buyer":
+						var output = this.get_output();
+						var output_ob = Thing3d.get(output);
+						var buy_price = output_ob.buy_price;
+						announce("returning $"+buy_price+" to petty cash");
+						Data3d.add("money", buy_price);
+						this.subtract_input(1);
+						break;
+
+					case "recycle":
+						announce("calling your minions back empty-handed");
+						this.subtract_input(1);
+						break;
+
+					default:
+					console.error("act_input_off(): invalid machine type "+this.machine_type);
+					break;
+				}
 			}
 		}
 
 		act_input_on() {
-			var build_source = this.act_input_source();
-			announce("adding 1 "+build_source+" to input");
-			D3d.subtract(build_source, 1);
-			this.add_input(1)
+			switch (this.machine_type) {
+				case "build":
+				case "extrude":
+				case "print":
+				case "ship":
+				case "shred":
+					var build_source = this.act_input_source();
+					announce("adding 1 "+build_source+" to input");
+					Data3d.subtract(build_source, 1);
+					this.add_input(1)
+					break;
+
+				case "buyer":
+					var output = this.get_output();
+					var output_ob = Thing3d.get(output);
+					var buy_price = output_ob.buy_price;
+					announce("putting aside $"+buy_price+" for a "+output);
+					Data3d.subtract("money", buy_price);
+					this.add_input(1);
+					break;
+
+				case "recycle":
+					announce("sending minions out to recycle empty milk bottles");
+					this.add_input(1);
+					break;
+
+				default:
+					console.error("act_input_on(): invalid machine type "+this.machine_type);
+					break;
+			}
 		}
-		
+
 		act_input() {
 			console.log('called machine act_input()');
 			if (this.get_input()) {
@@ -456,7 +511,7 @@ class Machine {
 				if (value == "?") {
 					announce("Okay, canceled");
 				} else {
-					announce("Okay, starting to make "+text);
+					announce("Okay, chose "+text);
 				}
 				self.set_output(value);
 				Meters3d.create_meter(value);
@@ -465,7 +520,7 @@ class Machine {
 
 			chooser(headline, outputs_list, "?", output_success_fn);
 		}
-		
+
 		act_output() {
 			if (this.get_output() != "?") {
 				this.act_output_off();
@@ -481,16 +536,16 @@ class Machine {
 
 		act_auto_off() {
 			if (this.get_auto()) {
-				D3d.add('helpinghands', 1);
+				Data3d.add('helpinghands', 1);
 				this.set_auto(0);
 			}
 		}
 
 		act_auto_on() {
-			D3d.subtract('helpinghands', 1);
+			Data3d.subtract('helpinghands', 1);
 			this.set_auto(1);
 		}
-		
+
 		act_auto() {
 			if (this.get_auto()) {
 				this.act_auto_off();
@@ -529,7 +584,7 @@ class Machine {
 					this.set_run(0);
 				} else {
 					this.subtract_time(1);
-					D3d.add('kwh',0.001);
+					Data3d.add('kwh',0.001);
 					var incremental_input = (this.machine_type == "print");
 					if (incremental_input) {
 						this.subtract_input(0.001);
@@ -539,9 +594,49 @@ class Machine {
 							this.subtract_input(1);
 							announce("... used 1 input "+this.act_input_source());
 						}
-						var my_output = this.get_output();
-						announce("... created a "+my_output);
-						D3d.add(my_output, 1);
+						switch (this.machine_type) {
+
+							case "build":
+							case "extrude":
+							case "print":
+								var my_output = this.get_output();
+								announce("... created a "+my_output);
+								Data3d.add(my_output, 1);
+								break;
+
+							case "buyer":
+								var my_output = this.get_output();
+								announce("... bought a "+my_output);
+								Data3d.add(my_output, 1);
+								break;
+
+							case "ship":
+								var my_input = this.get_input();
+								var input_ob = Thing3d.get(my_input);
+								var sell_price = input_ob.sell_price;
+								announce("... sold a "+my_input+" for $"+sell_price);
+								Data3d.add("money", sell_price);
+								break;
+
+							case "recycle":
+								var my_output = this.get_output();
+								announce("... fetched a "+my_output);
+								Data3d.add(my_output, 1);
+								break;
+
+							case "shred":
+								var my_output = this.get_output();
+								announce("... made some "+my_output);
+								Data3d.add(my_output, 1);
+								break;
+
+							case "empty":
+								break;
+
+							default:
+								console.error("Unknown machine type '"+this.machine_type+"' in Machine.heart_beat");
+								break;
+						}
 						this.set_time(0);
 						this.set_run(0);
 					}

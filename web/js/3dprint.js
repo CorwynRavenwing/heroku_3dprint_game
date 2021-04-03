@@ -1,10 +1,10 @@
 /* 3dprint_game/js/3dprint.js */
 
-// uses 'D3d = new Data()'' from 3d.data.js
+// uses 'Data3d = new Data()' from 3d.data.js
 // Uses 'Meters3d = new Meters()' from 3d-meter.js
 
 var update_screen = function () {
-	D3d.update_display();
+	Data3d.update_display();
 
 	Machines3d.update_display();
 
@@ -32,22 +32,22 @@ var announce = function (announcement) {
 }
 
 var clear_all_data = function () {
-	D3d.clearAll();
+	Data3d.clearAll();
 	load_data();
 	// update_screen();
 }
 
 var load_data = function () {
-	D3d.loadAll();
+	Data3d.loadAll();
 	update_screen();
 }
 
 var save_data = function () {
-	D3d.saveAll();
+	Data3d.saveAll();
 }
 
 var heart_beat = function() {
-	D3d.heart_beat();
+	Data3d.heart_beat();
 	Machines3d.heart_beat();
 	update_screen();
 }
@@ -69,10 +69,9 @@ var initialize_data = function () {
 	announce("Initializing ...");
 
 	Machines3d.reset();
-	D3d.setItem('filament',   10);
-	D3d.setItem('printer-kit', 1);
-	D3d.setItem('version',  0.09);
-	// Machines3d.create('block_10', 'build', D3d, true);
+	Data3d.setItem('filament',   10);
+	Data3d.setItem('printer-kit', 1);
+	Data3d.setItem('version',  0.09);
 }
 
 $(document).ready(function() {
@@ -87,7 +86,7 @@ $(document).ready(function() {
 
 	load_data();
 
-	if (!D3d.getNumber('version')) {
+	if (!Data3d.getNumber('version')) {
 		initialize_data();
 		save_data();
 		announce("Welcome to the 3D Printer game.");
