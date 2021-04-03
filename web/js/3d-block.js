@@ -21,10 +21,10 @@ class BlockTypes {
 	blocktype_data = {};
 
 	constructor() {
-		create("build", "nothing", "Builder");
-		create("print", "printer", "Printer");
-		create("mail",  "nothing", "Mail");
-		// create(p_type, p_source, p_desc);
+		this.create("build", "",        "Builder");
+		this.create("print", "printer", "Printer");
+		this.create("mail",  "",        "Mail");
+		// this.create(p_type, p_source, p_desc);
 	}
 
 	create(p_type, p_source, p_desc) {
@@ -223,7 +223,7 @@ class Block {
 						} else {
 							var build_source = self.blocktype_source(value);
 							var input_available = 0;
-							if (build_source == "nothing") {
+							if (build_source == "") {
 								input_available = 1;
 							} else {
 								input_available = D3d.getNumber(build_source);
@@ -232,7 +232,7 @@ class Block {
 								announce("Not enough "+build_source+" available ("+input_available+")");
 							} else {
 								announce("Okay, setting this block up as a "+text);
-								if (build_source == "nothing") {
+								if (build_source == "") {
 									announce("... for free");
 								} else {
 									D3d.subtract(build_source, 1);
