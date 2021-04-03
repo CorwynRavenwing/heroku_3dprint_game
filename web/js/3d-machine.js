@@ -655,7 +655,9 @@ class Machine {
 			if (this.get_auto()) {
 				// auto-run, if possible
 				if (! this.get_run()) {
-					if (this.can_run()) {
+					if (this.get_input() <= 0) {
+						announce('auto: need input first');
+					} else if (this.can_run()) {
 						announce('auto: run');
 						this.act_run_on();
 					} else {
