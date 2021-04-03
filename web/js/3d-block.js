@@ -5,6 +5,47 @@
 
 var blocks   = {};
 
+class BlockType {
+	block_type = null;
+	source     = null;
+	desc       = null;
+
+	constructor(p_type, p_source, p_desc) {
+		this.block_type = p_type;
+		this.source     = p_source;
+		this.desc       = p_desc;
+	}
+} // end class BlockType
+
+class BlockTypes {
+	blocktype_data = {};
+
+	constructor() {
+		create("build", "nothing", "Builder");
+		create("print", "printer", "Printer");
+		create("mail",  "nothing", "Mail");
+		// create(p_type, p_source, p_desc);
+	}
+
+	create(p_type, p_source, p_desc) {
+		if (! this.get(p_type)) {
+			var ob = new Blocktype(p_type, p_source, p_desc);
+			this.put(ob);
+		}
+	}
+
+	get(p_type) {
+		return blocktype_data[p_type];
+	}
+
+	put(p_type, ob) {
+		blocktype_data[p_type] = ob;
+	}
+
+} // end class BlockTypes
+
+BlockTypes3d = new BlockTypes
+
 class Block {
 	block_ob = null;
 	machine_ob = null;
@@ -62,12 +103,31 @@ class Block {
 	// what types of machine are currently possible?
 	blocktype_list() {
 		var outputs_list = {};
+		var outputs_array = ();		// TEST ERROR! 	BlockTypes3d.blocktype_list();
+
+		if (! outputs_array.length) {
+			// this.error_message = "no possible blocktypes";
+			console.log('block '+this.block_id+' called blocktype_list: no block types available');
+			return {};
+		}
 
 		outputs_list["Select One"]="?";
 
-		outputs_list["Builder"]="build";
-		outputs_list["Printer"]="print";
-		outputs_list["Mail"]   ="mail";
+		outputs_array.forEach(function(item){
+			var ob = BlockTypes3d.get(item);
+			var item_desc = null;
+
+			if (ob) {
+				item_desc = ob.desc;
+			} else {
+				console.log('block '+this.block_id+' called blocktype_list: invalid block_type '+item);
+				item_desc = "["+item+"]";
+			}
+
+			outputs_list[item_desc] = item;
+		});
+
+		// this.error_message = "";
 
 		return outputs_list;
 	}
@@ -75,13 +135,12 @@ class Block {
 	// what object gets consumed creating each type of machine?
 	blocktype_source(new_type) {
 		var retVal = "";
-		switch (new_type) {
-			case "build":   retVal = "nothing"; break;
-			case "print":   retVal = "printer"; break;
-			case "mail":    retVal = "nothing"; break;
-			default:
-				console.log('block '+this.block_id+' called blocktype_source: invalid new_type '+new_type);
-				break;
+		var ob = BlockTypes3d.get(new_type);
+		if (ob) {
+			retVal = ob.source;
+		} else {
+			console.log('block '+this.block_id+' called blocktype_source: invalid new_type '+new_type);
+			retVal = "INVALID";
 		}
 		return retVal;
 	}
@@ -190,7 +249,8 @@ class Block {
 					this.machine_ob.act_output_off();
 					this.machine_ob.shutdown_commands();
 					Machines3d.remove(this.block_id);
-					announce("sorry, can't clear blocks yet")
+					announce("Okay, cleared this block");
+					update_screen();
 				}
 				break;
 			case 'running':
