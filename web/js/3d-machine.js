@@ -245,7 +245,7 @@ class Machine {
 			this.error_message = "";
 			return 1;
 		}
-		
+
 		can_input() {
 			if (this.get_output() == "?") {
 				this.error_message = "Can't input if no output";
@@ -376,7 +376,7 @@ class Machine {
 					break;
 
 				case "buyer":
-					build_source = '';
+					build_source = 'money';
 					break;
 
 				case "extrude":
@@ -388,7 +388,7 @@ class Machine {
 					break;
 
 				case "recycle":
-					build_source = '';
+					build_source = 'minions';
 					break;
 
 				case "ship":
