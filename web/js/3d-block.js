@@ -29,7 +29,7 @@ class BlockTypes {
 
 	create(p_type, p_source, p_desc) {
 		if (! this.get(p_type)) {
-			var ob = new Blocktype(p_type, p_source, p_desc);
+			var ob = new BlockType(p_type, p_source, p_desc);
 			this.put(ob);
 		}
 	}
