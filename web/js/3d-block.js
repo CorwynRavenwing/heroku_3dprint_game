@@ -103,7 +103,7 @@ class Block {
 	// what types of machine are currently possible?
 	blocktype_list() {
 		var outputs_list = {};
-		var outputs_array = ['plugh'];		// TEST ERROR! 	BlockTypes3d.blocktype_list();
+		var outputs_array = BlockTypes3d.blocktype_list();
 
 		if (! outputs_array.length) {
 			// this.error_message = "no possible blocktypes";
@@ -111,7 +111,7 @@ class Block {
 			return {};
 		}
 
-		outputs_list["Select One"]="?";
+		outputs_list["Select Type of Block"]="?";
 
 		self = this;
 		outputs_array.forEach(function(item){
