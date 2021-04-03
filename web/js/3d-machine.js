@@ -611,10 +611,10 @@ class Machine {
 								break;
 
 							case "ship":
-								var my_input = this.get_input();
-								var input_ob = Thing3d.get(my_input);
+								var build_source = this.act_input_source();
+								var input_ob = Thing3d.get(build_source);
 								var sell_price = input_ob.sell_price;
-								announce("... sold a "+my_input+" for $"+sell_price);
+								announce("... sold a "+build_source+" for $"+sell_price);
 								Data3d.add("money", sell_price);
 								break;
 
