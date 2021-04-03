@@ -42,6 +42,10 @@ class BlockTypes {
 		this.blocktype_data[p_type] = ob;
 	}
 
+	blocktype_list() {
+		return Object.keys(this.blocktype_data);
+	}
+
 } // end class BlockTypes
 
 BlockTypes3d = new BlockTypes
