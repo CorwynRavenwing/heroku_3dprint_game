@@ -21,9 +21,13 @@ class BlockTypes {
 	blocktype_data = {};
 
 	constructor() {
-		this.create("build", "",        "Builder");
-		this.create("print", "printer", "Printer");
-		this.create("mail",  "",        "Mail");
+		this.create("build",   "",         "Builder");
+		this.create("print",   "printer",  "Printer");
+		this.create("ship",    "",         "Shipper");
+		this.create("buyer",   "",         "Buyer");
+		this.create("extrude", "extruder", "Extruder")
+		this.create("recycle", "",         "Recycler")
+		this.create("shred",   "shredder", "Shredder");
 		// this.create(p_type, p_source, p_desc);
 	}
 

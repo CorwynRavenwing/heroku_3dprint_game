@@ -16,10 +16,10 @@ class Machine {
 	 *		"build"		(     free: turns X-kit into X)
 	 *		"empty"		(     free: a block doing nothing)
 	 *		"extrude"	(TODO extruder: turns plastic into filament)
-	 *		"mail"		(TODO free: exchanges any Salable for money)
 	 *		"print"		(     printer: turns filament into any Printable)
-	 *		"recycle"	(TODO free: fetches milk-bottles)
-	 *		"shred"		(TODO shredder: turns milk-bottles into plastic)
+	 *		"recycle"	(TODO free: fetches bottle)
+	 *		"ship"		(TODO free: exchanges any Salable for money)
+	 *		"shred"		(TODO shredder: turns bottle into plastic)
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
 	 *		(therefore set variables to initial or default values)
@@ -71,14 +71,9 @@ class Machine {
 					break;
 
 				case "build":
-					B.set_value('run', "0");
-					B.set_value('input', "0");
-					B.set_value('output', "?");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
-					break;
-
+				case "buyer":
 				case "print":
+				case "ship":
 					B.set_value('run', "0");
 					B.set_value('input', "0");
 					B.set_value('output', "?");
@@ -86,7 +81,29 @@ class Machine {
 					B.set_value('auto', "0");
 					break;
 
-				// other cases go here
+				case "extrude":
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "filament");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
+					break;
+
+				case "recycle":
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "bottle");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
+					break;
+
+				case "shred":
+					B.set_value('run', "0");
+					B.set_value('input', "0");
+					B.set_value('output', "plastic");
+					B.set_value('time', "0");
+					B.set_value('auto', "0");
+					break;
 
 				default:
 					B.set_value('run', "0");
@@ -235,7 +252,12 @@ class Machine {
 			var input_available = 0;
 			switch (this.machine_type) {
 				case "build":
+				case "buyer":
+				case "extrude":
 				case "print":
+				case "recycle":
+				case "ship":
+				case "shred":
 					build_source = this.act_input_source();
 					break;
 
@@ -298,8 +320,28 @@ class Machine {
 						time_required = this.output_ob.build_time;
 						break;
 
+					case "buyer":
+						time_required = 15;
+						break;
+
+					case "extrude":
+						time_required = 1000;
+						break;
+
 					case "print":
 						time_required = this.output_ob.print_time;
+						break;
+
+					case "recycle":
+						time_required = 100;
+						break;
+
+					case "ship":
+						time_required = 100;
+						break;
+
+					case "shred":
+						time_required = 15;
 						break;
 
 					default:
@@ -330,8 +372,35 @@ class Machine {
 					build_source = this.get_output() + '-kit';
 					break;
 
+				case "buyer":
+					build_source = '';
+					break;
+
+				case "extrude":
+					build_source = 'plastic';
+					break;
+
 				case "print":
 					build_source = 'filament';
+					break;
+
+				case "recycle":
+					build_source = '';
+					break;
+
+				case "ship":
+					var output = this.get_output();
+
+					if (output.endsWith('-ship')) {
+						build_source = output.replace(/-ship/, '');
+					} else {
+						console.log("act_input_source(): invalid build_source, output " + output + "doesn't end with '-ship'");
+						build_source = "INVALID";
+					}
+					break;
+
+				case "shred":
+					build_source = 'bottle';
 					break;
 
 				default:
@@ -500,7 +569,7 @@ class Machine {
 					}
 				}
 
-				// auto-set output, if possible -- maybe for 'mail' type?
+				// auto-set output, if possible -- maybe for 'ship' type?
 
 			}
 

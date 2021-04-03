@@ -102,21 +102,15 @@ body {
 	width: 19%;
 }
 
-.type_empty{
-	background-color: lightgrey;
-}
-
-.type_build {
-	background-color: lightgreen;
-}
-
-.type_print {
-	background-color: pink;
-}
-
-.type_mail {
-	background-color: tan;
-}
+.type_empty   { background-color: lightgrey;	}
+/* other types alphabetical */
+.type_build   { background-color: lightblue;	}
+.type_buyer   { background-color: #ffff66;		} /* light yellow */
+.type_extrude { background-color: white;		}
+.type_print   { background-color: pink;			}
+.type_recycle { background-color: lightgreen;	}
+.type_ship    { background-color: tan;			}
+.type_shred   { background-color: thistle;		} /* light purple */
 
 /* @todo: other types go here */
 
