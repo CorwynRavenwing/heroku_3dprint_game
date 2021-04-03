@@ -264,11 +264,16 @@ class Machine {
 					build_source = this.act_input_source();
 					break;
 
+				// move "recycle" back into previous section
+				// if "minion" ever becomes an actual thing
+				// in which case, create N minions during setup
+				// and that is now a hard max of recyclers
+				// you can run at once, unless you are able
+				// to actually *build* minions.
 				case "recycle":
 					input_required = 0;
 					build_source = this.act_input_source();
-					// move this back into previous section
-					// if "minion" ever becomes an actual thing
+					break;
 
 				case "buyer":
 					var output = this.get_output();
