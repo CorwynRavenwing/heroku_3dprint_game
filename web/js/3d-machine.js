@@ -258,12 +258,17 @@ class Machine {
 				case "build":
 				case "extrude":
 				case "print":
-				case "recycle":
 				case "ship":
 				case "shred":
 					input_required = 1;
 					build_source = this.act_input_source();
 					break;
+
+				case "recycle":
+					input_required = 0;
+					build_source = this.act_input_source();
+					// move this back into previous section
+					// if "minion" ever becomes an actual thing
 
 				case "buyer":
 					var output = this.get_output();
@@ -664,6 +669,7 @@ class Machine {
 						this.act_run_on();
 					} else {
 						announce('auto: RUN FAIL, '+this.error_message);
+						this.act_auto_off();
 					}
 				}
 
@@ -674,6 +680,7 @@ class Machine {
 						this.act_input_on();
 					} else {
 						announce('auto: INPUT FAIL, '+this.error_message);
+						this.act_auto_off();
 					}
 				}
 
