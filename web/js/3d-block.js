@@ -35,11 +35,11 @@ class BlockTypes {
 	}
 
 	get(p_type) {
-		return blocktype_data[p_type];
+		return this.blocktype_data[p_type];
 	}
 
 	put(p_type, ob) {
-		blocktype_data[p_type] = ob;
+		this.blocktype_data[p_type] = ob;
 	}
 
 } // end class BlockTypes
