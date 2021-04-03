@@ -523,6 +523,10 @@ class Machines {
 		}
 	}
 
+	remove(block_id) {
+		delete this.machine_store[block_id];
+	}
+
 	get(block_id) {
 		return this.machine_store[block_id];
 	}
