@@ -209,7 +209,6 @@ class Block {
 
 	set_action_label(subtype, new_label) {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
-		// console.log('set_action_label() called: ', subtype, act_label_id, new_label);
 		var act_ob = $(act_label_id);
 		act_ob.html(new_label);
 	}
@@ -242,9 +241,10 @@ class Block {
 							} else {
 								announce("Okay, setting this block up as a "+text);
 								if (build_source == "") {
-									announce("... for free");
+									// announce("... for free");
 								} else {
 									Data3d.subtract(build_source, 1);
+									announce("... using 1 "+build_source);
 								}
 								Machines3d.create(self.block_id, value, true);
 							}
@@ -259,6 +259,9 @@ class Block {
 					this.machine_ob.shutdown_commands();
 					Machines3d.remove(this.block_id);
 					announce("Okay, cleared this block");
+					var build_source = self.blocktype_source(value);
+					Data3d.add(build_source, 1);
+					announce("... put 1 "+build_source+" back in stock");
 					update_screen();
 				}
 				break;
