@@ -255,11 +255,11 @@ class Block {
 					chooser(headline, outputs_list, "?", block_success_fn);
 				} else {
 					// currently non-empty: clear machine
+					var build_source = this.blocktype_source(this.machine_type);
 					this.machine_ob.act_output_off();
 					this.machine_ob.shutdown_commands();
 					Machines3d.remove(this.block_id);
 					announce("Okay, cleared this block");
-					var build_source = this.blocktype_source(this.machine_type);
 					Data3d.add(build_source, 1);
 					announce("... put 1 "+build_source+" back in stock");
 					update_screen();
