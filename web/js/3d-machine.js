@@ -225,10 +225,16 @@ class Machine {
 				} else {
 					item_desc = "["+item+"]";
 				}
+				var ob = null;
 				var item_source = "?";
 				var item_count = 0;
+				var item_price = 0;
+				var item_extra = "";
 				switch (self.machine_type) {
 					case "build":
+						break;
+
+					case "buyer":
 						break;
 
 					case "extrude":
@@ -238,9 +244,11 @@ class Machine {
 						break;
 
 					case "ship":
-						break;
-
-					case "buyer":
+						item_source = act_input_source();
+						item_count = Data3d.getNumber(item_source);
+						ob = Thing3d.get(item_source);
+						item_price = ob.sell_price;
+						item_extra = item_count+"@$"+item_price;
 						break;
 
 					case "recycle":
@@ -250,12 +258,10 @@ class Machine {
 						break;
 
 					case "empty":
-						break;
-
 					default:
 						break;
 				}
-				var item_desc_fancy = '['+item+':'+item_source+']'+item_desc+'('+item_count+')';
+				var item_desc_fancy = '['+item+':'+item_source+']'+item_desc+'('+item_extra+')';
 				outputs_list[item_desc_fancy] = item;
 			});
 
