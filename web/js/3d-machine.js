@@ -215,7 +215,7 @@ class Machine {
 				return {};
 			}
 
-			outputs_list["Please Choose"]="?";
+			outputs_list["Please Choose"+' ['+self.machine_type+']']="?";
 
 			outputs_array.forEach(function(item){
 				var ob = Thing3d.get(item);
