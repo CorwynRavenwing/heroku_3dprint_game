@@ -95,6 +95,6 @@ $(document).ready(function() {
 	}
 
 	update_screen();
-
 	save_data();
+	toggle_heart_beats();
 });
