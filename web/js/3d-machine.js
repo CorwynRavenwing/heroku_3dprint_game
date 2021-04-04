@@ -225,6 +225,7 @@ class Machine {
 				} else {
 					item_desc = "["+item+"]";
 				}
+				var item_source = "?";
 				var item_count = 0;
 				switch (self.machine_type) {
 					case "build":
@@ -254,7 +255,7 @@ class Machine {
 					default:
 						break;
 				}
-				var item_desc_fancy = '['+item+']'+item_desc+'('+item_count+')';
+				var item_desc_fancy = '['+item+':'+item_source+']'+item_desc+'('+item_count+')';
 				outputs_list[item_desc_fancy] = item;
 			});
 
@@ -556,6 +557,7 @@ class Machine {
 			this.act_auto_off();
 			this.act_run_off();
 			this.act_input_off();
+			this.set_time(0);
 			this.set_output("?");
 		}
 
