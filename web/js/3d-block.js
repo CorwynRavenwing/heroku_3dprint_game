@@ -259,7 +259,7 @@ class Block {
 					this.machine_ob.shutdown_commands();
 					Machines3d.remove(this.block_id);
 					announce("Okay, cleared this block");
-					var build_source = this.blocktype_source(value);
+					var build_source = this.blocktype_source(this.machine_type);
 					Data3d.add(build_source, 1);
 					announce("... put 1 "+build_source+" back in stock");
 					update_screen();
