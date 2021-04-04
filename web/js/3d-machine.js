@@ -299,7 +299,7 @@ class Machine {
 			}
 			var build_source = this.act_input_source();
 			var input_available = 0;
-			var input_required = act_input_quantity();
+			var input_required = this.act_input_quantity();
 			input_available = Data3d.getNumber(build_source);
 			if (input_available >= input_required) {
 				this.error_message = "";
