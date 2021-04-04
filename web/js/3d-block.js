@@ -260,8 +260,12 @@ class Block {
 					this.machine_ob.shutdown_commands();
 					Machines3d.remove(this.block_id);
 					announce("Okay, cleared this block");
-					Data3d.add(build_source, 1);
-					announce("... put 1 "+build_source+" back in stock");
+					if (build_source) {
+						Data3d.add(build_source, 1);
+						announce("... put 1 "+build_source+" back in stock");
+					} else {
+						announce("... (which was free)");
+					}
 					update_screen();
 				}
 				break;
