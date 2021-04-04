@@ -244,7 +244,7 @@ class Machine {
 						break;
 
 					case "ship":
-						item_source = this.act_input_source();
+						item_source = self.act_input_source();
 						item_count = Data3d.getNumber(item_source);
 						ob = Thing3d.get(item_source);
 						item_price = ob.sell_price;
