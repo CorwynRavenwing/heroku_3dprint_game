@@ -123,7 +123,6 @@ class Things {
 
 			default:
 				break;
-
 		} // end switch
 
 		return outputs_array;

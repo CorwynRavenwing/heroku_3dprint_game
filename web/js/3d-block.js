@@ -292,17 +292,17 @@ class Block {
 		this.machine_ob.act_run();
 		update_screen();
 	}
-	
+
 	act_input() {
 		this.machine_ob.act_input();
 		update_screen();
 	}
-	
+
 	act_output() {
 		this.machine_ob.act_output();
 		update_screen();
 	}
-	
+
 	act_auto() {
 		this.machine_ob.act_auto();
 		update_screen();

@@ -15,14 +15,14 @@ class Machine {
 	 *	the ID of the new block, of form "block_28"
 	 * @input machine_type
 	 *	the type of machine this is:
-	 *		"buyer"		(     free: turns money into any Buyable)
-	 *		"build"		(     free: turns X-kit into X)
-	 *		"empty"		(     free: a block doing nothing)
-	 *		"extrude"	(TODO extruder: turns plastic into filament)
-	 *		"print"		(     printer: turns filament into any Printable)
-	 *		"recycle"	(TODO free: fetches bottle)
-	 *		"ship"		(     free: exchanges any Salable for money)
-	 *		"shred"		(TODO shredder: turns bottle into plastic)
+	 *		"buyer"		(free: turns money into any Buyable)
+	 *		"build"		(free: turns X-kit into X)
+	 *		"empty"		(free: a block doing nothing)
+	 *		"extrude"	(extruder: turns plastic into filament)
+	 *		"print"		(printer: turns filament into any Printable)
+	 *		"recycle"	(free: fetches bottle)
+	 *		"ship"		(free: exchanges any Salable for money)
+	 *		"shred"		(shredder: turns bottle into plastic)
 	 * @input is_new
 	 *	TRUE if machine is being created by user action
 	 *		(therefore set variables to initial or default values)
@@ -138,11 +138,11 @@ class Machine {
 		get_run() {
 			return this.get_value('running');
 		}
-		
+
 		get_input() {
 			return this.get_value('input');
 		}
-		
+
 		get_output() {
 			return this.get_value('output');
 		}
@@ -224,7 +224,37 @@ class Machine {
 				} else {
 					item_desc = "["+item+"]";
 				}
-				outputs_list[item_desc] = item;
+				var item_count = 0;
+				switch (this.machine_type) {
+					case "build":
+						break;
+
+					case "extrude":
+						break;
+
+					case "print":
+						break;
+
+					case "ship":
+						break;
+
+					case "buyer":
+						break;
+
+					case "recycle":
+						break;
+
+					case "shred":
+						break;
+
+					case "empty":
+						break;
+
+					default:
+						break;
+				}
+				var item_desc_fancy = '['+item+']'+item_desc+'('+item_count+')';
+				outputs_list[item_desc_fancy] = item;
 			});
 
 			this.error_message = "";
