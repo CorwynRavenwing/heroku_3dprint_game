@@ -246,52 +246,6 @@ class Machine {
 			return 1;
 		}
 
-		act_input_quantity() {
-			var input_required = 0;
-			switch (this.machine_type) {
-				case "build":
-				case "print":
-				case "ship":
-				case "shred":
-					input_required = 1;
-					break;
-
-				// move "recycle" back into previous section
-				// if "minion" ever becomes an actual thing
-				// in which case, create N minions during setup
-				// and that is now a hard max of recyclers
-				// you can run at once, unless you are able
-				// to actually *build* minions.
-				case "recycle":
-					input_required = 0;
-					break;
-
-				case "extrude":
-					// a meter of filament weighs 2.5 grams
-					input_required = 2.5;
-					break;
-
-				case "buyer":
-					var output = this.get_output();
-					var output_ob = Thing3d.get(output);
-					var buy_price = output_ob.buy_price;
-					input_required = buy_price;
-					break;
-
-				case "empty":
-					this.error_message = "empty machine has no input";
-					return 0;
-					break;
-
-				default:
-					this.error_message = "unknown machine has no input";
-					return 0;
-					break;
-			} // end switch
-
-			return input_required;
-		}
-
 		can_input() {
 			if (this.get_output() == "?") {
 				this.error_message = "Can't input if no output";
@@ -349,11 +303,11 @@ class Machine {
 						break;
 
 					case "buyer":
-						time_required = 15;
+						time_required = 30;
 						break;
 
 					case "extrude":
-						time_required = 1000;
+						time_required = 60;
 						break;
 
 					case "print":
@@ -361,11 +315,11 @@ class Machine {
 						break;
 
 					case "recycle":
-						time_required = 100;
+						time_required = 300;
 						break;
 
 					case "ship":
-						time_required = 100;
+						time_required = 300;
 						break;
 
 					case "shred":
@@ -437,6 +391,52 @@ class Machine {
 			} // end switch
 
 			return build_source;
+		}
+
+		act_input_quantity() {
+			var input_required = 0;
+			switch (this.machine_type) {
+				case "build":
+				case "print":
+				case "ship":
+				case "shred":
+					input_required = 1;
+					break;
+
+				// move "recycle" back into previous section
+				// if "minion" ever becomes an actual thing
+				// in which case, create N minions during setup
+				// and that is now a hard max of recyclers
+				// you can run at once, unless you are able
+				// to actually *build* minions.
+				case "recycle":
+					input_required = 0;
+					break;
+
+				case "extrude":
+					// a meter of filament weighs 2.5 grams
+					input_required = 2.5;
+					break;
+
+				case "buyer":
+					var output = this.get_output();
+					var output_ob = Thing3d.get(output);
+					var buy_price = output_ob.buy_price;
+					input_required = buy_price;
+					break;
+
+				case "empty":
+					this.error_message = "empty machine has no input";
+					return 0;
+					break;
+
+				default:
+					this.error_message = "unknown machine has no input";
+					return 0;
+					break;
+			} // end switch
+
+			return input_required;
 		}
 
 		act_input_off() {
