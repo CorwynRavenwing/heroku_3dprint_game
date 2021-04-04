@@ -246,22 +246,14 @@ class Machine {
 			return 1;
 		}
 
-		can_input() {
-			if (this.get_output() == "?") {
-				this.error_message = "Can't input if no output";
-				return 0;
-			}
-			var build_source = null;
-			var input_available = 0;
+		act_input_quantity() {
 			var input_required = 0;
 			switch (this.machine_type) {
 				case "build":
-				case "extrude":
 				case "print":
 				case "ship":
 				case "shred":
 					input_required = 1;
-					build_source = this.act_input_source();
 					break;
 
 				// move "recycle" back into previous section
@@ -272,7 +264,11 @@ class Machine {
 				// to actually *build* minions.
 				case "recycle":
 					input_required = 0;
-					build_source = this.act_input_source();
+					break;
+
+				case "extrude":
+					// a meter of filament weighs 2.5 grams
+					input_required = 2.5;
 					break;
 
 				case "buyer":
@@ -280,7 +276,6 @@ class Machine {
 					var output_ob = Thing3d.get(output);
 					var buy_price = output_ob.buy_price;
 					input_required = buy_price;
-					build_source = this.act_input_source();
 					break;
 
 				case "empty":
@@ -294,6 +289,17 @@ class Machine {
 					break;
 			} // end switch
 
+			return input_required;
+		}
+
+		can_input() {
+			if (this.get_output() == "?") {
+				this.error_message = "Can't input if no output";
+				return 0;
+			}
+			var build_source = this.act_input_source();
+			var input_available = 0;
+			var input_required = act_input_quantity();
 			input_available = Data3d.getNumber(build_source);
 			if (input_available >= input_required) {
 				this.error_message = "";
@@ -477,9 +483,10 @@ class Machine {
 				case "ship":
 				case "shred":
 					var build_source = this.act_input_source();
-					announce("adding 1 "+build_source+" to input");
-					Data3d.subtract(build_source, 1);
-					this.add_input(1)
+					var input_required = this.act_input_quantity();
+					announce("input "+input_required+" "+build_source);
+					Data3d.subtract(build_source, input_required);
+					this.add_input(input_required)
 					break;
 
 				case "buyer":
@@ -646,9 +653,10 @@ class Machine {
 								break;
 
 							case "shred":
+								// An empty 1-gallon milk jug weighs 60 grams
 								var my_output = this.get_output();
 								announce("... made some "+my_output);
-								Data3d.add(my_output, 1);
+								Data3d.add(my_output, 60);
 								break;
 
 							case "empty":

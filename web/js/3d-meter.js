@@ -56,7 +56,7 @@ class Meter {
 					value = value + " m";
 					break;
 				case "plastic":
-					value = value + " kg";
+					value = value + " g";
 					break;
 				case "time":
 					var tmp = value;
