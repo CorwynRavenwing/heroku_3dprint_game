@@ -206,6 +206,7 @@ class Machine {
 
 	// helper functions
 		possible_outputs() {
+			var self=this;
 			var outputs_list = {};
 			var outputs_array = Thing3d.possible_outputs(this.machine_type);
 
@@ -225,7 +226,7 @@ class Machine {
 					item_desc = "["+item+"]";
 				}
 				var item_count = 0;
-				switch (this.machine_type) {
+				switch (self.machine_type) {
 					case "build":
 						break;
 
