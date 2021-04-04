@@ -31,6 +31,9 @@ class Meter {
 	}
 
 	update_display() {
+		var pad2 = function(val) {
+			return val.toString().padStart(2, '0');
+		}
 		var meter_ob = $(this.meter_id);
 		var value = Data3d.getItem(this.data_id);
 		value = parseFloat(value);
@@ -65,10 +68,10 @@ class Meter {
 					value = "("+value+")"
 						+"<br />"
 						+"y"+yr+" "
-						+(mth+1)+"/"
-						+(day+1)+" "
-						+hr.toString().padStart(2, '0')+":"
-						+min.toString().padStart(2, '0');
+						+pad2(mth+1)+"/"
+						+pad2(day+1)+" "
+						+pad2(hr)+":"
+						+pad2(min);
 					break;
 
 				default:
