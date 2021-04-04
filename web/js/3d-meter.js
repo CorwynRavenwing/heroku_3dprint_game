@@ -61,13 +61,19 @@ class Meter {
 					var hr  = tmp % 60;	tmp = Math.floor(tmp / 60);
 					var day = tmp % 24;	tmp = Math.floor(tmp / 24);
 					var mth = tmp % 30;	tmp = Math.floor(tmp / 30);
-					var rem = tmp;
-					value = "("+value+")"+"<br />"+"r"+rem+" "+mth+"/"+day+" "+hr+":"+min;
+					var yr  = tmp;
+					value = "("+value+")"
+						+"<br />"
+						+"y"+yr+" "
+						+(mth+1)+"/"
+						+(day+1)+" "
+						+hr.toString().padStart(2, '0')+":"
+						+min.toString().padStart(2, '0');
 					break;
 
 				default:
 					// keep current format
-					console.log('keeping current format for meter '+data_id);
+					console.log('keeping current format for meter '+this.data_id);
 					break;
 			}
 
