@@ -39,7 +39,7 @@ class Meter {
 			this.previous_value = value;
 
 
-			switch(this.meter_id) {
+			switch(this.data_id) {
 				case "money":
 					value = "$"+value.toFixed(2);
 					break;
@@ -67,6 +67,7 @@ class Meter {
 
 				default:
 					// keep current format
+					console.log('keeping current format for meter '+data_id);
 					break;
 			}
 

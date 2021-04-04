@@ -15,7 +15,8 @@ body {
 	color: darkgreen;
 	font-weight: bold;
 	float: left;
-	margin: 1px;
+	margin: 5px;
+	padding: 1px;
 	text-align: center;
 }
 
