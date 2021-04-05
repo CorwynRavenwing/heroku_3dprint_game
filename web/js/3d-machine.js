@@ -61,59 +61,40 @@ class Machine {
 		B.add_section('time'   , 'Time' );
 		B.add_section('auto'   , 'Auto' );
 
+		B.set_value('run', "0");
+		B.set_value('time', "0");
+		B.set_value('auto', "0");
+		B.set_value('input', "0");
+
 		if (is_new) {
 			// set default values here
 
 			switch (machine_type) {
 				case "empty":
-					B.set_value('run', null);
-					B.set_value('input', null);
-					B.set_value('output', null);
-					B.set_value('time', null);
-					B.set_value('auto', null);
+					console.error("machine_type should not be empty in Machine constructor")
 					break;
 
 				case "build":
 				case "buyer":
 				case "print":
 				case "ship":
-					B.set_value('run', "0");
-					B.set_value('input', "0");
 					B.set_value('output', "?");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
 					break;
 
 				case "extrude":
-					B.set_value('run', "0");
-					B.set_value('input', "0");
 					B.set_value('output', "filament");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
 					break;
 
 				case "recycle":
-					B.set_value('run', "0");
-					B.set_value('input', "0");
 					B.set_value('output', "bottle");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
 					break;
 
 				case "shred":
-					B.set_value('run', "0");
-					B.set_value('input', "0");
 					B.set_value('output', "plastic");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
 					break;
 
 				default:
-					B.set_value('run', "0");
-					B.set_value('input', "0");
 					B.set_value('output', "?");
-					B.set_value('time', "0");
-					B.set_value('auto', "0");
 					break;
 			} // end switch
 		}
@@ -334,6 +315,13 @@ class Machine {
 			return outputs_list;
 		}
 
+		announce_error() {
+			if (this.error_message) {
+				announce(this.error_message);
+				this.error_message = "";
+			}
+		}
+
 	// CAN section
 		can_run() {
 			if (! this.get_input()) 	  {
@@ -445,7 +433,7 @@ class Machine {
 			} else if (this.can_run()) {
 				this.act_run_on();
 			} else {
-				announce( this.error_message );
+				this.announce_error();
 			}
 		}
 
@@ -622,7 +610,7 @@ class Machine {
 			} else if (this.can_input()) {
 				this.act_input_on();
 			} else {
-				announce( this.error_message );
+				this.announce_error();
 				return;
 			}
 		}
@@ -656,7 +644,7 @@ class Machine {
 			};
 
 			chooser(headline, outputs_list, "?", output_success_fn);
-			announce(this.error_message);
+			this.announce_error();
 		}
 
 		act_output() {
@@ -665,7 +653,7 @@ class Machine {
 			} else if (this.can_output()) {
 				this.act_output_on();
 			} else {
-				announce( this.error_message );
+				this.announce_error();
 				return;
 			}
 		}
@@ -690,7 +678,7 @@ class Machine {
 			} else if (this.can_auto()) {
 				this.act_auto_on();
 			} else {
-				announce( this.error_message );
+				this.announce_error();
 				return;
 			}
 		}

@@ -28,7 +28,6 @@ var announce = function (announcement) {
 			.find(':first-child')
 			.remove();
 	}
-
 }
 
 var clear_all_data = function () {
