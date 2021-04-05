@@ -632,14 +632,14 @@ class Machine {
 			var outputs_list = this.possible_outputs();
 
 			var output_success_fn = function (value, text) {
+				self.set_output(value);
 				if (value == "?") {
 					announce("Okay, canceled");
 				} else {
 					announce("Okay, chose "+text);
-				}
-				self.set_output(value);
-				if (self.machine_type != "ship") {
-					Meters3d.create_meter(value);
+					if (self.machine_type != "ship") {
+						Meters3d.create_meter(value);
+					}
 				}
 				update_screen();
 			};
