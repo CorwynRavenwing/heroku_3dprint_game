@@ -257,9 +257,13 @@ class Machine {
 
 					case "extrude":
 						item_source = self.helper_input_source(self.machine_type, item);
-						item_count = Data3d.getNumber(item);
+						// item_count = Data3d.getNumber(item);
 						var source_avail = Data3d.getNumber(item_source);
-						item_extra = item_count+" / "+source_avail;
+						var source_needed = self.act_input_quantity();
+						item_extra = source_avail+" "+item_source;
+						if (source_avail < source_needed) {
+							item_extra = item_extra + " [only "+source_avail+" available]"
+						}
 						break;
 
 					case "print":
@@ -289,17 +293,20 @@ class Machine {
 						break;
 
 					case "recycle":
-						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item);
-						var source_avail = Data3d.getNumber(item_source);
-						item_extra = item_count+" / "+source_avail;
+						item_extra = item_count;
 						break;
 
 					case "shred":
+						// same code as 'extrude'
 						item_source = self.helper_input_source(self.machine_type, item);
-						item_count = Data3d.getNumber(item);
+						// item_count = Data3d.getNumber(item);
 						var source_avail = Data3d.getNumber(item_source);
-						item_extra = item_count+" / "+source_avail;
+						var source_needed = self.act_input_quantity();
+						item_extra = source_avail+" "+item_source;
+						if (source_avail < source_needed) {
+							item_extra = item_extra + " [only "+source_avail+" available]"
+						}
 						break;
 
 					case "empty":
