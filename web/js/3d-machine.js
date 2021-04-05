@@ -283,7 +283,7 @@ class Machine {
 						if (item_count <= 0) {
 							item_skip = true;
 						}
-						if (item == "kwh") {
+						if (item_source == "kwh") {
 							item_skip = true;
 						}
 						break;
