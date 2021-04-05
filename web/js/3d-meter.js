@@ -7,7 +7,7 @@ class Meter {
 	data_id  = null;
 	meter_id = null;
 
-	previous_value = "";
+	previous_value = "NEW";
 
 	constructor(item) {
 		this.data_id  = item;
