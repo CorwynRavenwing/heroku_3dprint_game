@@ -192,7 +192,7 @@ class Block {
 		var input_dom = $('<input>')
 			.attr('id', switch_id)
 			.attr('type', 'checkbox')
-			.prop('checked', true)
+			.prop('checked', is_checked)
 			.appendTo(label_dom);
 		var span_dom = $('<span>')
 			.addClass("slider")
