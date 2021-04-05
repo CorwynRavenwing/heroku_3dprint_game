@@ -27,11 +27,11 @@ class Data {
 
 	setItem(key, value) {
 		this.data_store[key] = value;
+		Meters3d.create_meter(key);
 	}
 
 	add(key, value) {
 		this.setItem(key, this.getNumber(key) + value);
-		Meters3d.create_meter(key);
 	}
 
 	subtract(key, value) {
