@@ -103,7 +103,7 @@ class Block {
 		this.block_ob.append(innerdiv);
 		BR.append(this.block_ob);
 
-		this.add_switch(this.block_ob, 'test_switch', true);
+		this.add_switch(this.block_ob, block_id+'_test_switch', true);
 
 		this.add_section('running', 'Run'  );
 		this.add_section('input'  , 'Input');
@@ -186,7 +186,7 @@ class Block {
 			.addClass("switch");
 		var input_dom = $('<input>')
 			.attr('id', switch_id)
-			.attr('checked', is_checked)
+			.prop('checked', true)
 			.appendTo(label_dom);
 		var span_dom = $('<span>')
 			.addClass("slider")
