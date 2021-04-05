@@ -255,14 +255,14 @@ class Machine {
 					case "extrude":
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item);
-						source_avail = Data3d.getNumber(item_source);
+						var source_avail = Data3d.getNumber(item_source);
 						item_extra = item_count+" / "+source_avail;
 						break;
 
 					case "print":
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item);
-						source_avail = Data3d.getNumber(item_source);
+						var source_avail = Data3d.getNumber(item_source);
 						var item_time = ob.print_time;
 						item_extra = item_count+" ; "+item_time+" min";
 						if (source_avail < (item_time/1000)) {
@@ -285,14 +285,14 @@ class Machine {
 					case "recycle":
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item);
-						source_avail = Data3d.getNumber(item_source);
+						var source_avail = Data3d.getNumber(item_source);
 						item_extra = item_count+" / "+source_avail;
 						break;
 
 					case "shred":
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item);
-						source_avail = Data3d.getNumber(item_source);
+						var source_avail = Data3d.getNumber(item_source);
 						item_extra = item_count+" / "+source_avail;
 						break;
 
