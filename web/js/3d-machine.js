@@ -654,6 +654,7 @@ class Machine {
 			};
 
 			chooser(headline, outputs_list, "?", output_success_fn);
+			announce(this.error_message);
 		}
 
 		act_output() {
@@ -714,23 +715,27 @@ class Machine {
 			// console.log('called Machine.heart_beat()', this.block_id);
 
 			if (this.get_run()) {
-				if (this.get_input() <= 0) {
+				var incremental_input = (this.machine_type == "print");
+				var input_used = this.act_input_quantity();
+				if (incremental_input) {
+					input_used = 0.001;
+				}
+				var kwh_used = 0.001;	// should depend on machine type?
+				if (this.get_input() < input_used) {
 					announce("Ran out of input: stopping");
 					this.set_run(0);
 				} else {
 					this.subtract_time(1);
-					Data3d.subtract('kwh',0.001);
-					var incremental_input = (this.machine_type == "print");
+					Data3d.subtract('kwh',kwh_used);
 					if (incremental_input) {
-						this.subtract_input(0.001);
+						this.subtract_input(input_used);
 					}
 					if (this.get_time() <= 0) {
 						if (! incremental_input) {
-							this.subtract_input(1);
-							announce("... used 1 input "+this.act_input_source());
+							this.subtract_input(input_used);
+							announce("... used "+input_used+" "+this.act_input_source());
 						}
 						switch (this.machine_type) {
-
 							case "build":
 							case "extrude":
 							case "print":
