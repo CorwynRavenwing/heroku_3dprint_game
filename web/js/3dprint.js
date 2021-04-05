@@ -59,6 +59,7 @@ var toggle_heart_beats = function() {
 	if (hb_object) {
 		console.log('--- stopping heart beat');
 		clearInterval(hb_object);
+		hb_object = null;
 	} else {
 		console.log('+++ starting heart beat');
 		hb_object = setInterval(heart_beat, hb_ticks);
