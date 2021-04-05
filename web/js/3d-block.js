@@ -183,9 +183,11 @@ class Block {
 
 	add_switch(location_dom, switch_id, is_checked) {
 		var label_dom = $('<label>')
-			.addClass("switch");
+			.addClass("switch")
+			attr('for', switch_id);
 		var input_dom = $('<input>')
 			.attr('id', switch_id)
+			.attr('type', 'checkbox')
 			.prop('checked', true)
 			.appendTo(label_dom);
 		var span_dom = $('<span>')
