@@ -33,8 +33,7 @@ class Meter {
 	update_display() {
 		var meter_ob = $(this.meter_id);
 		var value = Data3d.getItem(this.data_id);
-		if (typeof(value) == 'number') {
-			// don't use numeric transforms on strings
+		if (parseFloat(value)) {
 			value = parseFloat(value);
 			value = Data3d.round(value, 1000);
 		}
