@@ -103,6 +103,8 @@ class Block {
 		this.block_ob.append(innerdiv);
 		BR.append(this.block_ob);
 
+		this.add_switch(this.block_ob, 'test_switch', true);
+
 		this.add_section('running', 'Run'  );
 		this.add_section('input'  , 'Input');
 		this.add_section('output' , 'Make' );
@@ -179,7 +181,7 @@ class Block {
 		this.machine_ob = machine_ob;
 	}
 
-	add_switch(location_id, switch_id, is_checked) {
+	add_switch(location_dom, switch_id, is_checked) {
 		var label_dom = $('<label>')
 			.addClass("switch");
 		var input_dom = $('<input>')
@@ -190,7 +192,7 @@ class Block {
 			.addClass("slider")
 			.addClass("round")
 			.appendTo(label_dom);
-		$('#'+location_id)
+		location_dom
 			.append(label_dom);
 		/*
 <label class="switch">
@@ -218,20 +220,12 @@ class Block {
 		this.block_ob.append(outer);
 	}
 
-	remove_section(subtype) {
-		// var data_id = this.block_id+'_'+subtype;
-		// $('#section_'+data_id).remove();
-	}
-
 	get_value(subtype) {
 		return this.machine_ob.get_value(subtype);
 	}
 
 	set_value(subtype, value) {
 		this.machine_ob.set_value(subtype, value);
-		// if (value === null) {
-		// 	this.remove_section(subtype);
-		// }
 	}
 
 	set_action_label(subtype, new_label) {
