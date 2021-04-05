@@ -229,6 +229,7 @@ class Machine {
 				var item_count = 0;
 				var item_price = 0;
 				var item_extra = "";
+				var item_skip = false;
 				switch (self.machine_type) {
 					case "build":
 						break;
@@ -249,6 +250,7 @@ class Machine {
 						var ob2 = Thing3d.get(item_source);
 						item_price = ob2.sell_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
+						if (! item_count) { item_skip = true; }
 						break;
 
 					case "recycle":
@@ -262,6 +264,7 @@ class Machine {
 						break;
 				}
 				var item_desc_fancy = '['+item+':'+item_source+']'+item_desc+'('+item_extra+')';
+				if (item_skip) { item_desc_fancy = '<strike>'+item_desc_fancy+'</strike>'; }
 				outputs_list[item_desc_fancy] = item;
 			});
 
