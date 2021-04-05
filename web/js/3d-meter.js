@@ -122,6 +122,27 @@ class Meters {
 		}
 	}
 
+	// Function setup_meters() must ONLY be called after document.ready
+	setup_meters() {
+		var self = this;
+
+		var leftbar_array = [
+			"time",
+			"yymm",
+			'version',
+			'money',
+			'kwh',
+			'filament',
+			'plastic',
+			'printer-kit',
+			'printer',
+		];
+
+		leftbar_array.forEach(function(item) {
+			self.create_meter(item);
+		});
+	}
+
 	update_display() {
 		var self = this;
 		Object.keys(self.meter_store).forEach(function(p_name) {
@@ -136,20 +157,5 @@ Meters3d = new Meters();
 
 // Function setup_meters() must ONLY be called after document.ready
 var setup_meters = function () {
-	var leftbar_array = [
-		"time",
-		'version',
-		'money',
-		'kwh',
-		'filament',
-		'plastic',
-		'printer-kit',
-		'printer',
-		// 'helpinghands-kit',
-		// 'helpinghands',
-	];
-
-	leftbar_array.forEach(function(item) {
-		Meters3d.create_meter(item);
-	});
+	Meters3d.setup_meters();
 }
