@@ -104,7 +104,7 @@ class Machine {
 				temp = 0;
 			} else if (parseFloat(temp)) {
 				temp = parseFloat(temp);
-				temp = Math.round( temp * 1000 ) / 1000;
+				temp = Data3d.round(temp, 1000);
 			}
 			// else return string as-is
 			return temp;

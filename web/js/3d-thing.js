@@ -31,13 +31,14 @@ class Things {
 		// non-physical:
 		this.create('money',                0,   0,    0.00,   0.00, "Money")
 		this.create('time',                 0,   0,    0.00,   0.00, "Date/Time")
-		this.create('yymm',                 0,   0,    0.00,   0.00, "Month")
+		this.create('yymm',                 0,   0,    0.00,   0.00, "YYMM")
 		this.create('version',              0,   0,    0.00,   0.00, "Version")
 		// neither printed nor built:
 		this.create('bottle',               0,   0,    0.50,   0.00, "Empty Milk Bottle")
 		this.create('filament',             0,   0,   10.00,   5.00, "Filament")
 		this.create('kwh',                  0,   0,    0.10,   0.05, "kWh")
 		this.create('plastic',              0,   0,    0.20,   0.10, "Plastic")
+		this.create('solar',                0,   0,  500.00, 250.00, "Solar Panel")
 		// printed:
 		this.create('doodad',              10,   0,    0.00,   0.50, "Doodad")
 		this.create('doohickey',           50,   0,    0.00,   3.00, "Doohickey")
