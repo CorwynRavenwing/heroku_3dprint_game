@@ -55,12 +55,6 @@ class Machine {
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.add_section('running', 'Run'  );
-		B.add_section('input'  , 'Input');
-		B.add_section('output' , 'Make' );
-		B.add_section('time'   , 'Time' );
-		B.add_section('auto'   , 'Auto' );
-
 		B.set_value('run', "0");
 		B.set_value('time', "0");
 		B.set_value('auto', "0");

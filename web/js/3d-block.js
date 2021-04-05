@@ -103,6 +103,12 @@ class Block {
 		this.block_ob.append(innerdiv);
 		BR.append(this.block_ob);
 
+		this.add_section('running', 'Run'  );
+		this.add_section('input'  , 'Input');
+		this.add_section('output' , 'Make' );
+		this.add_section('time'   , 'Time' );
+		this.add_section('auto'   , 'Auto' );
+
 		this.set_type("empty");
 
 		blocks[block_id] =this;
@@ -173,6 +179,27 @@ class Block {
 		this.machine_ob = machine_ob;
 	}
 
+	add_switch(location_id, switch_id, is_checked) {
+		var label_dom = $('<label>')
+			.addClass("switch");
+		var input_dom = $('<input>')
+			.attr('id', switch_id)
+			.attr('checked', is_checked)
+			.appendTo(label_dom);
+		var span_dom = $('<span>')
+			.addClass("slider")
+			.addClass("round")
+			.appendTo(label_dom);
+		$('#'+location_id)
+			.append(label_dom);
+		/*
+<label class="switch">
+  <input type="checkbox" checked>
+  <span class="slider round"></span>
+</label>
+		*/
+	}
+
 	add_section(subtype, label) {
 		var self=this;
 		var outer = $('<div>')
@@ -192,8 +219,8 @@ class Block {
 	}
 
 	remove_section(subtype) {
-		var data_id = this.block_id+'_'+subtype;
-		$('#section_'+data_id).remove();
+		// var data_id = this.block_id+'_'+subtype;
+		// $('#section_'+data_id).remove();
 	}
 
 	get_value(subtype) {
@@ -202,9 +229,9 @@ class Block {
 
 	set_value(subtype, value) {
 		this.machine_ob.set_value(subtype, value);
-		if (value === null) {
-			this.remove_section(subtype);
-		}
+		// if (value === null) {
+		// 	this.remove_section(subtype);
+		// }
 	}
 
 	set_action_label(subtype, new_label) {
