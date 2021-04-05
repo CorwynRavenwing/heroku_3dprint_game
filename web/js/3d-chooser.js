@@ -1,11 +1,21 @@
 /* 3dprint_game/js/3d-chooser.js */
 
 var chooser = function (headline, choices, current_value, callback) {
-	this.hide_chooser();
-	$('.chooser').show();
 	var choose_head = $('.chooser .header')
-		.text(headline);
 	var choose_body = $('.chooser .body');
+
+	var hide_chooser = function () {
+		choose_head.text("[headline]");
+		$("#chooser_selector").remove();
+		$('.chooser .button').off('click');
+		$('.chooser').hide();
+	}
+
+	// clear previous use of chooser before reusing it
+	hide_chooser();
+
+	$('.chooser').show();
+	choose_head.text(headline);
 	var selector = $('<select>')
 		.attr("id", "chooser_selector")
 		.appendTo(choose_body);
@@ -20,13 +30,6 @@ var chooser = function (headline, choices, current_value, callback) {
 			opt.attr("selected", "selected");
 		}
 	});
-
-	var hide_chooser = function () {
-		choose_head.text("[headline]");
-		selector.remove();
-		$('.chooser .button').off('click');
-		$('.chooser').hide();
-	}
 
 	$('.chooser #ok').click(function(){
 		var chosen_option = selector.find("option:selected");
