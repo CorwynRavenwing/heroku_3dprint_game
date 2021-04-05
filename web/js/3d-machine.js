@@ -262,7 +262,7 @@ class Machine {
 						var source_needed = self.act_input_quantity();
 						item_extra = source_avail+" "+item_source;
 						if (source_avail < source_needed) {
-							item_extra = item_extra + " [only "+source_avail+" available]"
+							item_extra = item_extra + " [need "+source_needed+"]"
 						}
 						break;
 
@@ -305,7 +305,7 @@ class Machine {
 						var source_needed = self.act_input_quantity();
 						item_extra = source_avail+" "+item_source;
 						if (source_avail < source_needed) {
-							item_extra = item_extra + " [only "+source_avail+" available]"
+							item_extra = item_extra + " [need "+source_needed+"]"
 						}
 						break;
 
