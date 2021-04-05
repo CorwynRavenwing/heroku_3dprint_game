@@ -432,7 +432,7 @@ class Machine {
 		}
 
 		act_input_source() {
-			return this.helper_input_source(this.machine_type, this.get_output;
+			return this.helper_input_source(this.machine_type, this.get_output);
 		}
 
 		act_input_quantity() {
