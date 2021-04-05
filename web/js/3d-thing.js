@@ -30,7 +30,7 @@ class Things {
 	constructor() {
 		// non-physical:
 		this.create('money',                0,   0,    0.00,   0.00, "Money")
-		this.create('time',                 0,   0,    0.00,   0.00, "Time")
+		this.create('time',                 0,   0,    0.00,   0.00, "Date/Time")
 		this.create('yymm',                 0,   0,    0.00,   0.00, "Month")
 		this.create('version',              0,   0,    0.00,   0.00, "Version")
 		// neither printed nor built:

@@ -7,7 +7,7 @@ class Meter {
 	data_id  = null;
 	meter_id = null;
 
-	previous_value = null;
+	previous_value = "";
 
 	constructor(item) {
 		this.data_id  = item;
@@ -34,7 +34,7 @@ class Meter {
 		var meter_ob = $(this.meter_id);
 		var value = Data3d.getItem(this.data_id);
 		value = parseFloat(value);
-		value = Math.round( value * 1000 ) / 1000;
+		value = Data3d.round(value, 1000);
 		if (this.previous_value != value) {
 			this.previous_value = value;
 
@@ -72,9 +72,7 @@ class Meter {
 					hr  = Data3d.pad2(hr);
 					day = Data3d.pad2(day+1);
 					mth = Data3d.pad2(mth+1);
-					value = "("+value+")"
-						+"<br />"
-						+"y"+yr+" "
+					value = "y"+yr+" "
 						+mth+"/"
 						+day+" "
 						+hr+":"
