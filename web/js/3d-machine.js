@@ -244,11 +244,12 @@ class Machine {
 						break;
 
 					case "ship":
-						item_source = self.helper_input_source(self.machine_type);
+						var output_fn = function() { return item; }
+						item_source = self.helper_input_source(self.machine_type, output_fn);
 						item_count = Data3d.getNumber(item_source);
 						ob = Thing3d.get(item_source);
 						item_price = ob.sell_price;
-						item_extra = item_count+"@$"+item_price;
+						item_extra = item_count+" @ "+Data3d.format_money(item_price);
 						break;
 
 					case "recycle":
@@ -385,11 +386,11 @@ class Machine {
 			}
 		}
 
-		helper_input_source(p_machine_type) {
+		helper_input_source(p_machine_type, p_output_fn) {
 			var build_source = "";
 			switch (p_machine_type) {
 				case "build":
-					build_source = this.get_output() + '-kit';
+					build_source = p_output_fn() + '-kit';
 					break;
 
 				case "buyer":
@@ -409,12 +410,12 @@ class Machine {
 					break;
 
 				case "ship":
-					var output = this.get_output();
+					var output = p_output_fn();
 
 					if (output.endsWith('-ship')) {
 						build_source = output.replace(/-ship/, '');
 					} else {
-						console.log("act_input_source(): invalid build_source, output " + output + "doesn't end with '-ship'");
+						console.log("helper_input_source(): invalid build_source, output " + output + "doesn't end with '-ship'");
 						build_source = "INVALID";
 					}
 					break;
@@ -432,7 +433,7 @@ class Machine {
 		}
 
 		act_input_source() {
-			return this.helper_input_source(this.machine_type);
+			return this.helper_input_source(this.machine_type, this.get_output;
 		}
 
 		act_input_quantity() {

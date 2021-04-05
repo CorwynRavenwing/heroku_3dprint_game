@@ -102,6 +102,14 @@ class Data {
 		});
 	}
 
+	pad2 = function(val) {
+		return val.toString().padStart(2, '0');
+	}
+
+	format_money = function(val) {
+		return "$"+val.toFixed(2);
+	}
+
 	update_display() {
 		// console.log('called function Data.update_display');
 		var self = this;

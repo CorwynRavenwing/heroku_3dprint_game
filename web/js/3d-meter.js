@@ -31,9 +31,6 @@ class Meter {
 	}
 
 	update_display() {
-		var pad2 = function(val) {
-			return val.toString().padStart(2, '0');
-		}
 		var meter_ob = $(this.meter_id);
 		var value = Data3d.getItem(this.data_id);
 		value = parseFloat(value);
@@ -41,10 +38,9 @@ class Meter {
 		if (this.previous_value != value) {
 			this.previous_value = value;
 
-
 			switch(this.data_id) {
 				case "money":
-					value = "$"+value.toFixed(2);
+					value = Data3d.format_money(value);
 					break;
 				case "kwh":
 					value = value.toFixed(3);
@@ -68,10 +64,10 @@ class Meter {
 					value = "("+value+")"
 						+"<br />"
 						+"y"+yr+" "
-						+pad2(mth+1)+"/"
-						+pad2(day+1)+" "
-						+pad2(hr)+":"
-						+pad2(min);
+						+Data3d.pad2(mth+1)+"/"
+						+Data3d.pad2(day+1)+" "
+						+Data3d.pad2(hr)+":"
+						+Data3d.pad2(min);
 					break;
 
 				default:
