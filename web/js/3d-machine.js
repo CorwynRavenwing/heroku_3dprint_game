@@ -281,9 +281,9 @@ class Machine {
 						item_price = ob2.sell_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
 						if (item_count <= 0) {
-							item_extra = item_extra + " (negative)"
+							item_skip = true;
 						}
-						if (! item_count) {
+						if (item == "kwh") {
 							item_skip = true;
 						}
 						break;
