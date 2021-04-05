@@ -1,7 +1,7 @@
 /* 3dprint_game/js/3d-chooser.js */
 
 var chooser = function (headline, choices, current_value, callback) {
-	hide_chooser();
+	this.hide_chooser();
 	$('.chooser').show();
 	var choose_head = $('.chooser .header')
 		.text(headline);
