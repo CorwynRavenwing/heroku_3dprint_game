@@ -215,7 +215,9 @@ class Machine {
 				return {};
 			}
 
-			outputs_list["Please Choose"+' ['+self.machine_type+']']="?";
+			var choose_text = "Please Choose"+' ['+self.machine_type+']';
+			// put "Choose One" text first in list
+			outputs_list[choose_text]="?";
 
 			outputs_array.forEach(function(item){
 				var ob = Thing3d.get(item);
@@ -321,6 +323,13 @@ class Machine {
 			});
 
 			this.error_message = "";
+
+			if (Object.keys(outputs_list).length == 2) {
+				// delete "Choose One" if there's no other option
+				console.warn("deleting Choose One from length-2 list");
+				delete outputs_list[choose_text];
+				this.error_message = "Only one choice available.  Press OK";
+			}
 
 			return outputs_list;
 		}
