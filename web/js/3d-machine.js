@@ -235,6 +235,11 @@ class Machine {
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item_source);
 						item_extra = item_count+" ...";
+						break;
+
+					case "buyer":
+						item_source = item;
+						item_count = Data3d.getNumber(item_source);
 						var ob2 = Thing3d.get(item_source);
 						item_price = ob2.buy_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
@@ -244,15 +249,16 @@ class Machine {
 						}
 						break;
 
-					case "buyer":
-						item_source = item;
-						item_count = Data3d.getNumber(item_source);
-						break;
-
 					case "extrude":
+						item_source = self.helper_input_source(self.machine_type, item);
+						item_count = Data3d.getNumber(item_source);
+						item_extra = item_count+" ...";
 						break;
 
 					case "print":
+						item_source = self.helper_input_source(self.machine_type, item);
+						item_count = Data3d.getNumber(item_source);
+						item_extra = item_count+" ...";
 						break;
 
 					case "ship":
@@ -267,13 +273,20 @@ class Machine {
 						break;
 
 					case "recycle":
+						item_source = self.helper_input_source(self.machine_type, item);
+						item_count = Data3d.getNumber(item_source);
+						item_extra = item_count+" ...";
 						break;
 
 					case "shred":
+						item_source = self.helper_input_source(self.machine_type, item);
+						item_count = Data3d.getNumber(item_source);
+						item_extra = item_count+" ...";
 						break;
 
 					case "empty":
 					default:
+						console.error("possible_outputs() shouldn't have gotten here, type "+self.machine_type);
 						break;
 				}
 				var item_desc_fancy = '['+item+':'+item_source+']'+item_desc+'('+item_extra+')';
