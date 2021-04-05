@@ -20,16 +20,13 @@ class Data {
 
 	getNumber(key) {
 		var temp = parseFloat(this.getItem(key));
-		if (! temp) { temp = 0; }
-		temp = Math.round( temp * 1000 ) / 1000;
+		temp = this.round(temp, 1000);
 		return temp;
 	}
 
 	setItem(key, value) {
 		this.data_store[key] = value;
-		if (key.startsWith("block_")) {
-			console.log("skipping creation of Meter for 'block_X'");
-		} else {
+		if (! key.startsWith("block_")) {
 			Meters3d.create_meter(key);
 		}
 	}
@@ -104,6 +101,10 @@ class Data {
 			console.log('DELETE', item);
 			localStorage.removeItem(item);
 		});
+	}
+
+	round(value, factor) {
+		return Math.round(value * factor) / factor;
 	}
 
 	pad2 = function(val) {
