@@ -103,7 +103,8 @@ class Block {
 		this.block_ob.append(innerdiv);
 		BR.append(this.block_ob);
 
-		this.add_switch(this.block_ob, block_id+'_test_switch', true);
+		this.add_switch(this.block_ob, 'auto', 'Auto', false);
+		this.add_switch(this.block_ob, 'run',  'Run',  false);
 
 		this.add_section('running', 'Run'  );
 		this.add_section('input'  , 'Input');
@@ -181,10 +182,13 @@ class Block {
 		this.machine_ob = machine_ob;
 	}
 
-	add_switch(location_dom, switch_id, is_checked) {
+	add_switch(location_dom, subtype, hovertext, is_checked) {
+		var self = this;
+		var switch_id = this.block_id+'_'+subtype+'_switch'
 		var label_dom = $('<label>')
 			.addClass("switch")
-			.attr('for', switch_id);
+			.attr('for', switch_id)
+			.click(function() { self.clicked_switch(subtype, switch_id); });
 		var input_dom = $('<input>')
 			.attr('id', switch_id)
 			.attr('type', 'checkbox')
@@ -193,6 +197,7 @@ class Block {
 		var span_dom = $('<span>')
 			.addClass("slider")
 			.addClass("round")
+			.attr('title', hovertext)
 			.appendTo(label_dom);
 		location_dom
 			.append(label_dom);
@@ -234,6 +239,18 @@ class Block {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
 		var act_ob = $(act_label_id);
 		act_ob.html(new_label);
+	}
+
+	clicked_switch(subtype, switch_id) {
+		console.log('block '+this.block_id+' called C_S('+subtype+','+switch_id+')');
+		var switch_dom = $('#'+switch_id);
+		var switch_on = switch_dom.is(":checked");
+		console.log('... new value is "'+switch_on+'"');
+
+
+
+
+
 	}
 
 	action_dispatch(subtype) {
