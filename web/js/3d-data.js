@@ -27,7 +27,11 @@ class Data {
 
 	setItem(key, value) {
 		this.data_store[key] = value;
-		Meters3d.create_meter(key);
+		if (key.beginsWith("block_")) {
+			console.log("skipping creation of Meter for 'block_X'");
+		} else {
+			Meters3d.create_meter(key);
+		}
 	}
 
 	add(key, value) {
