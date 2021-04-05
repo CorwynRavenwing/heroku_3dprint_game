@@ -57,9 +57,9 @@ class Meter {
 				case "time":
 					var tmp = value;
 					var min = tmp % 60;	tmp = Math.floor(tmp / 60);
-					var hr  = tmp % 60;	tmp = Math.floor(tmp / 60);
-					var day = tmp % 24;	tmp = Math.floor(tmp / 24);
-					var mth = tmp % 30;	tmp = Math.floor(tmp / 30);
+					var hr  = tmp % 24;	tmp = Math.floor(tmp / 24);
+					var day = tmp % 30;	tmp = Math.floor(tmp / 30);
+					var mth = tmp % 12;	tmp = Math.floor(tmp / 12);
 					var yr  = tmp;
 					value = "("+value+")"
 						+"<br />"
