@@ -244,7 +244,7 @@ class Machine {
 						break;
 
 					case "ship":
-						item_source = self.act_input_source();
+						item_source = self.helper_input_source(self.machine_type);
 						item_count = Data3d.getNumber(item_source);
 						ob = Thing3d.get(item_source);
 						item_price = ob.sell_price;
@@ -385,9 +385,9 @@ class Machine {
 			}
 		}
 
-		act_input_source() {
+		helper_input_source(p_machine_type) {
 			var build_source = "";
-			switch (this.machine_type) {
+			switch (p_machine_type) {
 				case "build":
 					build_source = this.get_output() + '-kit';
 					break;
@@ -429,6 +429,10 @@ class Machine {
 			} // end switch
 
 			return build_source;
+		}
+
+		act_input_source() {
+			return this.helper_input_source(this.machine_type);
 		}
 
 		act_input_quantity() {
