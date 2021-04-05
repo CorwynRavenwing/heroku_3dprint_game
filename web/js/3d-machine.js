@@ -244,8 +244,7 @@ class Machine {
 						item_price = ob2.buy_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
 						if (Data3d.getNumber("money") <= item_price) {
-							// item_skip = true;
-							item_extra = item_extra + " [not enough money]";
+							item_skip = true;
 						}
 						break;
 
