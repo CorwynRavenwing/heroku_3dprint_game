@@ -234,7 +234,11 @@ class Machine {
 					case "build":
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item_source);
-						item_extra = item_count+" ...";
+						var item_time = ob.build_time;
+						item_extra = item_count+" in "+item_time+" min";
+						if (! item_count) {
+							item_skip = true;
+						}
 						break;
 
 					case "buyer":
