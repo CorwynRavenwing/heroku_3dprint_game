@@ -225,7 +225,6 @@ class Machine {
 				} else {
 					item_desc = "["+item+"]";
 				}
-				var ob = null;
 				var item_source = "?";
 				var item_count = 0;
 				var item_price = 0;
@@ -247,8 +246,8 @@ class Machine {
 						var output_fn = function() { return item; }
 						item_source = self.helper_input_source(self.machine_type, output_fn);
 						item_count = Data3d.getNumber(item_source);
-						ob = Thing3d.get(item_source);
-						item_price = ob.sell_price;
+						var ob2 = Thing3d.get(item_source);
+						item_price = ob2.sell_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
 						break;
 
