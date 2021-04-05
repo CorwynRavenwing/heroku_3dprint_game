@@ -61,18 +61,31 @@ class Meter {
 					var day = tmp % 30;	tmp = Math.floor(tmp / 30);
 					var mth = tmp % 12;	tmp = Math.floor(tmp / 12);
 					var yr  = tmp;
+					min = Data3d.pad2(min);
+					var ampm = "AM";
+					if (hr > 12) {
+						hr -= 12;
+						ampm = "PM";
+					} else if (hr == 0) {
+						hr += 12;
+					}
+					hr  = Data3d.pad2(hr);
+					day = Data3d.pad2(day+1);
+					mth = Data3d.pad2(mth+1);
 					value = "("+value+")"
 						+"<br />"
 						+"y"+yr+" "
-						+Data3d.pad2(mth+1)+"/"
-						+Data3d.pad2(day+1)+" "
-						+Data3d.pad2(hr)+":"
-						+Data3d.pad2(min);
+						+mth+"/"
+						+day+" "
+						+hr+":"
+						+min+" "
+						+ampm;
+					var yymm = "y"+yr+" m"+mth;
+					Data3d.setItem("yymm", yymm);
 					break;
 
 				default:
 					// keep current format
-					console.log('keeping current format for meter '+this.data_id);
 					break;
 			}
 
