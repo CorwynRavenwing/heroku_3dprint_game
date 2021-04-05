@@ -103,6 +103,7 @@ class Meters {
 
 	create_meter(p_name) {
 		if (! this.get(p_name)) {
+			this.put(p_name, "CREATING");
 			var ob = new Meter(p_name);
 			this.put(p_name, ob);
 		}
