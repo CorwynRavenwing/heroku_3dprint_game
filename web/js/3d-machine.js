@@ -640,11 +640,13 @@ class Machine {
 			var headline = "Choose Output"
 			var outputs_list = this.possible_outputs();
 
-			var output_success_fn = function (value, text) {
+			var output_success_fn = function (value, dummy) {
 				self.set_output(value);
 				if (value == "?") {
 					announce("Okay, canceled");
 				} else {
+					var ob = Thing3d.get(value);
+					var text = ob.desc
 					announce("Okay, chose "+text);
 					if (self.machine_type != "ship") {
 						Meters3d.create_meter(value);
