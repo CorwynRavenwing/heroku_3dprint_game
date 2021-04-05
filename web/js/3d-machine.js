@@ -235,7 +235,7 @@ class Machine {
 						item_source = self.helper_input_source(self.machine_type, item);
 						item_count = Data3d.getNumber(item_source);
 						var item_time = ob.build_time;
-						item_extra = item_count+" in "+item_time+" min";
+						item_extra = item_count+"; "+item_time+" min";
 						if (! item_count) {
 							item_skip = true;
 						}
@@ -248,6 +248,9 @@ class Machine {
 						item_price = ob2.buy_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
 						if (Data3d.getNumber("money") <= item_price) {
+							item_skip = true;
+						}
+						if (item == "kwh") {
 							item_skip = true;
 						}
 						break;
@@ -277,6 +280,9 @@ class Machine {
 						var ob2 = Thing3d.get(item_source);
 						item_price = ob2.sell_price;
 						item_extra = item_count+" @ "+Data3d.format_money(item_price);
+						if (item_count <= 0) {
+							item_extra = item_extra + " (negative)"
+						}
 						if (! item_count) {
 							item_skip = true;
 						}
@@ -697,7 +703,7 @@ class Machine {
 					this.set_run(0);
 				} else {
 					this.subtract_time(1);
-					Data3d.add('kwh',0.001);
+					Data3d.subtract('kwh',0.001);
 					var incremental_input = (this.machine_type == "print");
 					if (incremental_input) {
 						this.subtract_input(0.001);
