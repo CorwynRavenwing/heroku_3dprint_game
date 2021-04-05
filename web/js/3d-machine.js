@@ -232,9 +232,21 @@ class Machine {
 				var item_skip = false;
 				switch (self.machine_type) {
 					case "build":
+						item_source = self.helper_input_source(self.machine_type, item);
+						item_count = Data3d.getNumber(item_source);
+						item_extra = item_count+" ...";
+						var ob2 = Thing3d.get(item_source);
+						item_price = ob2.buy_price;
+						item_extra = item_count+" @ "+Data3d.format_money(item_price);
+						if (Data3d.getNumber("money") <= item_price) {
+							// item_skip = true;
+							item_extra = item_extra + " [not enough money]";
+						}
 						break;
 
 					case "buyer":
+						item_source = item;
+						item_count = Data3d.getNumber(item_source);
 						break;
 
 					case "extrude":
