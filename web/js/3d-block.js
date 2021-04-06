@@ -223,6 +223,33 @@ class Block {
 		console.log('... set to '+value);
 	}
 
+	set_switch_label(subtype, value) {
+		console.log('block '+this.block_id+' called S_S('+subtype+','+value+')');
+		var old_value = this.get_switch(subtype);
+		if (old_value != value) {
+			set_switch(subtype, value);
+		}
+		var switch_id = this.get_switch_id(subtype);
+		var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
+		var class_name = subtype+"_switch_on";
+		if (value) {
+			if (! block_ob.hasClass(class_name)) {
+				console.log('adding class '+class_name);
+				block_ob.addClass(class_name);
+			} else {
+				console.log('block already has class '+class_name);
+			}
+		} else {
+			if (!block_ob.hasClass(classname)) {
+				console.log('removing class '+class_name);
+				block_ob.removeClass(class_name);
+			} else {
+				console.log('block already lacks class '+class_name);
+			}
+		}
+	}
+
+
 	clicked_switch(subtype) {
 		console.log('block '+this.block_id+' called C_S('+subtype+')');
 		var switch_id = this.get_switch_id(subtype);
@@ -415,30 +442,37 @@ class Block {
 			: '(×)'
 		);
 		if (this.machine_ob) {
-			this.set_action_label('running',
-				(this.get_value('running'))
-				? '(-)'
-				: '(+)'
-			);
-			this.set_action_label('input',
-				(this.get_value('input') > 0)
-				? '(-)'
-				: '(+)'
-			);
-			this.set_action_label('output',
-				(this.get_value('output') == "?")
-				? '(+)'
-				: '(×)'
-			);
 			this.set_action_label('automate',
 				(this.get_value('automate'))
 				? '(-)'
 				: '(+)'
 			);
+			this.set_switch_label('automate', this.get_value('automate'));
+
 			this.set_action_label('autorun',
 				(this.get_value('autorun'))
 				? '(-)'
 				: '(+)'
+			);
+			this.set_switch_label('autorun', this.get_value('autorun'));
+
+			this.set_action_label('running',
+				(this.get_value('running'))
+				? '(-)'
+				: '(+)'
+			);
+			this.set_switch_label('running', this.get_value('running'));
+
+			this.set_action_label('input',
+				(this.get_value('input') > 0)
+				? '(-)'
+				: '(+)'
+			);
+
+			this.set_action_label('output',
+				(this.get_value('output') == "?")
+				? '(+)'
+				: '(×)'
 			);
 			this.set_action_label('time', '');
 		} // endif machine_ob
