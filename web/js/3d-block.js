@@ -483,14 +483,12 @@ class Blocks {
 Blocks3d = new Blocks();
 
 // @TODO: unroll thes functions back to where they are used:
-var blocks_update_display = function () {
-	Blocks3d.update_display();
+var blocks_update_display_RENAME_ISTHISUSED = function () {
 }
 
 var setup_block_group_RENAME_ISTHISUSED = function(group, group_label, hide, rows, cols) {
-	Blocks3d.setup_block_group(group, group_label, hide, rows, cols);
+	// Blocks3d.setup_block_group(group, group_label, hide, rows, cols);
 }
 
-var setup_blocks = function () {
-	Blocks3d.setup_blocks();
+var setup_blocks_RENAME_ISTHISUSED = function () {
 }

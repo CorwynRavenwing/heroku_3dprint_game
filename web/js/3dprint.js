@@ -1,15 +1,14 @@
 /* 3dprint_game/js/3dprint.js */
 
+// Uses 'Blocks3d = new Blocks' from 3d-block.js
 // uses 'Data3d = new Data()' from 3d.data.js
+// Uses 'Menus3d = new Menus()' from 3d-menu.js
 // Uses 'Meters3d = new Meters()' from 3d-meter.js
 
 var update_screen = function () {
 	Data3d.update_display();
-
 	Machines3d.update_display();
-
-	blocks_update_display();
-
+	Blocks3d.update_display();
 	Meters3d.update_display();
 }
 
@@ -80,9 +79,9 @@ $(document).ready(function() {
 		return;
 	}
 
-	setup_menus();
-	setup_meters();
-	setup_blocks();
+	Menus3d.setup_menus();
+	Meters3d.setup_meters();
+	Blocks3d.setup_blocks();
 
 	load_data();
 

@@ -1,5 +1,6 @@
 /* 3dprint_game/js/3d-machine.js */
 
+// Uses 'Blocks3d = new Blocks' from 3d-block.js
 // Uses 'Data3d = new Data' from 3d-data.js
 // Uses 'Thing3d = new Things' from 3d-thing.js
 
@@ -46,7 +47,7 @@ class Machine {
 		this.machine_type = machine_type;
 		Data3d.setItem(block_id+'_type', machine_type);
 
-		var B = blocks[block_id];
+		var B = Blocks3d.get(block_id);
 		this.block_ob = B;
 
 		B.set_type(machine_type);

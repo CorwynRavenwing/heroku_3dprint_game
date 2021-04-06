@@ -114,7 +114,7 @@ class Meters {
 		this.meter_store[p_name] = ob;
 	}
 
-	create_meter(p_name) {
+	create(p_name) {
 		if (! this.get(p_name)) {
 			this.put(p_name, "CREATING");
 			var ob = new Meter(p_name);
@@ -139,7 +139,7 @@ class Meters {
 		];
 
 		leftbar_array.forEach(function(item) {
-			self.create_meter(item);
+			self.create(item);
 		});
 	}
 
@@ -156,6 +156,5 @@ class Meters {
 Meters3d = new Meters();
 
 // Function setup_meters() must ONLY be called after document.ready
-var setup_meters = function () {
-	Meters3d.setup_meters();
+var setup_meters_RENAME_ISTHISUSED = function () {
 }

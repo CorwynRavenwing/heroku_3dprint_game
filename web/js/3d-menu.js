@@ -1,6 +1,6 @@
 /* 3dprint_game/js/3d-menu.js */
 
-var menus    = [];
+var menus = null;
 
 class Menu {
 	constructor(label, click_function) {
@@ -10,24 +10,52 @@ class Menu {
 			.addClass("menu")
 			.click(click_function);
 		lb.append(menudiv);
-		menus.push(this);
 	}
 } // end class Menu
 
-// function setup_menus must ONLY be called after document.ready
-var setup_menus = function () {
-	var M;
+class Menus {
+	menu_store = {};
 
-	var menu_labels = {
-		'CLEAR':  clear_all_data,
-		'RESET':  initialize_data,
-		'LOAD':   load_data,
-		'SAVE':   save_data,
-		'UPDATE': update_screen,
-		'HB +/-': toggle_heart_beats,
-	};
+	constructor() {
+		// nothing yet
+	}
 
-	Object.keys(menu_labels).forEach(function(item, index) {
-		M = new Menu(item, menu_labels[item]);
-	});
+	get(label) {
+		return this.menu_store[label];
+	}
+
+	put(label, ob) {
+		this.menu_store[label] = ob;
+	}
+
+	create(label, click_function) {
+		if (! this.get(label)) {
+			var ob = new Menu(label, click_function);
+			this.put(label, ob);
+		}
+	}
+
+	// function setup_menus must ONLY be called after document.ready
+	setup_menus() {
+		var self = this;
+		var M;
+
+		var menu_functions = {
+			'CLEAR':  clear_all_data,
+			'RESET':  initialize_data,
+			'LOAD':   load_data,
+			'SAVE':   save_data,
+			'UPDATE': update_screen,
+			'HB +/-': toggle_heart_beats,
+		};
+
+		Object.keys(menu_functions).forEach(function(label) {
+			self.create(label, menu_functions[label]);
+		});
+	}
+}
+
+Menus3d = new Menus();
+
+var setup_menus_RENAME_ISTHISUSED = function () {
 }
