@@ -247,7 +247,7 @@ class Block {
 		}
 		if (! retVal) {
 			console.log("C_S() returned false: reversing switch value");
-			set_switch(subtype, (! switch_on));
+			this.set_switch(subtype, (! switch_on));
 		}
 	}
 
