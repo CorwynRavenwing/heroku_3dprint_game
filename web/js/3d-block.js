@@ -105,9 +105,9 @@ class Block {
 		this.add_switch(this.block_ob, 'automate', 'Automate', false);
 		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
 		this.add_switch(this.block_ob, 'running',  'Run',      false);
-
-		this.add_section('automate', 'Auto' );
-		this.add_section('autorun',  'Auto' );
+		// the following 3 will soon be replaced by the preceeding 3:
+		this.add_section('automate', 'Automate' );
+		this.add_section('autorun',  'Auto:run' );
 		this.add_section('running',  'Run'  );
 
 		this.add_section('input',    'Input');
@@ -429,6 +429,11 @@ class Block {
 				(this.get_value('output') == "?")
 				? '(+)'
 				: '(×)'
+			);
+			this.set_action_label('automate',
+				(this.get_value('automate'))
+				? '(-)'
+				: '(+)'
 			);
 			this.set_action_label('autorun',
 				(this.get_value('autorun'))
