@@ -227,7 +227,7 @@ class Block {
 		console.log('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value != value) {
-			console.log('... values different', old_value, value);
+			console.warn('... values different:', old_value, value);
 			this.set_switch(subtype, value);
 		}
 		var switch_id = this.get_switch_id(subtype);
