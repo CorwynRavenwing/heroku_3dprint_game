@@ -224,7 +224,7 @@ class Block {
 	}
 
 	set_switch_label(subtype, value) {
-		console.log('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
+		console.warn('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value != value) {
 			console.warn('... values different:', old_value, value);
@@ -298,7 +298,6 @@ class Block {
 	}
 
 	get_value(subtype) {
-		console.warn('called Block.get_value('+subtype+')');
 		return this.machine_ob.get_value(subtype);
 	}
 
