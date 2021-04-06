@@ -227,7 +227,7 @@ class Block {
 		console.log('block '+this.block_id+' called S_S('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value != value) {
-			set_switch(subtype, value);
+			this.set_switch(subtype, value);
 		}
 		var switch_id = this.get_switch_id(subtype);
 		var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
