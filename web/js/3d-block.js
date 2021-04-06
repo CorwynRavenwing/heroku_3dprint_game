@@ -378,7 +378,7 @@ class Block {
 		this.set_action_label('change',
 			(this.machine_type == "empty")
 			? '(+)'
-			: '(&times;)'
+			: '(×)'
 		);
 		if (this.machine_ob) {
 			this.set_action_label('running',
@@ -394,7 +394,7 @@ class Block {
 			this.set_action_label('output',
 				(this.get_value('output') == "?")
 				? '(+)'
-				: '(&times;)'
+				: '(×)'
 			);
 			this.set_action_label('auto',
 				(this.get_value('auto'))
