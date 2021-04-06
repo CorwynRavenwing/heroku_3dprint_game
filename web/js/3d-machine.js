@@ -447,15 +447,12 @@ class Machine {
 			if (value) {
 				if (this.get_run()) {
 					// already on
-					console.log('A_R(): already on');
 					return true;
 				} else {
 					if (this.can_run()) {
 						this.act_run_on();
-						console.log('A_R(): ON success');
 						return true;
 					} else {
-						console.log('A_R(): ON FAILED');
 						this.announce_error();
 						return false;
 					}
@@ -463,10 +460,8 @@ class Machine {
 			} else {
 				if (! this.get_run()) {
 					// already off
-					console.log('A_R(): already off');
 					return true;
 				} else {
-					console.log('A_R(): OFF success');
 					this.act_run_off();
 					return true;
 				}
@@ -738,16 +733,13 @@ class Machine {
 			if (value) {
 				if (this.get_automate()) {
 					// already on
-					console.log('A_AM(): already on');
 					return true;
 				} else {
 					// turn on
 					if (this.can_automate()) {
 						this.act_automate_on();
-						console.log('A_AM(): ON success');
 						return true;
 					} else {
-						console.log('A_AM(): ON FAILED');
 						this.announce_error();
 						return false;
 					}
@@ -755,11 +747,9 @@ class Machine {
 			} else {
 				if (! this.get_automate()) {
 					// already off
-					console.log('A_AM(): already off');
 					return true;
 				} else {
 					// turn off
-					console.log('A_AM(): OFF success');
 					this.act_automate_off();
 					return true;
 				}
@@ -771,16 +761,13 @@ class Machine {
 			if (value) {
 				if (this.get_autorun()) {
 					// already on
-					console.log('A_AR(): already on');
 					return true;
 				} else {
 					// turn on
 					if (this.can_autorun()) {
 						this.act_autorun_on();
-						console.log('A_AR(): ON success');
 						return true;
 					} else {
-						console.log('A_AR(): ON FAILED');
 						this.announce_error();
 						return false;
 					}
@@ -788,11 +775,9 @@ class Machine {
 			} else {
 				if (! this.get_autorun()) {
 					// already off
-					console.log('A_AR(): already off');
 					return true;
 				} else {
 					// turn off
-					console.log('A_AR(): OFF success');
 					this.act_autorun_off();
 					return true;
 				}

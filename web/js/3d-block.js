@@ -214,11 +214,9 @@ class Block {
 	}
 
 	set_switch(subtype, value) {
-		console.log('block '+this.block_id+' called S_S('+subtype+','+value+')');
 		var switch_id = this.get_switch_id(subtype);
 		$('#'+switch_id)
 			.prop('checked', value);	// value should be true/false
-		console.log('... set to '+value);
 	}
 
 	set_switch_label(subtype, value) {
