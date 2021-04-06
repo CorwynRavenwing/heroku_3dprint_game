@@ -210,7 +210,6 @@ class Block {
 		var switch_id = this.get_switch_id(subtype);
 		var switch_dom = $('#'+switch_id);
 		var switch_on = switch_dom.is(":checked");
-		console.log('... value was '+switch_on);
 		return switch_on;
 	}
 
