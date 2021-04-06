@@ -225,28 +225,23 @@ class Block {
 
 	set_switch_label(subtype, value) {
 		value = (!! value);		// convert to boolean
-		console.warn('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
+		console.log('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value !== value) {
-			console.warn('... values different:', old_value, value);
+			console.warn('block '+this.block_id+' S_S_L('+subtype+','+value+') DIFF:', old_value, value);
 			this.set_switch(subtype, value);
 		}
 		var switch_id = this.get_switch_id(subtype);
-		// var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
 		var class_name = subtype+"_switch_on";
 		if (value) {
 			if (! this.block_ob.hasClass(class_name)) {
 				console.log('adding class '+class_name);
 				this.block_ob.addClass(class_name);
-			} else {
-				console.log('block already has class '+class_name);
 			}
 		} else {
 			if (this.block_ob.hasClass(class_name)) {
 				console.log('removing class '+class_name);
 				this.block_ob.removeClass(class_name);
-			} else {
-				console.log('block already lacks class '+class_name);
 			}
 		}
 	}
