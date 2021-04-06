@@ -80,7 +80,6 @@ class Block {
 		var self = this;
 
 		this.block_ob = $('<div>')
-			.text('('+block_id+')')
 			.attr('id', block_id)
 			.addClass("block")
 			.addClass('type_empty');
