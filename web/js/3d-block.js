@@ -104,7 +104,7 @@ class Block {
 
 		this.add_switch(this.block_ob, 'automate', 'Automate', false);
 		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
-		this.add_switch(this.block_ob, 'run',      'Run',      false);
+		this.add_switch(this.block_ob, 'running',  'Run',      false);
 
 		this.add_section('automate', 'Auto' );
 		this.add_section('autorun',  'Auto' );
