@@ -58,7 +58,8 @@ class Machine {
 
 		B.set_value('run', "0");
 		B.set_value('time', "0");
-		B.set_value('auto', "0");
+		B.set_value('automate', "0");
+		B.set_value('autorun', "0");
 		B.set_value('input', "0");
 
 		if (is_new) {
@@ -127,8 +128,12 @@ class Machine {
 			return this.get_value('time');
 		}
 
-		get_auto() {
-			return this.get_value('auto');
+		get_automate() {
+			return this.get_value('automate');
+		}
+
+		get_autorun() {
+			return this.get_value('autorun');
 		}
 
 	// SET section
@@ -176,8 +181,12 @@ class Machine {
 			this.add_time(-value);
 		}
 
-		set_auto(value) {
-			this.set_value('auto', value);
+		set_automate(value) {
+			this.set_value('automate', value);
+		}
+
+		set_autorun(value) {
+			this.set_value('autorun', value);
 		}
 
 	// helper functions
@@ -357,13 +366,26 @@ class Machine {
 
 		// can_time() // no such function
 
-		can_auto() {
+		can_automate() {
 			if (this.get_output() == "?") {
 				this.error_message = "can't automate if no output";
 				return 0;
 			}
 			if (Data3d.getNumber('helpinghands') < 1) {
 				this.error_message = "need Helping Hands to automate";
+				return 0;
+			}
+			this.error_message = "";
+			return 1;
+		}
+
+		can_autorun() {
+			if (this.get_output() == "?") {
+				this.error_message = "can't auto-run if no output";
+				return 0;
+			}
+			if (! this.get_automate()) {
+				this.error_message = "need to automate first";
 				return 0;
 			}
 			this.error_message = "";
@@ -611,7 +633,8 @@ class Machine {
 		}
 
 		act_output_off() {
-			this.act_auto_off();
+			this.act_autorun_off();
+			this.act_automate_off();
 			this.act_run_off();
 			this.act_input_off();
 			this.set_time(0);
@@ -655,23 +678,76 @@ class Machine {
 
 		// act_time() // no such function
 
-		act_auto_off() {
-			if (this.get_auto()) {
+		act_automate_off() {
+			if (this.get_automate()) {
 				Data3d.add('helpinghands', 1);
-				this.set_auto(0);
+				this.set_automate(0);
 			}
 		}
 
-		act_auto_on() {
+		act_automate_on() {
 			Data3d.subtract('helpinghands', 1);
-			this.set_auto(1);
+			this.set_automate(1);
 		}
 
-		act_auto() {
-			if (this.get_auto()) {
-				this.act_auto_off();
-			} else if (this.can_auto()) {
-				this.act_auto_on();
+		act_autorun_off() {
+			this.set_autorun(0);
+		}
+
+		act_autorun_on() {
+			this.set_autorun(1);
+		}
+
+		act_automate_NEW(value) {
+			if (value) {
+				// try to turn on
+			} else {
+				// try to turn off
+			}
+			// ... old way ...
+			if (this.get_automate()) {
+				this.act_automate_off();
+			} else if (this.can_automate()) {
+				this.act_automate_on();
+			} else {
+				this.announce_error();
+				return;
+			}
+		}
+
+		act_autorun_NEW(value) {
+			if (value) {
+				// try to turn on
+			} else {
+				// try to turn off
+			}
+			// ... old way ...
+			if (this.get_autorun()) {
+				this.act_autorun_off();
+			} else if (this.can_autorun()) {
+				this.act_autorun_on();
+			} else {
+				this.announce_error();
+				return;
+			}
+		}
+
+		act_automate() {
+			if (this.get_automate()) {
+				this.act_automate_off();
+			} else if (this.can_automate()) {
+				this.act_automate_on();
+			} else {
+				this.announce_error();
+				return;
+			}
+		}
+
+		act_autorun() {
+			if (this.get_autorun()) {
+				this.act_autorun_off();
+			} else if (this.can_autorun()) {
+				this.act_autorun_on();
 			} else {
 				this.announce_error();
 				return;
@@ -689,11 +765,12 @@ class Machine {
 
 			B.set_type("empty");
 
-			B.set_value('running', null);
-			B.set_value('input'  , null);
-			B.set_value('output' , null);
-			B.set_value('time'   , null);
-			B.set_value('auto'   , null);
+			B.set_value('running',  null);
+			B.set_value('input',    null);
+			B.set_value('output',   null);
+			B.set_value('time',     null);
+			B.set_value('automate', null);
+			B.set_value('autorun',  null);
 		}
 
 		heart_beat() {
@@ -769,8 +846,10 @@ class Machine {
 				}
 			} // endif get_run
 
-			if (this.get_auto()) {
-				// auto-run, if possible
+			// nothing special happens if this.get_automate() by itself
+
+			if (this.get_autorun()) {
+				// autorun true: set run, if possible
 				if (! this.get_run()) {
 					if (this.get_input() <= 0) {
 						announce('auto: need input first');
@@ -779,22 +858,22 @@ class Machine {
 						this.act_run_on();
 					} else {
 						announce('auto: RUN FAIL, '+this.error_message);
-						this.act_auto_off();
+						this.act_autorun_off();
 					}
 				}
 
-				// auto-input, if possible
+				// autorun true: set input, if possible
 				if (this.get_input() <= 0) {
 					if (this.can_input()) {
 						announce('auto: input');
 						this.act_input_on();
 					} else {
 						announce('auto: INPUT FAIL, '+this.error_message);
-						this.act_auto_off();
+						this.act_autorun_off();
 					}
 				}
 
-				// auto-set output, if possible -- maybe for 'ship' type?
+				// autorun true: set output, if possible -- maybe for 'ship' type?
 
 			}
 

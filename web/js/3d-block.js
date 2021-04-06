@@ -102,14 +102,16 @@ class Block {
 
 		this.add_section('output' , 'Make' );
 
-		this.add_switch(this.block_ob, 'auto', 'Auto', false);
-		this.add_switch(this.block_ob, 'run',  'Run',  false);
+		this.add_switch(this.block_ob, 'automate', 'Automate', false);
+		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
+		this.add_switch(this.block_ob, 'run',      'Run',      false);
 
-		this.add_section('auto'   , 'Auto' );
-		this.add_section('running', 'Run'  );
+		this.add_section('automate', 'Auto' );
+		this.add_section('autorun',  'Auto' );
+		this.add_section('running',  'Run'  );
 
-		this.add_section('input'  , 'Input');
-		this.add_section('time'   , 'Time' );
+		this.add_section('input',    'Input');
+		this.add_section('time',     'Time' );
 
 		this.set_type("empty");
 	}
@@ -228,10 +230,20 @@ class Block {
 		var switch_on = switch_dom.is(":checked");
 		console.log('... value is now "'+switch_on+'"');
 
-
-
-
-
+		switch(subtype) {
+			case 'running':
+				this.act_run_NEW(switch_on);
+				break;
+			case 'autorun':
+				this.act_autorun_NEW(switch_on);
+				break;
+			case 'automate':
+				this.act_automate_NEW(switch_on);
+				break;
+			default:
+				console.error('... invalid subtype '+subtype);
+				break;
+		}
 	}
 
 	add_section(subtype, label) {
@@ -334,8 +346,11 @@ class Block {
 			case 'output':
 				this.act_output();
 				break;
-			case 'auto':
-				this.act_auto();
+			case 'autorun':
+				this.act_autorun();
+				break;
+			case 'automate':
+				this.act_automate();
 				break;
 			case 'time':
 			default:
@@ -344,8 +359,33 @@ class Block {
 		}
 	}
 
+	act_run_NEW(value) {
+		this.machine_ob.act_run_NEW(value);
+		update_screen();
+	}
+
 	act_run() {
 		this.machine_ob.act_run();
+		update_screen();
+	}
+
+	act_automate_NEW() {
+		this.machine_ob.act_automate_NEW(value);
+		update_screen();
+	}
+
+	act_autorun_NEW() {
+		this.machine_ob.act_autorun_NEW(value);
+		update_screen();
+	}
+
+	act_automate() {
+		this.machine_ob.act_automate();
+		update_screen();
+	}
+
+	act_autorun() {
+		this.machine_ob.act_autorun();
 		update_screen();
 	}
 
@@ -356,11 +396,6 @@ class Block {
 
 	act_output() {
 		this.machine_ob.act_output();
-		update_screen();
-	}
-
-	act_auto() {
-		this.machine_ob.act_auto();
 		update_screen();
 	}
 
@@ -387,8 +422,8 @@ class Block {
 				? '(+)'
 				: '(×)'
 			);
-			this.set_action_label('auto',
-				(this.get_value('auto'))
+			this.set_action_label('autorun',
+				(this.get_value('autorun'))
 				? '(-)'
 				: '(+)'
 			);
