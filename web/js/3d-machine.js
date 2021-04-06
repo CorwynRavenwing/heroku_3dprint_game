@@ -443,6 +443,23 @@ class Machine {
 			// else just finish the current timer
 		}
 
+		act_run_NEW(value) {
+			if (value) {
+				// try to turn on
+			} else {
+				// try to turn off
+			}
+			// ... old way
+			console.log('called machine act_run()');
+			if (this.get_run()) {
+				this.act_run_off();
+			} else if (this.can_run()) {
+				this.act_run_on();
+			} else {
+				this.announce_error();
+			}
+		}
+
 		act_run() {
 			console.log('called machine act_run()');
 			if (this.get_run()) {
