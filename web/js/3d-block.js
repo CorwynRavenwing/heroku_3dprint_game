@@ -182,13 +182,17 @@ class Block {
 		this.machine_ob = machine_ob;
 	}
 
+	get_switch_id(subtype) {
+		return this.block_id+'_'+subtype+'_switch';
+	}
+
 	add_switch(location_dom, subtype, hovertext, is_checked) {
 		var self = this;
-		var switch_id = this.block_id+'_'+subtype+'_switch'
+		var switch_id = this.get_switch_id(subtype);
 		var label_dom = $('<label>')
 			.addClass("switch")
 			.attr('for', switch_id)
-			.click(function() { self.clicked_switch(subtype, switch_id); });
+			.click(function() { self.clicked_switch(subtype); });
 		var input_dom = $('<input>')
 			.attr('id', switch_id)
 			.attr('type', 'checkbox')
@@ -207,6 +211,36 @@ class Block {
   <span class="slider round"></span>
 </label>
 		*/
+	}
+
+	get_switch(subtype) {
+		console.log('block '+this.block_id+' called G_S('+subtype+')');
+		var switch_id = this.get_switch_id(subtype);
+		var switch_dom = $('#'+switch_id);
+		var switch_on = switch_dom.is(":checked");
+		console.log('... value was '+switch_on);
+		return switch_on;
+	}
+
+	set_switch(subtype, value) {
+		console.log('block '+this.block_id+' called S_S('+subtype+','+value+')');
+		var switch_id = this.get_switch_id(subtype);
+		$('#'+switch_id)
+			.prop('checked', value);	// value should be true/false
+		console.log('... set to '+value);
+	}
+
+	clicked_switch(subtype) {
+		console.log('block '+this.block_id+' called C_S('+subtype+')');
+		var switch_id = this.get_switch_id(subtype);
+		var switch_dom = $('#'+switch_id);
+		var switch_on = switch_dom.is(":checked");
+		console.log('... value is now "'+switch_on+'"');
+
+
+
+
+
 	}
 
 	add_section(subtype, label) {
@@ -238,19 +272,9 @@ class Block {
 	set_action_label(subtype, new_label) {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
 		var act_ob = $(act_label_id);
-		act_ob.html(new_label);
-	}
-
-	clicked_switch(subtype, switch_id) {
-		console.log('block '+this.block_id+' called C_S('+subtype+','+switch_id+')');
-		var switch_dom = $('#'+switch_id);
-		var switch_on = switch_dom.is(":checked");
-		console.log('... new value is "'+switch_on+'"');
-
-
-
-
-
+		if (act_ob.html() != new_label) {
+			act_ob.html(new_label);
+		}
 	}
 
 	action_dispatch(subtype) {
