@@ -246,7 +246,7 @@ class Block {
 				console.log('block already has class '+class_name);
 			}
 		} else {
-			if (!block_ob.hasClass(class_name)) {
+			if (block_ob.hasClass(class_name)) {
 				console.log('removing class '+class_name);
 				block_ob.removeClass(class_name);
 			} else {
