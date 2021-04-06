@@ -229,20 +229,25 @@ class Block {
 		var switch_dom = $('#'+switch_id);
 		var switch_on = switch_dom.is(":checked");
 		console.log('... value is now "'+switch_on+'"');
+		var retVal = false;
 
 		switch(subtype) {
 			case 'running':
-				this.act_run_NEW(switch_on);
+				retVal = this.act_run_NEW(switch_on);
 				break;
 			case 'autorun':
-				this.act_autorun_NEW(switch_on);
+				retVal = this.act_autorun_NEW(switch_on);
 				break;
 			case 'automate':
-				this.act_automate_NEW(switch_on);
+				retVal = this.act_automate_NEW(switch_on);
 				break;
 			default:
 				console.error('... invalid subtype '+subtype);
 				break;
+		}
+		if (! retVal) {
+			console.log("C_S() returned false: reversing switch value");
+			set_switch(subtype, (! switch_on));
 		}
 	}
 
@@ -360,8 +365,9 @@ class Block {
 	}
 
 	act_run_NEW(value) {
-		this.machine_ob.act_run_NEW(value);
+		var retVal = this.machine_ob.act_run_NEW(value);
 		update_screen();
+		return retVal;
 	}
 
 	act_run() {
@@ -370,13 +376,15 @@ class Block {
 	}
 
 	act_automate_NEW(value) {
-		this.machine_ob.act_automate_NEW(value);
+		var retVal = this.machine_ob.act_automate_NEW(value);
 		update_screen();
+		return retVal;
 	}
 
 	act_autorun_NEW(value) {
-		this.machine_ob.act_autorun_NEW(value);
+		var retVal = this.machine_ob.act_autorun_NEW(value);
 		update_screen();
+		return retVal;
 	}
 
 	act_automate() {
