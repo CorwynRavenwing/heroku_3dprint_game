@@ -224,9 +224,10 @@ class Block {
 	}
 
 	set_switch_label(subtype, value) {
-		console.log('block '+this.block_id+' called S_S('+subtype+','+value+')');
+		console.log('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value != value) {
+			console.log('... values different', old_value, value);
 			this.set_switch(subtype, value);
 		}
 		var switch_id = this.get_switch_id(subtype);
