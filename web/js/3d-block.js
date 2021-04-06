@@ -207,7 +207,6 @@ class Block {
 	}
 
 	get_switch(subtype) {
-		console.log('block '+this.block_id+' called G_S('+subtype+')');
 		var switch_id = this.get_switch_id(subtype);
 		var switch_dom = $('#'+switch_id);
 		var switch_on = switch_dom.is(":checked");
@@ -225,7 +224,6 @@ class Block {
 
 	set_switch_label(subtype, value) {
 		value = (!! value);		// convert to boolean
-		console.log('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
 		var old_value = this.get_switch(subtype);
 		if (old_value !== value) {
 			console.warn('block '+this.block_id+' S_S_L('+subtype+','+value+') DIFF:', old_value, value);
