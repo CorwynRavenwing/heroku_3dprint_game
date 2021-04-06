@@ -100,7 +100,9 @@ class Machine {
 
 	// GET section
 		get_value(subtype) {
+			console.warn('called Machine.get_value('+subtype+')');
 			var data_id = this.block_id+'_'+subtype;
+			console.warn('... data_id', data_id);
 			var temp = Data3d.getItem(data_id);
 			if (temp === "0") {
 				temp = 0;
@@ -109,6 +111,7 @@ class Machine {
 				temp = Data3d.round(temp, 1000);
 			}
 			// else return string as-is
+			console.warn('... value', temp);
 			return temp;
 		}
 

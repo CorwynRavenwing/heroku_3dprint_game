@@ -298,6 +298,7 @@ class Block {
 	}
 
 	get_value(subtype) {
+		console.warn('called Block.get_value('+subtype+')');
 		return this.machine_ob.get_value(subtype);
 	}
 
