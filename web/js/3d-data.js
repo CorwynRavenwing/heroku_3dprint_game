@@ -123,8 +123,6 @@ class Data {
 			var data_dom = $('#data_'+item);
 			if (data_dom.html() != new_value) {
 				data_dom.html(new_value);
-			} else {
-				data_dom.html('['+new_value+']');
 			}
 		});
 	}
