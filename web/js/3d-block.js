@@ -101,14 +101,16 @@ class Block {
 		this.block_ob.append(innerdiv);
 		BR.append(this.block_ob);
 
+		this.add_section('output' , 'Make' );
+
 		this.add_switch(this.block_ob, 'auto', 'Auto', false);
 		this.add_switch(this.block_ob, 'run',  'Run',  false);
 
-		this.add_section('running', 'Run'  );
-		this.add_section('input'  , 'Input');
-		this.add_section('output' , 'Make' );
-		this.add_section('time'   , 'Time' );
 		this.add_section('auto'   , 'Auto' );
+		this.add_section('running', 'Run'  );
+
+		this.add_section('input'  , 'Input');
+		this.add_section('time'   , 'Time' );
 
 		this.set_type("empty");
 	}
