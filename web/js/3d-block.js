@@ -412,11 +412,11 @@ class Blocks {
 		}
 	}
 
-	get(p_name) {
+	get(block_id) {
 		return this.block_store[block_id];
 	}
 
-	put(p_name, ob) {
+	put(block_id, ob) {
 		this.block_store[block_id] = ob;
 	}
 
