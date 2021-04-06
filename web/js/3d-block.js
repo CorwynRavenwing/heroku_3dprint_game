@@ -235,16 +235,16 @@ class Block {
 		// var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
 		var class_name = subtype+"_switch_on";
 		if (value) {
-			if (! block_ob.hasClass(class_name)) {
+			if (! this.block_ob.hasClass(class_name)) {
 				console.log('adding class '+class_name);
-				block_ob.addClass(class_name);
+				this.block_ob.addClass(class_name);
 			} else {
 				console.log('block already has class '+class_name);
 			}
 		} else {
-			if (block_ob.hasClass(class_name)) {
+			if (this.block_ob.hasClass(class_name)) {
 				console.log('removing class '+class_name);
-				block_ob.removeClass(class_name);
+				this.block_ob.removeClass(class_name);
 			} else {
 				console.log('block already lacks class '+class_name);
 			}
