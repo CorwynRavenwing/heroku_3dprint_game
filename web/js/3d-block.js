@@ -273,6 +273,7 @@ class Block {
 		var act_label_id = '#act_'+this.block_id+'_'+subtype;
 		var act_ob = $(act_label_id);
 		if (act_ob.html() != new_label) {
+			console.log(">>> SAL() ", act_ob.html(), new_label);
 			act_ob.html(new_label);
 		}
 	}
