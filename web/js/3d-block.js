@@ -369,12 +369,12 @@ class Block {
 		update_screen();
 	}
 
-	act_automate_NEW() {
+	act_automate_NEW(value) {
 		this.machine_ob.act_automate_NEW(value);
 		update_screen();
 	}
 
-	act_autorun_NEW() {
+	act_autorun_NEW(value) {
 		this.machine_ob.act_autorun_NEW(value);
 		update_screen();
 	}
