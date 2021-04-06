@@ -444,7 +444,7 @@ class Machine {
 		}
 
 		act_run_NEW(value) {
-			console.log('called machine act_run('+value+')');
+			console.log('called machine act_run_NEW('+value+')');
 			if (value) {
 				if (this.get_run()) {
 					// already on
@@ -474,8 +474,8 @@ class Machine {
 			}
 		}
 
-		act_run() {
-			console.log('called machine act_run()');
+		act_run_OLD() {
+			console.log('called machine act_run_OLD()');
 			if (this.get_run()) {
 				this.act_run_off();
 			} else if (this.can_run()) {
@@ -711,26 +711,30 @@ class Machine {
 
 		act_automate_off() {
 			if (this.get_automate()) {
+				announce("Okay, returned 1 "+'helpinghands'+' to stock');
 				Data3d.add('helpinghands', 1);
 				this.set_automate(0);
 			}
 		}
 
 		act_automate_on() {
+			announce("Okay, set up "+'helpinghands'+' to work for you');
 			Data3d.subtract('helpinghands', 1);
 			this.set_automate(1);
 		}
 
 		act_autorun_off() {
+			announce('Okay, '+'helpinghands'+' are now OFF')
 			this.set_autorun(0);
 		}
 
 		act_autorun_on() {
+			announce('Okay, '+'helpinghands'+' are now ON')
 			this.set_autorun(1);
 		}
 
 		act_automate_NEW(value) {
-			console.log('called machine act_autmate('+value+')');
+			console.log('called machine act_automate_OLD('+value+')');
 			if (value) {
 				if (this.get_automate()) {
 					// already on
@@ -763,7 +767,7 @@ class Machine {
 		}
 
 		act_autorun_NEW(value) {
-			console.log('called machine act_autorun('+value+')');
+			console.log('called machine act_autorun_NEW('+value+')');
 			if (value) {
 				if (this.get_autorun()) {
 					// already on
@@ -795,7 +799,7 @@ class Machine {
 			}
 		}
 
-		act_automate() {
+		act_automate_OLD() {
 			if (this.get_automate()) {
 				this.act_automate_off();
 			} else if (this.can_automate()) {
@@ -806,7 +810,7 @@ class Machine {
 			}
 		}
 
-		act_autorun() {
+		act_autorun_OLD() {
 			if (this.get_autorun()) {
 				this.act_autorun_off();
 			} else if (this.can_autorun()) {

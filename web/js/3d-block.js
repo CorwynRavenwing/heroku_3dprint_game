@@ -343,7 +343,7 @@ class Block {
 				}
 				break;
 			case 'running':
-				this.act_run();
+				this.act_run_OLD();
 				break;
 			case 'input':
 				this.act_input();
@@ -352,10 +352,10 @@ class Block {
 				this.act_output();
 				break;
 			case 'autorun':
-				this.act_autorun();
+				this.act_autorun_OLD();
 				break;
 			case 'automate':
-				this.act_automate();
+				this.act_automate_OLD();
 				break;
 			case 'time':
 			default:
@@ -370,8 +370,8 @@ class Block {
 		return retVal;
 	}
 
-	act_run() {
-		this.machine_ob.act_run();
+	act_run_OLD() {
+		this.machine_ob.act_run_OLD();
 		update_screen();
 	}
 
@@ -387,13 +387,13 @@ class Block {
 		return retVal;
 	}
 
-	act_automate() {
-		this.machine_ob.act_automate();
+	act_automate_OLD() {
+		this.machine_ob.act_automate_OLD();
 		update_screen();
 	}
 
-	act_autorun() {
-		this.machine_ob.act_autorun();
+	act_autorun_OLD() {
+		this.machine_ob.act_autorun_OLD();
 		update_screen();
 	}
 
