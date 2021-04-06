@@ -3,7 +3,7 @@
 // uses 'Data3d = new Data()' from 3d-data.js
 // uses 'Machines3d = new Machines()' from 3d-machine.js
 
-var blocks   = {};
+var blocks   = null;
 
 class BlockType {
 	block_type = null;
@@ -49,7 +49,6 @@ class BlockTypes {
 	blocktype_list() {
 		return Object.keys(this.blocktype_data);
 	}
-
 } // end class BlockTypes
 
 BlockTypes3d = new BlockTypes
@@ -60,8 +59,7 @@ class Block {
 	machine_type = null;
 	block_id = null;
 
-	constructor(group, row, column) {
-		var block_id = 'block_'+group+'_'+row+'_'+column;
+	constructor(group, row, column, block_id) {
 		this.block_id = block_id;
 		var row_id = "g"+group+"r"+row
 		var BR = $(".blocks #"+row_id);
@@ -113,8 +111,6 @@ class Block {
 		this.add_section('auto'   , 'Auto' );
 
 		this.set_type("empty");
-
-		blocks[block_id] =this;
 	}
 
 	// what types of machine are currently possible?
@@ -205,12 +201,6 @@ class Block {
 			.appendTo(label_dom);
 		location_dom
 			.append(label_dom);
-		/*
-<label class="switch">
-  <input type="checkbox" checked>
-  <span class="slider round"></span>
-</label>
-		*/
 	}
 
 	get_switch(subtype) {
@@ -406,62 +396,101 @@ class Block {
 	}
 } // end class Block
 
+class Blocks {
+	block_store = {};
+
+	constructor() {
+		// unsure what to do here yet
+	}
+
+	create(group, row, column) {
+		var block_id = 'block_'+group+'_'+row+'_'+column;
+
+		if (! this.get(block_id)) {
+			var ob = new Block(group, row, column, block_id);
+			this.put(block_id, ob);
+		}
+	}
+
+	get(p_name) {
+		return this.block_store[block_id];
+	}
+
+	put(p_name, ob) {
+		this.block_store[block_id] = ob;
+	}
+
+	update_display() {
+		self = this;
+		Object.keys(self.block_store).forEach(function(block_id) {
+			var b = self.block_store[block_id];
+			b.update_display();
+		});
+	}
+
+	setup_block_group(group, group_label, hide, rows, cols) {
+		var group_id = "g"+group
+		var BG = $(".blocks #"+group_id);
+
+		if (! BG.length) {
+			BG = $('<div>')
+				.html(group_label)
+				.attr('id', group_id)
+				.addClass("block_group");
+			if (hide) {
+				BG.addClass('hide');
+			}
+			$(".blocks")
+				.append(BG);
+		}
+
+		var r, c, B;
+
+		for (r = 0; r < rows; r++) {
+			for (c = 0; c < cols; c++) {
+				this.create(group, r, c);
+			}
+		}
+	}
+
+	setup_blocks() {
+		var groups = 3;
+		var rows, cols, g, r, c, B;
+		for (g = 0; g < groups; g++) {
+			if (g == 0) {
+				rows = 2;
+				cols = 4;
+			} else {
+				rows = 4;
+				cols = 5;
+			}
+
+			var group_label, hide;
+
+			if (g) {
+				group_label = 'Warehouse #'+g;
+				hide = true;
+			} else {
+				group_label = 'Your <strike>Basement</strike> Home Office';
+				hide = false;
+			}
+
+			this.setup_block_group(g, group_label, hide, rows, cols);
+		}
+	}
+} // end class Blocks
+
+Blocks3d = new Blocks();
+
+// @TODO: unroll thes functions back to where they are used:
 var blocks_update_display = function () {
-	Object.keys(blocks).forEach(function(block_id) {
-		var b = blocks[block_id];
-		b.update_display();
-	});
+	Blocks3d.update_display();
 }
 
-var setup_block_group = function(group, group_label, hide, rows, cols) {
-	var group_id = "g"+group
-	var BG = $(".blocks #"+group_id);
-
-	if (! BG.length) {
-		BG = $('<div>')
-			.html(group_label)
-			.attr('id', group_id)
-			.addClass("block_group");
-		if (hide) {
-			BG.addClass('hide');
-		}
-		$(".blocks")
-			.append(BG);
-	}
-
-	var r, c, B;
-
-	for (r = 0; r < rows; r++) {
-		for (c = 0; c < cols; c++) {
-			B = new Block(group, r, c);
-			var block_id = B.block_id;
-			// blocks[block_id] = B;
-		}
-	}
+var setup_block_group_RENAME_ISTHISUSED = function(group, group_label, hide, rows, cols) {
+	Blocks3d.setup_block_group(group, group_label, hide, rows, cols);
 }
 
 var setup_blocks = function () {
-	var groups = 3;
-	var rows, cols, g, r, c, B;
-	for (g = 0; g < groups; g++) {
-		if (g == 0) {
-			rows = 2;
-			cols = 4;
-		} else {
-			rows = 4;
-			cols = 5;
-		}
-
-		var group_label, hide;
-
-		if (g) {
-			group_label = 'Warehouse #'+g;
-			hide = true;
-		} else {
-			group_label = 'Your <strike>Basement</strike> Home Office';
-			hide = false;
-		}
-
-		setup_block_group(g, group_label, hide, rows, cols);
-	}
+	Blocks3d.setup_blocks();
 }
