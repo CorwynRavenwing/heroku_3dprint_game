@@ -119,7 +119,13 @@ class Data {
 		// console.log('called function Data.update_display');
 		var self = this;
 		this.keys().forEach(function(item) {
-			$('#data_'+item).html(self.getItem(item));
+			var new_value = self.getItem(item);
+			var data_dom = $('#data_'+item);
+			if (data_dom.html() != new_value) {
+				data_dom.html(new_value);
+			} else {
+				data_dom.html('['+new_value+']');
+			}
 		});
 	}
 
