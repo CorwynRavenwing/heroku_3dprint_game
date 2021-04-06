@@ -732,7 +732,7 @@ class Machine {
 		act_automate_NEW(value) {
 			console.log('called machine act_autmate('+value+')');
 			if (value) {
-				if (this.get_autmate()) {
+				if (this.get_automate()) {
 					// already on
 					console.log('A_AM(): already on');
 					return true;
