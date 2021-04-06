@@ -51,7 +51,7 @@ var heart_beat = function() {
 }
 
 var hb_object = null;
-var hb_ticks = 1000;
+var hb_ticks = 10000;	// 1000;
 var toggle_heart_beats = function() {
 	console.log('called function toggle_heart_beats()');
 	if (hb_object) {
