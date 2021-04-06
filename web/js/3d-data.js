@@ -1,7 +1,7 @@
 /* 3dprint_game/js/3d-data.js */
 
-// Uses 'Meters3d = new Meters()' from 3d-meter.js
 // Uses 'Machines3d = new Machines()' from 3d-machine.js
+// Uses 'Meters3d = new Meters()' from 3d-meter.js
 
 class Data {
 	data_store = {};
@@ -27,7 +27,7 @@ class Data {
 	setItem(key, value) {
 		this.data_store[key] = value;
 		if (! key.startsWith("block_")) {
-			Meters3d.create_meter(key);
+			Meters3d.create(key);
 		}
 	}
 
