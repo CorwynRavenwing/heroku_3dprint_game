@@ -224,19 +224,15 @@ class Block {
 	}
 
 	set_switch_label(subtype, value) {
+		value = (!! value);		// convert to boolean
 		console.warn('block '+this.block_id+' called S_S_L('+subtype+','+value+')');
-		var new_value = (!! value);		// convert to boolean
-		if (new_value !== value) {
-			console.warn('... value updated:', value, new_value);
-			value = new_value;
-		}
 		var old_value = this.get_switch(subtype);
-		if (old_value != value) {
+		if (old_value !== value) {
 			console.warn('... values different:', old_value, value);
 			this.set_switch(subtype, value);
 		}
 		var switch_id = this.get_switch_id(subtype);
-		var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
+		// var block_ob = $(".block").has("#"+switch_id);	// the block containing this switch
 		var class_name = subtype+"_switch_on";
 		if (value) {
 			if (! block_ob.hasClass(class_name)) {

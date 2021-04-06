@@ -101,8 +101,6 @@ class Machine {
 	// GET section
 		get_value(subtype) {
 			var data_id = this.block_id+'_'+subtype;
-			if (data_id == 'block_0_0_0_autorun') { console.warn('called Machine.get_value('+subtype+')'); }
-			if (data_id == 'block_0_0_0_autorun') { console.warn('... data_id', data_id); }
 			var temp = Data3d.getItem(data_id);
 			if (temp === "0") {
 				temp = 0;
@@ -111,7 +109,6 @@ class Machine {
 				temp = Data3d.round(temp, 1000);
 			}
 			// else return string as-is
-			if (data_id == 'block_0_0_0_autorun') { console.warn('... value', temp); }
 			return temp;
 		}
 
@@ -314,7 +311,6 @@ class Machine {
 
 			if (Object.keys(outputs_list).length == 2) {
 				// delete "Choose One" if there's no other option
-				console.warn("deleting Choose One from length-2 list");
 				delete outputs_list[choose_text];
 				this.error_message = "Only one choice available.  Press OK";
 			}
@@ -714,6 +710,7 @@ class Machine {
 
 		act_automate_off() {
 			if (this.get_automate()) {
+				this.act_autorun_off();
 				announce("Okay, returned 1 "+'helpinghands'+' to stock');
 				Data3d.add('helpinghands', 1);
 				this.set_automate(0);
@@ -727,12 +724,12 @@ class Machine {
 		}
 
 		act_autorun_off() {
-			announce('Okay, '+'helpinghands'+' are now OFF')
+			announce('Turning '+'helpinghands'+' OFF');
 			this.set_autorun(0);
 		}
 
 		act_autorun_on() {
-			announce('Okay, '+'helpinghands'+' are now ON')
+			announce('Turning '+'helpinghands'+' ON');
 			this.set_autorun(1);
 		}
 
