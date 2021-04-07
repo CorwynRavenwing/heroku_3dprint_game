@@ -235,14 +235,22 @@ input:checked + .slider:before {
     background-color: red;
 }
 
+input:focus + .slider {
+    box-shadow: 0 0 1px red;
+}
+
 /* colors when switch is INVALID: */
 .block.automate_off label.switch.autorun .slider {
-    background-color: lightblue;
-	color: orange;
+    background-color: darkgray;
+    /* NB: 'gray' is darker than 'darkgray' for some reason */
 }
 
 .block.automate_off label.switch.autorun .slider::before {
-    background-color: darkgray;
+    background-color: gray;
+}
+
+.block.automate_off label.switch.autorun input:focus + .slider {
+    box-shadow: 0 0 1px gray;
 }
 
 /*
