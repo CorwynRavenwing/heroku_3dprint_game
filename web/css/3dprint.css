@@ -226,14 +226,19 @@ input:checked + .slider:before {
 	opacity: 10%;
 }
 
-/* color when switch is OFF */
+/* default colors are when switch is OFF: */
 .slider {
     background-color: pink;
 }
 
-/* color when switch is INVALID */
+.slider::before {
+    background-color: red;
+}
+
+/* colors when switch is INVALID: */
 .block.automate_off label.switch.autorun .slider {
-	color: grey;
+    background-color: lightblue;
+	color: orange;
 }
 
 .block.automate_off label.switch.autorun .slider::before {
