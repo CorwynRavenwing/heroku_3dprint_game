@@ -223,7 +223,17 @@ input:checked + .slider:before {
 .block.type_empty .input,
 .block.type_empty .time,
 .block.type_empty label.switch {
-	opacity: 25%;
+	opacity: 10%;
+}
+
+/* color when switch is OFF */
+.slider {
+    background-color: pink;
+}
+
+/* color when switch is INVALID */
+.block.automate_off label.switch.autorun .slider {
+	color: grey;
 }
 
 .block.automate_off label.switch.autorun .slider::before {
