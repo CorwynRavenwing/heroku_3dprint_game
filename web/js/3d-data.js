@@ -73,7 +73,9 @@ class Data {
 	loadItem(key) {
 		var value = localStorage.getItem(key);
 		this.setItem(key, value);
-		console.log('loading value for item:', key, value)
+		if (key.startsWith('block_0_0_0_')) {
+			console.log('loading value for item:', key, value);
+		}
 		this.loadHooks(key);
 	}
 
