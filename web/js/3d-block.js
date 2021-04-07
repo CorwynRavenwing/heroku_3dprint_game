@@ -251,19 +251,24 @@ class Block {
 		console.log('... value is now "'+switch_on+'"');
 		var retVal = false;
 
-		switch(subtype) {
-			case 'running':
-				retVal = this.act_run_NEW(switch_on);
-				break;
-			case 'autorun':
-				retVal = this.act_autorun_NEW(switch_on);
-				break;
-			case 'automate':
-				retVal = this.act_automate_NEW(switch_on);
-				break;
-			default:
-				console.error('... invalid subtype '+subtype);
-				break;
+		if (this.machine_type != "empty") {
+			switch(subtype) {
+				case 'running':
+					retVal = this.act_run_NEW(switch_on);
+					break;
+				case 'autorun':
+					retVal = this.act_autorun_NEW(switch_on);
+					break;
+				case 'automate':
+					retVal = this.act_automate_NEW(switch_on);
+					break;
+				default:
+					console.error('... invalid subtype '+subtype);
+					break;
+			}
+		} else {
+			// clicking switches on empty blocks always fails
+			retVal = false;
 		}
 		if (! retVal) {
 			console.log("C_S() returned false: reversing switch value");
