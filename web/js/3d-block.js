@@ -167,8 +167,6 @@ class Block {
 		var old_type = this.machine_type;
 		Data3d.setItem(blocktype_label, new_type);
 
-		console.log('called Block.set_type()', this.block_id, old_type, '->', new_type);
-
 		this.block_ob
 			.removeClass('type_'+old_type)
 			.addClass('type_'+new_type);
