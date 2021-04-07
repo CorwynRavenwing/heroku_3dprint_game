@@ -272,8 +272,8 @@ class Block {
 		}
 		if (! retVal) {
 			console.log("C_S() returned false: reversing switch value");
-			console.log("... before: ", switch_dom.is(":checked") );
-			switch_dom.prop('checked', (! value) );
+			console.log("... before: ", switch_dom.is(":checked"), switch_on );
+			switch_dom.prop('checked', (! switch_on) );
 			console.log("... after: ", switch_dom.is(":checked") );
 		}
 	}
