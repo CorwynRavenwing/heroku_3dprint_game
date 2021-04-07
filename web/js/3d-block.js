@@ -314,11 +314,11 @@ class Block {
 	action_dispatch(subtype) {
 		console.log('block '+this.block_id+' called A_D('+subtype+')');
 
-		switch (subtype) {
-			case 'change':
-				if (this.machine_type == "empty") {
-					// currently empty: create a block
 
+		if (this.machine_type == "empty") {
+			switch (subtype) {
+				case 'change':
+					// currently empty: create a block
 					var self = this;
 					var headline = "Choose Block Machine"
 					var outputs_list = this.blocktype_list();
@@ -351,7 +351,25 @@ class Block {
 					};
 
 					chooser(headline, outputs_list, "?", block_success_fn);
-				} else {
+					break;
+
+				case 'running':
+				case 'input':
+				case 'output':
+				case 'autorun':
+				case 'automate':
+					console.log("don't click buttons on empty machines");
+					break;
+
+				case 'time':
+				default:
+					console.log('block '+this.block_id+' called A_D: invalid subtype '+subtype);
+					break;
+			} // end switch subtype
+		} else {
+			// machine_type not "empty"
+			switch (subtype) {
+				case 'change':
 					// currently non-empty: clear machine
 					var build_source = this.blocktype_source(this.machine_type);
 					this.machine_ob.act_output_off();
@@ -365,28 +383,34 @@ class Block {
 						announce("... (which was free)");
 					}
 					update_screen();
-				}
-				break;
-			case 'running':
-				this.act_run_OLD();
-				break;
-			case 'input':
-				this.act_input();
-				break;
-			case 'output':
-				this.act_output();
-				break;
-			case 'autorun':
-				this.act_autorun_OLD();
-				break;
-			case 'automate':
-				this.act_automate_OLD();
-				break;
-			case 'time':
-			default:
-				console.log('block '+this.block_id+' called A_D: invalid subtype '+subtype);
-				break;
-		}
+					break;
+
+				case 'running':
+					this.act_run_OLD();
+					break;
+
+				case 'input':
+					this.act_input();
+					break;
+
+				case 'output':
+					this.act_output();
+					break;
+
+				case 'autorun':
+					this.act_autorun_OLD();
+					break;
+
+				case 'automate':
+					this.act_automate_OLD();
+					break;
+
+				case 'time':
+				default:
+					console.log('block '+this.block_id+' called A_D: invalid subtype '+subtype);
+					break;
+			} // end switch subtype
+		} // endif machine_type
 	}
 
 	act_run_NEW(value) {
