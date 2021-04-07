@@ -188,6 +188,7 @@ class Block {
 		var switch_id = this.get_switch_id(subtype);
 		var label_dom = $('<label>')
 			.addClass("switch")
+			.addClass(subtype)
 			.attr('for', switch_id)
 			.click(function() { self.clicked_switch(subtype); });
 		var input_dom = $('<input>')
