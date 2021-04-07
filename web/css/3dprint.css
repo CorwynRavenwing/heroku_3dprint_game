@@ -142,7 +142,11 @@ body {
 	color: darkblue;
 }
 
-.block .auto {
+.block .automate {
+	color: darkgrey;
+}
+
+.block .autorun {
 	color: darkgrey;
 }
 

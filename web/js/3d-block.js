@@ -217,6 +217,20 @@ class Block {
 			.prop('checked', value);	// value should be true/false
 	}
 
+	set_class_if(class_ob, class_name, value) {
+		if (value) {
+			if (! class_ob.hasClass(class_name)) {
+				console.log('... adding class '+class_name);
+				class_ob.addClass(class_name);
+			}
+		} else {
+			if (class_ob.hasClass(class_name)) {
+				console.log('... removing class '+class_name);
+				class_ob.removeClass(class_name);
+			}
+		}
+	}
+
 	set_switch_label(subtype, value) {
 		value = (!! value);		// convert to boolean
 		var old_value = this.get_switch(subtype);
@@ -224,21 +238,9 @@ class Block {
 			console.warn('block '+this.block_id+' S_S_L('+subtype+','+value+') DIFF:', old_value, value);
 			this.set_switch(subtype, value);
 		}
-		var switch_id = this.get_switch_id(subtype);
-		var class_name = subtype+"_switch_on";
-		if (value) {
-			if (! this.block_ob.hasClass(class_name)) {
-				console.log('adding class '+class_name);
-				this.block_ob.addClass(class_name);
-			}
-		} else {
-			if (this.block_ob.hasClass(class_name)) {
-				console.log('removing class '+class_name);
-				this.block_ob.removeClass(class_name);
-			}
-		}
+		this.set_class_if(this.block_ob, subtype+"_on",    value);
+		this.set_class_if(this.block_ob, subtype+"_off", (!value));
 	}
-
 
 	clicked_switch(subtype) {
 		console.log('block '+this.block_id+' called C_S('+subtype+')');
