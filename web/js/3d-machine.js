@@ -56,14 +56,14 @@ class Machine {
 		var innerdiv;
 		var outerdiv = $('#'+block_id);
 
-		B.set_value('run', "0");
-		B.set_value('time', "0");
-		B.set_value('automate', "0");
-		B.set_value('autorun', "0");
-		B.set_value('input', "0");
-
 		if (is_new) {
 			// set default values here
+
+			this.set_value('run', "0");
+			this.set_value('time', "0");
+			this.set_value('automate', "0");
+			this.set_value('autorun', "0");
+			this.set_value('input', "0");
 
 			switch (machine_type) {
 				case "empty":
@@ -74,26 +74,27 @@ class Machine {
 				case "buyer":
 				case "print":
 				case "ship":
-					B.set_value('output', "?");
+					this.set_value('output', "?");
 					break;
 
 				case "extrude":
-					B.set_value('output', "filament");
+					this.set_value('output', "filament");
 					break;
 
 				case "recycle":
-					B.set_value('output', "bottle");
+					this.set_value('output', "bottle");
 					break;
 
 				case "shred":
-					B.set_value('output', "plastic");
+					this.set_value('output', "plastic");
 					break;
 
 				default:
-					B.set_value('output', "?");
+					this.set_value('output', "?");
 					break;
 			} // end switch
 		}
+		// else keep the current values loaded from save file
 
 		B.update_display();
 	}
