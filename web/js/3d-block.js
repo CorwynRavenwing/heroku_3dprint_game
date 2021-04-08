@@ -277,6 +277,7 @@ class Block {
 		var action = $('<span>')
 			.text(label)
 			.attr('id', 'actspan_'+this.block_id+'_'+subtype+'_'+control)
+			.addClass('actspan')
 			.click(function() { self.action_dispatch_NEW(subtype, control); });
 		dom.append(action);
 	}

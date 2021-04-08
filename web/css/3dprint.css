@@ -126,9 +126,19 @@ body {
 	color: darkgreen;
 }
 
+/* @todo: following three blocks to be deleted: */
+.block .automate {
+	color: darkgrey;
+}
+
+.block .autorun {
+	color: darkgrey;
+}
+
 .block .running {
 	color: red;
 }
+/* @todo: end to-be-deleted section */
 
 .block .input {
 	color: darkred;
@@ -142,12 +152,8 @@ body {
 	color: darkblue;
 }
 
-.block .automate {
-	color: darkgrey;
-}
-
-.block .autorun {
-	color: darkgrey;
+.actspan.hide {
+	opacity: 25%;
 }
 
 /* slider switch CSS from W3Schools:
