@@ -584,9 +584,9 @@ class Block {
 			var output = this.get_value('output');
 			var output_ob = Thing3d.get(output);
 			this.set_action_label_NEW('output',
-				(output == "?")
-				? "Output: ?"
-				: output_ob.desc
+				(output_ob)
+				? output_ob.desc
+				: "Output: ?" + ' ['+output+']'
 			);
 			this.hide_action_span('output', 'clear', (output == "empty"))
 			this.hide_action_span('output', 'set',   (output != "empty"))
