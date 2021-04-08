@@ -289,7 +289,7 @@ class Block {
 	}
 
 	add_display(dom, subtype, hovertext) {
-		var blocktype_label = block_id+'_type';
+		var blocktype_label = this.block_id+'_type';
 		var outer = $('<div>')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass(subtype);
