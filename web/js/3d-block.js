@@ -105,10 +105,6 @@ class Block {
 		this.add_switch(this.block_ob, 'automate', 'Automate', false);
 		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
 		this.add_switch(this.block_ob, 'running',  'Run',      false);
-		// the following 3 will soon be replaced by the preceeding 3:
-		this.add_section('automate', 'Automate' );
-		this.add_section('autorun',  'Auto:run' );
-		this.add_section('running',  'Run'  );
 
 		this.add_section('input',    'Input');
 		this.add_section('time',     'Time' );
@@ -143,7 +139,6 @@ class Block {
 
 			outputs_list[item_desc] = item;
 		});
-
 		// this.error_message = "";
 
 		return outputs_list;
@@ -278,7 +273,56 @@ class Block {
 		}
 	}
 
+	build_action_span(dom, label, subtype, control) {
+		var action = $('<span>')
+			.text(label)
+			.attr('id', 'actNEW_'+this.block_id+'_'+subtype+' '+control)
+			.click(function() { self.action_dispatch_NEW(subtype, control); });
+		dom.append(action);
+	}
+
+	add_section_NEW(subtype, label) {
+		var self=this;
+		var outer = $('<div>')
+			.attr('id', 'section_'+this.block_id+'_'+subtype)
+			.addClass(subtype);
+
+		switch (subtype) {
+			case "input":
+				this.build_action_span(outer, '(0)', subtype, '0');
+				this.build_action_span(outer, '(-)', subtype, '-');
+				break;
+
+			case "output":
+			case "time":
+				break;
+		}
+
+		var inner = $('<span>')
+			.attr('id', 'display_'+this.block_id+'_'+subtype);
+		outer.append(inner);
+
+		switch (subtype) {
+			case "input":
+				this.build_action_span(outer, '(+)', subtype, '+');
+				this.build_action_span(outer, '(*)', subtype, '*');
+				break;
+
+			case "output":
+				this.build_action_span(outer, '(×)', subtype, 'x');
+				this.build_action_span(outer, '(+)', subtype, '+');
+				break;
+
+			case "time":
+				break;
+		}
+
+		this.block_ob.append(outer);
+	}
+
 	add_section(subtype, label) {
+		add_section_NEW(subtype_label);		// call other function too
+
 		var self=this;
 		var outer = $('<div>')
 			.attr('id', 'section_'+this.block_id+'_'+subtype)
@@ -311,6 +355,14 @@ class Block {
 			console.log(">>> SAL() ", act_ob.html(), new_label);
 			act_ob.html(new_label);
 		}
+	}
+
+	action_dispatch_NEW(subtype, control) {
+		console.log('block '+this.block_id+' called A_D_NEW('+subtype+','+control+')');
+
+
+
+
 	}
 
 	action_dispatch(subtype) {
