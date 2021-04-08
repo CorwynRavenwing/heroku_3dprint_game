@@ -220,11 +220,13 @@ input:checked + .slider:before {
  * some additions for colorizing switches under certain circumstances
  */
 
+.block.type_empty .automate,
+.block.type_empty .autorun,
 .block.type_empty .running,
 .block.type_empty .input,
 .block.type_empty .time,
 .block.type_empty label.switch {
-	opacity: 0%;
+	visibility: hidden;
 }
 
 /* colors when switch is INVALID: */
