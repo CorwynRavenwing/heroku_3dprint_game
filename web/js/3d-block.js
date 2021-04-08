@@ -542,7 +542,7 @@ class Block {
 			? '(+)'
 			: '(×)'
 		);
-		if (this.machine_ob) {\
+		if (this.machine_ob) {
 			this.set_switch_label('automate', this.get_value('automate'));
 			// @todo: delete next line
 			this.set_action_label('automate',
