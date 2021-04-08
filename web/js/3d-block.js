@@ -534,8 +534,8 @@ class Block {
 		this.set_action_label_NEW('change',
 			this.machine_type
 		);
-		hide_action_span('change', 'clear', (this.machine_type == "empty"));
-		hide_action_span('change', 'set',   (this.machine_type != "empty"));
+		this.hide_action_span('change', 'clear', (this.machine_type == "empty"));
+		this.hide_action_span('change', 'set',   (this.machine_type != "empty"));
 		// @todo: delete next line
 		this.set_action_label('change',
 			(this.machine_type == "empty")
@@ -567,13 +567,13 @@ class Block {
 			);
 			this.set_switch_label('running', this.get_value('running'));
 
-			set_action_label_NEW('input',
+			this.set_action_label_NEW('input',
 				this.get_value('input')
 			);
-			hide_action_span('input', 'zero',  false); // if value = 0
-			hide_action_span('input', 'minus', false); // if value < quantum
-			hide_action_span('input', 'plus',  false); // if avail < quantum
-			hide_action_span('input', 'max',   false); // if avail = 0
+			this.hide_action_span('input', 'zero',  false); // if value = 0
+			this.hide_action_span('input', 'minus', false); // if value < quantum
+			this.hide_action_span('input', 'plus',  false); // if avail < quantum
+			this.hide_action_span('input', 'max',   false); // if avail = 0
 			// @todo: delete next line
 			this.set_action_label('input',
 				(this.get_value('input') > 0)
@@ -583,13 +583,13 @@ class Block {
 
 			var output = this.get_value('output');
 			var output_ob = Thing3d.get(output);
-			set_action_label_NEW('output',
+			this.set_action_label_NEW('output',
 				(output == "?")
 				? output_ob.desc
 				: "Output: ?"
 			);
-			hide_action_span('output', 'clear', (output == "empty"))
-			hide_action_span('output', 'set',   (output != "empty"))
+			this.hide_action_span('output', 'clear', (output == "empty"))
+			this.hide_action_span('output', 'set',   (output != "empty"))
 			// @todo: delete next line
 			this.set_action_label('output',
 				(output == "?")
@@ -597,10 +597,11 @@ class Block {
 				: '(×)'
 			);
 
-			// hide_action_span('time', 'null', true);
-			set_action_label_NEW('time',
+			// 'time' has no action spans to hide or show
+			this.set_action_label_NEW('time',
 				this.get_value('time')
 			);
+			// @todo: delete next line
 			this.set_action_label('time', '');
 		} // endif machine_ob
 	}
