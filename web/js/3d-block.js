@@ -498,7 +498,7 @@ class Block {
 					this.act_automate_OLD();
 					break;
 
-				case "COPY GUTS OUT OF THESE FUNCTIONS:"
+				case "COPY GUTS OUT OF THESE FUNCTIONS":
 					this.act_input();
 					this.act_output();
 					break;
