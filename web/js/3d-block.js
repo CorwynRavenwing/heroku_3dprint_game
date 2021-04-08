@@ -492,13 +492,13 @@ class Block {
 					console.log('... use the other one instead');
 					break;
 
-				case 'DELETE THESE FUNCTIONS:'
+				case 'DELETE THESE FUNCTIONS':
 					this.act_autorun_OLD();
 					this.act_run_OLD();
 					this.act_automate_OLD();
 					break;
 
-				case "COPY GUTS OUT OF THESE FUNCTIONS":
+				case 'COPY GUTS OUT OF THESE FUNCTIONS':
 					this.act_input();
 					this.act_output();
 					break;
