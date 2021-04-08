@@ -83,6 +83,10 @@ class Block {
 			.attr('id', block_id)
 			.addClass("block")
 			.addClass('type_empty');
+
+		this.add_display(this.block_ob, 'change', 'label');
+
+		/* @todo: begin delete section */
 		var innerdiv = $('<div>')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass("type");
@@ -98,6 +102,7 @@ class Block {
 			.append('&nbsp;')
 			.append(innerspan);
 		this.block_ob.append(innerdiv);
+		/* @todo: end delete section */
 		BR.append(this.block_ob);
 
 		this.add_section('output' , 'Make' );
@@ -273,25 +278,22 @@ class Block {
 		}
 	}
 
-	build_action_span(dom, label, subtype, control) {
+	build_action_span(dom, label, subtype, control, hovertext) {
 		var action = $('<span>')
 			.text(label)
+			.title(hovertext)
 			.attr('id', 'actspan_'+this.block_id+'_'+subtype+'_'+control)
 			.addClass('actspan')
 			.click(function() { self.action_dispatch_NEW(subtype, control); });
 		dom.append(action);
 	}
 
-	add_section_NEW(subtype, label) {
-		var self=this;
-		var outer = $('<div>')
-			.attr('id', 'section_'+this.block_id+'_'+subtype)
-			.addClass(subtype);
-
+	add_display(dom, subtype, hovertext) {
 		switch (subtype) {
 			case "input":
-				this.build_action_span(outer, '(0)', subtype, 'zero');
-				this.build_action_span(outer, '(-)', subtype, 'minus');
+				this.build_action_span(dom, '(0)', subtype, 'zero',  'Clear input');
+				this.build_action_span(dom, '(-)', subtype, 'minus', '-1 input');
+				dom.append('&nbsp;&nbsp;&nbsp;');
 				break;
 
 			case "output":
@@ -302,30 +304,47 @@ class Block {
 
 		var inner = $('<span>')
 			.attr('id', 'display_'+this.block_id+'_'+subtype)
+			.title(hovertext)
 			.text("NEW");
-		outer.append(inner);
+		dom.append(inner);
 
 		switch (subtype) {
 			case "input":
-				this.build_action_span(outer, '(+)', subtype, 'add');
-				this.build_action_span(outer, '(*)', subtype, 'max');
+				dom.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(dom, '(+)', subtype, 'add',   '+1 input');
+				this.build_action_span(dom, '(*)', subtype, 'max',   'Max input');
 				break;
 
 			case "output":
+				dom.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(dom, '(×)', subtype, 'clear', 'Clear output');
+				this.build_action_span(dom, '(+)', subtype, 'set',   'Set output');
+				break;
+
 			case "change":
-				this.build_action_span(outer, '(×)', subtype, 'clear');
-				this.build_action_span(outer, '(+)', subtype, 'set');
+				dom.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(dom, '(×)', subtype, 'clear', 'Clear block type');
+				this.build_action_span(dom, '(+)', subtype, 'set',   'Set block type');
 				break;
 
 			case "time":
 				break;
 		}
+	}
+
+	add_section_NEW(subtype, hovertext) {
+		var self=this;
+		var outer = $('<div>')
+			.attr('id', 'section_'+this.block_id+'_'+subtype)
+			.addClass(subtype);
+
+		this.add_display(outer, subtype, hovertext);
 
 		this.block_ob.append(outer);
 	}
 
-	add_section(subtype, label) {
-		this.add_section_NEW(subtype, label);		// call other function too
+	add_section(subtype, label_rename_hovertext) {
+		this.add_section_NEW(subtype, label_rename_hovertext);		// call other function too
 
 		var self=this;
 		var outer = $('<div>')
@@ -337,7 +356,7 @@ class Block {
 			.text('NEW')
 			.attr('id', 'act_'+this.block_id+'_'+subtype)
 			.click(function() { self.action_dispatch(subtype); });
-		outer.append(label+':&nbsp;');
+		outer.append(label_rename_hovertext+':&nbsp;');
 		outer.append(inner);
 		outer.append('&nbsp;');
 		outer.append(action);
