@@ -279,6 +279,7 @@ class Block {
 	}
 
 	build_action_span(dom, label, subtype, control, hovertext) {
+		var self = this;
 		var action = $('<span>')
 			.text(label)
 			.attr('title', hovertext)
