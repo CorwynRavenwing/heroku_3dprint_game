@@ -281,7 +281,7 @@ class Block {
 	build_action_span(dom, label, subtype, control, hovertext) {
 		var action = $('<span>')
 			.text(label)
-			.title(hovertext)
+			.attr('title', hovertext)
 			.attr('id', 'actspan_'+this.block_id+'_'+subtype+'_'+control)
 			.addClass('actspan')
 			.click(function() { self.action_dispatch_NEW(subtype, control); });
@@ -304,7 +304,7 @@ class Block {
 
 		var inner = $('<span>')
 			.attr('id', 'display_'+this.block_id+'_'+subtype)
-			.title(hovertext)
+			.attr('title', hovertext)
 			.text("NEW");
 		dom.append(inner);
 
