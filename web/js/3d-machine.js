@@ -4,6 +4,8 @@
 // Uses 'Data3d = new Data' from 3d-data.js
 // Uses 'Thing3d = new Things' from 3d-thing.js
 
+console.log('file 3d-machine.js: start');
+
 class Machine {
 	block_id = null;
 	block_ob = null;
@@ -1001,3 +1003,5 @@ Machines3d = new Machines();
 var machines = null;				// delete variable after testing
 var reset_machines = null;			// delete variable after testing
 var machines_heart_beats = null;	// delete variable after testing
+
+console.log('file 3d-machine.js: end');

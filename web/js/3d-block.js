@@ -3,7 +3,7 @@
 // uses 'Data3d = new Data()' from 3d-data.js
 // uses 'Machines3d = new Machines()' from 3d-machine.js
 
-var blocks   = null;
+console.log('file 3d-block.js: start');
 
 class BlockType {
 	block_type = null;
@@ -651,3 +651,5 @@ var setup_block_group_RENAME_ISTHISUSED = function(group, group_label, hide, row
 
 var setup_blocks_RENAME_ISTHISUSED = function () {
 }
+
+console.log('file 3d-block.js: end');

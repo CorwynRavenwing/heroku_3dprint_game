@@ -5,6 +5,8 @@
 // Uses 'Menus3d = new Menus()' from 3d-menu.js
 // Uses 'Meters3d = new Meters()' from 3d-meter.js
 
+console.log('file 3dprint.js: start');
+
 var update_screen = function () {
 	Data3d.update_display();
 	Machines3d.update_display();
@@ -97,3 +99,5 @@ $(document).ready(function() {
 	save_data();
 	toggle_heart_beats();
 });
+
+console.log('file 3dprint.js: end');

@@ -1,5 +1,7 @@
 /* 3dprint_game/js/3d-thing.js */
 
+console.log('file 3d-thing.js: start');
+
 class Thing {
 	name       = null;
 	print_time = null;
@@ -133,3 +135,5 @@ class Things {
 } // end class Things
 
 var Thing3d = new Things();
+
+console.log('file 3d-thing.js: end');

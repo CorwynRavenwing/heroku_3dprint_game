@@ -1,6 +1,6 @@
 /* 3dprint_game/js/3d-menu.js */
 
-var menus = null;
+console.log('file 3d-menu.js: start');
 
 class Menu {
 	constructor(label, click_function) {
@@ -59,3 +59,5 @@ Menus3d = new Menus();
 
 var setup_menus_RENAME_ISTHISUSED = function () {
 }
+
+console.log('file 3d-menu.js: end');

@@ -3,6 +3,8 @@
 // uses 'Data3d = new Data()' from 3d-data.js
 // uses 'Thing3d = new Things()' from 3d-things.js
 
+console.log('file 3d-meter.js: start');
+
 class Meter {
 	data_id  = null;
 	meter_id = null;
@@ -158,3 +160,5 @@ Meters3d = new Meters();
 // Function setup_meters() must ONLY be called after document.ready
 var setup_meters_RENAME_ISTHISUSED = function () {
 }
+
+console.log('file 3d-meter.js: end');

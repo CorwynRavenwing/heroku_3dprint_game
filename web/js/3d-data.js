@@ -3,6 +3,8 @@
 // Uses 'Machines3d = new Machines()' from 3d-machine.js
 // Uses 'Meters3d = new Meters()' from 3d-meter.js
 
+console.log('file 3d-data.js: start');
+
 class Data {
 	data_store = {};
 
@@ -136,3 +138,5 @@ class Data {
 }
 
 var Data3d = new Data();
+
+console.log('file 3d-data.js: end');
