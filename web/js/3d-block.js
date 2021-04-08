@@ -76,8 +76,6 @@ class Block {
 			BG
 				.append(BR);
 		}
-		var blocktype_label = block_id+'_type';		// @todo: delete line
-		var self = this;							// @todo: delete line?
 
 		this.block_ob = $('<div>')
 			.attr('id', block_id)
@@ -86,36 +84,19 @@ class Block {
 
 		this.add_display(this.block_ob, 'type', 'label');
 
-		/* @todo: begin delete section ...
-		var innerdiv = $('<div>')
-			.attr('id', 'div_'+blocktype_label)
-			.addClass("type");
-		var labelspan = $('<span>')
-			.text('[type]')
-			.attr('id', 'data_'+blocktype_label);
-		var innerspan = $('<span>')
-			.text('NEW')
-			.attr('id', 'act_'+block_id+'_type')
-			.click(function() { self.action_dispatch('type'); });
-		innerdiv
-			.append(labelspan)
-			.append('&nbsp;')
-			.append(innerspan);
-		this.block_ob.append(innerdiv);
-		/* @todo: end delete section */
 		BR.append(this.block_ob);
 
-		this.add_section_NEW('output', 'Make' );
-		this.add_section_OLD('output', 'Make' );	/* @todo: delte */
+		this.add_section_NEW('output', 'Output' );
+		/* this.add_section_OLD('output', 'Make' );	/* @todo: delete */
 
 		this.add_switch(this.block_ob, 'automate', 'Automate', false);
 		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
 		this.add_switch(this.block_ob, 'running',  'Run',      false);
 
 		this.add_section_NEW('input',  'Input');
-		this.add_section_OLD('input',  'Input');	/* @todo: delte */
+		/* this.add_section_OLD('input',  'Input');	/* @todo: delete */
 		this.add_section_NEW('time',   'Time' );
-		this.add_section_OLD('time',   'Time' );	/* @todo: delte */
+		this.add_section_OLD('time',   'Time' );	/* @todo: delete */
 
 		this.set_type("empty");
 	}
@@ -398,59 +379,100 @@ class Block {
 	action_dispatch_NEW(subtype, control) {
 		console.log('block '+this.block_id+' called A_D_NEW('+subtype+','+control+')');
 
+		if (this.machine_type == "empty") {
+			switch (subtype+','+control) {
+				case "type,set":
+					// this is the only allowed case
+					break;
 
+				default:
+					console.log("don't click buttons on empty machines");
+					return;
+					break;
+			}
+		}
 
+		switch (subtype+','+control) {
+			case "type,set":
+				// currently empty: create a block
+				var self = this;
+				var headline = "Choose Block Machine"
+				var outputs_list = this.blocktype_list();
 
+				var block_success_fn = function (value, text) {
+					if (value == "?") {
+						announce("Okay, canceled");
+					} else {
+						var build_source = self.blocktype_source(value);
+						var input_available = 0;
+						if (build_source == "") {
+							input_available = 1;
+						} else {
+							input_available = Data3d.getNumber(build_source);
+						}
+						if (input_available < 1) {
+							announce("Not enough "+build_source+" available ("+input_available+")");
+						} else {
+							announce("Okay, setting this block up as a "+text);
+							if (build_source == "") {
+								// announce("... for free");
+							} else {
+								Data3d.subtract(build_source, 1);
+								announce("... using 1 "+build_source);
+							}
+							Machines3d.create(self.block_id, value, true);
+						}
+					}
+					update_screen();
+				};
+
+				chooser(headline, outputs_list, "?", block_success_fn);
+				break;
+
+			case "type,clear":
+				// currently non-empty: clear machine
+				var build_source = this.blocktype_source(this.machine_type);
+				this.machine_ob.act_output_off();
+				this.machine_ob.shutdown_commands();
+				Machines3d.remove(this.block_id);
+				announce("Okay, cleared this block");
+				if (build_source) {
+					Data3d.add(build_source, 1);
+					announce("... put 1 "+build_source+" back in stock");
+				} else {
+					announce("... (which was free)");
+				}
+				update_screen();
+				break;
+
+			case "input,zero":
+			case "input,minus":
+			case "input,add":
+			case "input,max":
+
+			case "output,clear":
+			case "output,set":
+				console.log("A_D_NEW(): write me", subtype, control);
+				break;
+
+			default:
+				console.log("A_D_NEW(): invalid subtype,control", subtype, control);
+				break;
+		}
 	}
 
 	action_dispatch(subtype) {
 		console.log('block '+this.block_id+' called A_D('+subtype+')');
 
-
 		if (this.machine_type == "empty") {
 			switch (subtype) {
 				case 'type':
-					// currently empty: create a block
-					var self = this;
-					var headline = "Choose Block Machine"
-					var outputs_list = this.blocktype_list();
-
-					var block_success_fn = function (value, text) {
-						if (value == "?") {
-							announce("Okay, canceled");
-						} else {
-							var build_source = self.blocktype_source(value);
-							var input_available = 0;
-							if (build_source == "") {
-								input_available = 1;
-							} else {
-								input_available = Data3d.getNumber(build_source);
-							}
-							if (input_available < 1) {
-								announce("Not enough "+build_source+" available ("+input_available+")");
-							} else {
-								announce("Okay, setting this block up as a "+text);
-								if (build_source == "") {
-									// announce("... for free");
-								} else {
-									Data3d.subtract(build_source, 1);
-									announce("... using 1 "+build_source);
-								}
-								Machines3d.create(self.block_id, value, true);
-							}
-						}
-						update_screen();
-					};
-
-					chooser(headline, outputs_list, "?", block_success_fn);
-					break;
-
+				case 'automate':
+				case 'autorun':
 				case 'running':
 				case 'input':
 				case 'output':
-				case 'autorun':
-				case 'automate':
-					console.log("don't click buttons on empty machines");
+					console.log('... use the other one instead');
 					break;
 
 				case 'time':
@@ -462,39 +484,23 @@ class Block {
 			// machine_type not "empty"
 			switch (subtype) {
 				case 'type':
-					// currently non-empty: clear machine
-					var build_source = this.blocktype_source(this.machine_type);
-					this.machine_ob.act_output_off();
-					this.machine_ob.shutdown_commands();
-					Machines3d.remove(this.block_id);
-					announce("Okay, cleared this block");
-					if (build_source) {
-						Data3d.add(build_source, 1);
-						announce("... put 1 "+build_source+" back in stock");
-					} else {
-						announce("... (which was free)");
-					}
-					update_screen();
-					break;
-
-				case 'running':
-					this.act_run_OLD();
-					break;
-
-				case 'input':
-					this.act_input();
-					break;
-
-				case 'output':
-					this.act_output();
-					break;
-
-				case 'autorun':
-					this.act_autorun_OLD();
-					break;
-
 				case 'automate':
+				case 'autorun':
+				case 'running':
+				case 'input':
+				case 'output':
+					console.log('... use the other one instead');
+					break;
+
+				case 'DELETE THESE FUNCTIONS:'
+					this.act_autorun_OLD();
+					this.act_run_OLD();
 					this.act_automate_OLD();
+					break;
+
+				case "COPY GUTS OUT OF THESE FUNCTIONS:"
+					this.act_input();
+					this.act_output();
 					break;
 
 				case 'time':
