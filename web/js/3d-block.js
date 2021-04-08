@@ -389,7 +389,6 @@ class Block {
 	set_action_label_NEW(subtype, new_label) {
 		var act_label_id = '#display_'+this.block_id+'_'+subtype;
 		var act_ob = $(act_label_id);
-		console.log(">>> SAL_N() ", act_label_id, act_ob, act_ob.length);
 		if (act_ob.html() != new_label) {
 			console.log("... SAL_N() ", act_ob.html(), new_label);
 			act_ob.html(new_label);
