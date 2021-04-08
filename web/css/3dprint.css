@@ -224,7 +224,7 @@ input:checked + .slider:before {
 .block.type_empty .input,
 .block.type_empty .time,
 .block.type_empty label.switch {
-	opacity: 10%;
+	opacity: 0%;
 }
 
 /* colors when switch is INVALID: */
