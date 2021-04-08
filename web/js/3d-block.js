@@ -84,7 +84,7 @@ class Block {
 			.addClass("block")
 			.addClass('type_empty');
 
-		this.add_display(this.block_ob, 'change', 'label');
+		this.add_display(this.block_ob, 'type', 'label');
 
 		/* @todo: begin delete section */
 		var innerdiv = $('<div>')
@@ -95,8 +95,8 @@ class Block {
 			.attr('id', 'data_'+blocktype_label);
 		var innerspan = $('<span>')
 			.text('NEW')
-			.attr('id', 'act_'+block_id+'_change')
-			.click(function() { self.action_dispatch('change'); });
+			.attr('id', 'act_'+block_id+'_type')
+			.click(function() { self.action_dispatch('type'); });
 		innerdiv
 			.append(labelspan)
 			.append('&nbsp;')
@@ -302,8 +302,8 @@ class Block {
 				break;
 
 			case "output":
-			case "change":
 			case "time":
+			case "type":
 				break;
 		}
 
@@ -326,13 +326,13 @@ class Block {
 				this.build_action_span(outer, '(+)', subtype, 'set',   'Set output');
 				break;
 
-			case "change":
+			case "time":
+				break;
+
+			case "type":
 				outer.append('&nbsp;&nbsp;&nbsp;');
 				this.build_action_span(outer, '(×)', subtype, 'clear', 'Clear block type');
 				this.build_action_span(outer, '(+)', subtype, 'set',   'Set block type');
-				break;
-
-			case "time":
 				break;
 		}
 
@@ -419,7 +419,7 @@ class Block {
 
 		if (this.machine_type == "empty") {
 			switch (subtype) {
-				case 'change':
+				case 'type':
 					// currently empty: create a block
 					var self = this;
 					var headline = "Choose Block Machine"
@@ -471,7 +471,7 @@ class Block {
 		} else {
 			// machine_type not "empty"
 			switch (subtype) {
-				case 'change':
+				case 'type':
 					// currently non-empty: clear machine
 					var build_source = this.blocktype_source(this.machine_type);
 					this.machine_ob.act_output_off();
@@ -560,13 +560,13 @@ class Block {
 
 	update_display() {
 		// console.log('called Block.update_display');
-		this.set_action_label_NEW('change',
+		this.set_action_label_NEW('type',
 			this.machine_type
 		);
-		this.hide_action_span('change', 'clear', (this.machine_type == "empty"));
-		this.hide_action_span('change', 'set',   (this.machine_type != "empty"));
+		this.hide_action_span('type', 'clear', (this.machine_type == "empty"));
+		this.hide_action_span('type', 'set',   (this.machine_type != "empty"));
 		// @todo: delete next line
-		this.set_action_label('change',
+		this.set_action_label('type',
 			(this.machine_type == "empty")
 			? '(+)'
 			: '(×)'
