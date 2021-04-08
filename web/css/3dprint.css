@@ -224,6 +224,7 @@ input:checked + .slider:before {
 .block.type_empty .autorun,
 .block.type_empty .running,
 .block.type_empty .input,
+.block.type_empty .output,
 .block.type_empty .time,
 .block.type_empty label.switch {
 	visibility: hidden;
