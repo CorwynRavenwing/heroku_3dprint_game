@@ -276,7 +276,7 @@ class Block {
 	build_action_span(dom, label, subtype, control) {
 		var action = $('<span>')
 			.text(label)
-			.attr('id', 'actNEW_'+this.block_id+'_'+subtype+' '+control)
+			.attr('id', 'actspan_'+this.block_id+'_'+subtype+' '+control)
 			.click(function() { self.action_dispatch_NEW(subtype, control); });
 		dom.append(action);
 	}
@@ -289,28 +289,31 @@ class Block {
 
 		switch (subtype) {
 			case "input":
-				this.build_action_span(outer, '(0)', subtype, '0');
-				this.build_action_span(outer, '(-)', subtype, '-');
+				this.build_action_span(outer, '(0)', subtype, 'zero');
+				this.build_action_span(outer, '(-)', subtype, 'minus');
 				break;
 
 			case "output":
+			case "change":
 			case "time":
 				break;
 		}
 
 		var inner = $('<span>')
-			.attr('id', 'display_'+this.block_id+'_'+subtype);
+			.attr('id', 'display_'+this.block_id+'_'+subtype)
+			.text("NEW");
 		outer.append(inner);
 
 		switch (subtype) {
 			case "input":
-				this.build_action_span(outer, '(+)', subtype, '+');
-				this.build_action_span(outer, '(*)', subtype, '*');
+				this.build_action_span(outer, '(+)', subtype, 'add');
+				this.build_action_span(outer, '(*)', subtype, 'max');
 				break;
 
 			case "output":
-				this.build_action_span(outer, '(×)', subtype, 'x');
-				this.build_action_span(outer, '(+)', subtype, '+');
+			case "change":
+				this.build_action_span(outer, '(×)', subtype, 'clear');
+				this.build_action_span(outer, '(+)', subtype, 'set');
 				break;
 
 			case "time":
@@ -346,6 +349,22 @@ class Block {
 
 	set_value(subtype, value) {
 		this.machine_ob.set_value(subtype, value);
+	}
+
+	hide_action_span(subtype, control, hide) {
+		var act_label_id = '#actspan_'+this.block_id+'_'+subtype+' '+control;
+		var act_ob = $(act_label_id);
+
+		set_class_if(act_ob, "hide", hide);
+	}
+
+	set_action_label_NEW(subtype, new_label) {
+		var act_label_id = '#display_'+this.block_id+'_'+subtype;
+		var act_ob = $(act_label_id);
+		if (act_ob.html() != new_label) {
+			console.log(">>> SAL_N() ", act_ob.html(), new_label);
+			act_ob.html(new_label);
+		}
 	}
 
 	set_action_label(subtype, new_label) {
@@ -512,26 +531,35 @@ class Block {
 
 	update_display() {
 		// console.log('called Block.update_display');
+		this.set_action_label_NEW('change',
+			this.machine_type
+		);
+		hide_action_span('change', 'clear', (this.machine_type == "empty"));
+		hide_action_span('change', 'set',   (this.machine_type != "empty"));
+		// @todo: delete next line
 		this.set_action_label('change',
 			(this.machine_type == "empty")
 			? '(+)'
 			: '(×)'
 		);
-		if (this.machine_ob) {
+		if (this.machine_ob) {\
+			this.set_switch_label('automate', this.get_value('automate'));
+			// @todo: delete next line
 			this.set_action_label('automate',
 				(this.get_value('automate'))
 				? '(-)'
 				: '(+)'
 			);
-			this.set_switch_label('automate', this.get_value('automate'));
 
+			this.set_switch_label('autorun', this.get_value('autorun'));
+			// @todo: delete next line
 			this.set_action_label('autorun',
 				(this.get_value('autorun'))
 				? '(-)'
 				: '(+)'
 			);
-			this.set_switch_label('autorun', this.get_value('autorun'));
 
+			// @todo: delete next line
 			this.set_action_label('running',
 				(this.get_value('running'))
 				? '(-)'
@@ -539,16 +567,39 @@ class Block {
 			);
 			this.set_switch_label('running', this.get_value('running'));
 
+			set_action_label_NEW('input',
+				this.get_value('input')
+			);
+			hide_action_span('input', 'zero',  false); // if value = 0
+			hide_action_span('input', 'minus', false); // if value < quantum
+			hide_action_span('input', 'plus',  false); // if avail < quantum
+			hide_action_span('input', 'max',   false); // if avail = 0
+			// @todo: delete next line
 			this.set_action_label('input',
 				(this.get_value('input') > 0)
 				? '(-)'
 				: '(+)'
 			);
 
+			var output = this.get_value('output');
+			var output_ob = Thing3d.get(output);
+			set_action_label_NEW('output',
+				(output == "?")
+				? output_ob.desc
+				: "Output: ?"
+			);
+			hide_action_span('output', 'clear', (output == "empty"))
+			hide_action_span('output', 'set',   (output != "empty"))
+			// @todo: delete next line
 			this.set_action_label('output',
-				(this.get_value('output') == "?")
+				(output == "?")
 				? '(+)'
 				: '(×)'
+			);
+
+			// hide_action_span('time', 'null', true);
+			set_action_label_NEW('time',
+				this.get_value('time')
 			);
 			this.set_action_label('time', '');
 		} // endif machine_ob
