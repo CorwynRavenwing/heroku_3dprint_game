@@ -201,7 +201,7 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  background-color: white;		/* 3Dp: --- */
+  background-color: mediumblue;		/* 3Dp: --- */
   transform: translateX(26px);
   -ms-transform: translateX(26px);
   -webkit-transform: translateX(26px);
