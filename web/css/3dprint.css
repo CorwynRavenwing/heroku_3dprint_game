@@ -169,7 +169,7 @@ body {
 }
 
 .slider {
-  background-color: #ccc;
+  background-color: pink;	/* 3Dp: background-color: #ccc; */
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -181,7 +181,7 @@ body {
 }
 
 .slider:before {
-  background-color: white;
+  background-color: red;	/* 3Dp: background-color: white; */
   bottom: 4px;
   content: "";
   height: 26px;
@@ -197,7 +197,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px red;	/* 3Dp: box-shadow: 0 0 1px #2196F3; */
 }
 
 input:checked + .slider:before {
@@ -226,26 +226,13 @@ input:checked + .slider:before {
 	opacity: 10%;
 }
 
-/* default colors are when switch is OFF: */
-.slider {
-    background-color: pink;
-}
-
-.slider::before {
-    background-color: red;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px red;
-}
-
 /* colors when switch is INVALID: */
 .block.automate_off label.switch.autorun .slider {
     background-color: darkgray;
     /* NB: 'gray' is darker than 'darkgray' for some reason */
 }
 
-.block.automate_off label.switch.autorun .slider::before {
+.block.automate_off label.switch.autorun .slider:before {
     background-color: gray;
 }
 
