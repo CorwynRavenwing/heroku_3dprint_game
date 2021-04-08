@@ -321,7 +321,7 @@ class Block {
 	}
 
 	add_section(subtype, label) {
-		this.add_section_NEW(subtype_label);		// call other function too
+		this.add_section_NEW(subtype, label);		// call other function too
 
 		var self=this;
 		var outer = $('<div>')
