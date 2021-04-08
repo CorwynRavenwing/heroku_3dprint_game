@@ -169,7 +169,7 @@ body {
 }
 
 .slider {
-  background-color: pink;	/* 3Dp: background-color: #ccc; */
+  background-color: pink;		/* 3Dp: background-color: #ccc; */
   bottom: 0;
   cursor: pointer;
   left: 0;
@@ -181,7 +181,7 @@ body {
 }
 
 .slider:before {
-  background-color: red;	/* 3Dp: background-color: white; */
+  background-color: red;		/* 3Dp: background-color: white; */
   bottom: 4px;
   content: "";
   height: 26px;
@@ -197,10 +197,11 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px red;	/* 3Dp: box-shadow: 0 0 1px #2196F3; */
+  box-shadow: 0 0 1px red;		/* 3Dp: box-shadow: 0 0 1px #2196F3; */
 }
 
 input:checked + .slider:before {
+  background-color: white;		/* 3Dp: --- */
   transform: translateX(26px);
   -ms-transform: translateX(26px);
   -webkit-transform: translateX(26px);
