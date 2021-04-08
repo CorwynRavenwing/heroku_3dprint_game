@@ -355,7 +355,7 @@ class Block {
 		var act_label_id = '#actspan_'+this.block_id+'_'+subtype+' '+control;
 		var act_ob = $(act_label_id);
 
-		set_class_if(act_ob, "hide", hide);
+		this.set_class_if(act_ob, "hide", hide);
 	}
 
 	set_action_label_NEW(subtype, new_label) {
