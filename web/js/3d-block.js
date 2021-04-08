@@ -390,17 +390,6 @@ class Block {
 		var act_label_id = '#display_'+this.block_id+'_'+subtype;
 		var act_ob = $(act_label_id);
 		if (act_ob.html() != new_label) {
-			console.log("... SAL_N() ", act_ob.html(), new_label);
-			act_ob.html(new_label);
-			console.log("... SAL_N() ", act_ob.html(), '<-check');
-		}
-	}
-
-	set_action_label(subtype, new_label) {
-		var act_label_id = '#act_'+this.block_id+'_'+subtype;
-		var act_ob = $(act_label_id);
-		if (act_ob.html() != new_label) {
-			console.log(">>> SAL() ", act_ob.html(), new_label);
 			act_ob.html(new_label);
 		}
 	}
@@ -565,35 +554,10 @@ class Block {
 		);
 		this.hide_action_span('type', 'clear', (this.machine_type == "empty"));
 		this.hide_action_span('type', 'set',   (this.machine_type != "empty"));
-		// @todo: delete next line
-		this.set_action_label('type',
-			(this.machine_type == "empty")
-			? '(+)'
-			: '(×)'
-		);
+
 		if (this.machine_ob) {
 			this.set_switch_label('automate', this.get_value('automate'));
-			// @todo: delete next line
-			this.set_action_label('automate',
-				(this.get_value('automate'))
-				? '(-)'
-				: '(+)'
-			);
-
 			this.set_switch_label('autorun', this.get_value('autorun'));
-			// @todo: delete next line
-			this.set_action_label('autorun',
-				(this.get_value('autorun'))
-				? '(-)'
-				: '(+)'
-			);
-
-			// @todo: delete next line
-			this.set_action_label('running',
-				(this.get_value('running'))
-				? '(-)'
-				: '(+)'
-			);
 			this.set_switch_label('running', this.get_value('running'));
 
 			this.set_action_label_NEW('input',
@@ -603,12 +567,6 @@ class Block {
 			this.hide_action_span('input', 'minus', false); // if value < quantum
 			this.hide_action_span('input', 'plus',  false); // if avail < quantum
 			this.hide_action_span('input', 'max',   false); // if avail = 0
-			// @todo: delete next line
-			this.set_action_label('input',
-				(this.get_value('input') > 0)
-				? '(-)'
-				: '(+)'
-			);
 
 			var output = this.get_value('output');
 			var output_ob = Thing3d.get(output);
@@ -619,19 +577,11 @@ class Block {
 			);
 			this.hide_action_span('output', 'clear', (output == "empty"))
 			this.hide_action_span('output', 'set',   (output != "empty"))
-			// @todo: delete next line
-			this.set_action_label('output',
-				(output == "?")
-				? '(+)'
-				: '(×)'
-			);
 
 			// 'time' has no action spans to hide or show
 			this.set_action_label_NEW('time',
 				this.get_value('time')
 			);
-			// @todo: delete next line
-			this.set_action_label('time', '');
 		} // endif machine_ob
 	}
 } // end class Block
