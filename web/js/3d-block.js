@@ -289,11 +289,16 @@ class Block {
 	}
 
 	add_display(dom, subtype, hovertext) {
+
+		var outer = $('<div>')
+			.attr('id', 'div_'+blocktype_label)
+			.addClass(subtype);
+
 		switch (subtype) {
 			case "input":
-				this.build_action_span(dom, '(0)', subtype, 'zero',  'Clear input');
-				this.build_action_span(dom, '(-)', subtype, 'minus', '-1 input');
-				dom.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(outer, '(0)', subtype, 'zero',  'Clear input');
+				this.build_action_span(outer, '(-)', subtype, 'minus', '-1 input');
+				outer.append('&nbsp;&nbsp;&nbsp;');
 				break;
 
 			case "output":
@@ -306,30 +311,32 @@ class Block {
 			.attr('id', 'display_'+this.block_id+'_'+subtype)
 			.attr('title', hovertext)
 			.text("NEW");
-		dom.append(inner);
+		outer.append(inner);
 
 		switch (subtype) {
 			case "input":
-				dom.append('&nbsp;&nbsp;&nbsp;');
-				this.build_action_span(dom, '(+)', subtype, 'add',   '+1 input');
-				this.build_action_span(dom, '(*)', subtype, 'max',   'Max input');
+				outer.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(outer, '(+)', subtype, 'add',   '+1 input');
+				this.build_action_span(outer, '(*)', subtype, 'max',   'Max input');
 				break;
 
 			case "output":
-				dom.append('&nbsp;&nbsp;&nbsp;');
-				this.build_action_span(dom, '(×)', subtype, 'clear', 'Clear output');
-				this.build_action_span(dom, '(+)', subtype, 'set',   'Set output');
+				outer.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(outer, '(×)', subtype, 'clear', 'Clear output');
+				this.build_action_span(outer, '(+)', subtype, 'set',   'Set output');
 				break;
 
 			case "change":
-				dom.append('&nbsp;&nbsp;&nbsp;');
-				this.build_action_span(dom, '(×)', subtype, 'clear', 'Clear block type');
-				this.build_action_span(dom, '(+)', subtype, 'set',   'Set block type');
+				outer.append('&nbsp;&nbsp;&nbsp;');
+				this.build_action_span(outer, '(×)', subtype, 'clear', 'Clear block type');
+				this.build_action_span(outer, '(+)', subtype, 'set',   'Set block type');
 				break;
 
 			case "time":
 				break;
 		}
+
+		dom.append(outer);
 	}
 
 	add_section_NEW(subtype, hovertext) {
