@@ -86,7 +86,7 @@ class Block {
 
 		this.add_display(this.block_ob, 'type', 'label');
 
-		/* @todo: begin delete section */
+		/* @todo: begin delete section ...
 		var innerdiv = $('<div>')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass("type");
@@ -105,14 +105,17 @@ class Block {
 		/* @todo: end delete section */
 		BR.append(this.block_ob);
 
-		this.add_section('output' , 'Make' );
+		this.add_section_NEW('output', 'Make' );
+		this.add_section_OLD('output', 'Make' );	/* @todo: delte */
 
 		this.add_switch(this.block_ob, 'automate', 'Automate', false);
 		this.add_switch(this.block_ob, 'autorun',  'Auto:run', false);
 		this.add_switch(this.block_ob, 'running',  'Run',      false);
 
-		this.add_section('input',    'Input');
-		this.add_section('time',     'Time' );
+		this.add_section_NEW('input',  'Input');
+		this.add_section_OLD('input',  'Input');	/* @todo: delte */
+		this.add_section_NEW('time',   'Time' );
+		this.add_section_OLD('time',   'Time' );	/* @todo: delte */
 
 		this.set_type("empty");
 	}
@@ -351,9 +354,7 @@ class Block {
 		this.block_ob.append(outer);
 	}
 
-	add_section(subtype, label_rename_hovertext) {
-		this.add_section_NEW(subtype, label_rename_hovertext);		// call other function too
-
+	add_section_OLD(subtype, label_rename_hovertext) {
 		var self=this;
 		var outer = $('<div>')
 			.attr('id', 'section_'+this.block_id+'_'+subtype)
