@@ -276,7 +276,7 @@ class Block {
 	build_action_span(dom, label, subtype, control) {
 		var action = $('<span>')
 			.text(label)
-			.attr('id', 'actspan_'+this.block_id+'_'+subtype+' '+control)
+			.attr('id', 'actspan_'+this.block_id+'_'+subtype+'_'+control)
 			.click(function() { self.action_dispatch_NEW(subtype, control); });
 		dom.append(action);
 	}
@@ -352,7 +352,7 @@ class Block {
 	}
 
 	hide_action_span(subtype, control, hide) {
-		var act_label_id = '#actspan_'+this.block_id+'_'+subtype+' '+control;
+		var act_label_id = '#actspan_'+this.block_id+'_'+subtype+'_'+control;
 		var act_ob = $(act_label_id);
 
 		this.set_class_if(act_ob, "hide", hide);
@@ -585,8 +585,8 @@ class Block {
 			var output_ob = Thing3d.get(output);
 			this.set_action_label_NEW('output',
 				(output == "?")
-				? output_ob.desc
-				: "Output: ?"
+				? "Output: ?"
+				: output_ob.desc
 			);
 			this.hide_action_span('output', 'clear', (output == "empty"))
 			this.hide_action_span('output', 'set',   (output != "empty"))
