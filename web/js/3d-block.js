@@ -76,8 +76,8 @@ class Block {
 			BG
 				.append(BR);
 		}
-		var blocktype_label = block_id+'_type';
-		var self = this;
+		var blocktype_label = block_id+'_type';		// @todo: delete line
+		var self = this;							// @todo: delete line?
 
 		this.block_ob = $('<div>')
 			.attr('id', block_id)
@@ -289,7 +289,7 @@ class Block {
 	}
 
 	add_display(dom, subtype, hovertext) {
-
+		var blocktype_label = block_id+'_type';
 		var outer = $('<div>')
 			.attr('id', 'div_'+blocktype_label)
 			.addClass(subtype);
