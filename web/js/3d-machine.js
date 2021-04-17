@@ -578,7 +578,7 @@ class Machine {
 			return input_required;
 		}
 
-		act_input_off() {
+		do_input_zero() {
 			if (this.get_input()) {
 				switch (this.machine_type) {
 					case "build":
@@ -608,13 +608,35 @@ class Machine {
 						break;
 
 					default:
-					console.error("act_input_off(): invalid machine type "+this.machine_type);
+					console.error("do_input_zero(): invalid machine type "+this.machine_type);
 					break;
 				}
 			}
 		}
 
-		act_input_on() {
+		act_input_zero() {
+			if (this.get_input()) {
+				this.do_input_zero();
+			} else {
+				console.error("can't zero input if it's off already");
+				return;
+			}
+		}
+
+		do_input_minus() {
+
+		}
+
+		act_input_minus() {
+			if (this.get_input()) {
+				this.do_input_minus();
+			} else {
+				console.error("can't zero input if it's off already");
+				return;
+			}
+		}
+
+		do_input_add() {
 			switch (this.machine_type) {
 				case "build":
 				case "extrude":
@@ -643,28 +665,42 @@ class Machine {
 					break;
 
 				default:
-					console.error("act_input_on(): invalid machine type "+this.machine_type);
+					console.error("do_input_add(): invalid machine type "+this.machine_type);
 					break;
 			}
 		}
 
-		act_input() {
-			console.log('called machine act_input()');
-			if (this.get_input()) {
-				this.act_input_off();
-			} else if (this.can_input()) {
-				this.act_input_on();
+		act_input_add() {
+			if (this.can_input()) {
+				this.do_input_add();
 			} else {
 				this.announce_error();
 				return;
 			}
 		}
 
+		do_input_max() {
+
+		}
+
+		act_input_max() {
+			if (this.can_input()) {
+				this.act_input_plus_max();
+			} else {
+				this.announce_error();
+				return;
+			}
+		}
+
+		act_input() {
+			console.error("call the other one")
+		}
+
 		act_output_off() {
 			this.act_autorun_off();
 			this.act_automate_off();
 			this.act_run_off();
-			this.act_input_off();
+			this.do_input_zero();
 			this.set_time(0);
 			this.set_output("?");
 		}
@@ -693,15 +729,26 @@ class Machine {
 			this.announce_error();
 		}
 
-		act_output() {
+		act_output_clear() {
 			if (this.get_output() != "?") {
 				this.act_output_off();
-			} else if (this.can_output()) {
+			} else {
+				console.error("can't clear output if it's off already");
+				return;
+			}
+		}
+
+		act_output_set() {
+			if (this.can_output()) {
 				this.act_output_on();
 			} else {
 				this.announce_error();
 				return;
 			}
+		}
+
+		act_output() {
+			console.error("call the other one")
 		}
 
 		// act_time() // no such function
@@ -921,7 +968,7 @@ class Machine {
 				if (this.get_input() <= 0) {
 					if (this.can_input()) {
 						announce('auto: input');
-						this.act_input_on();
+						this.do_input_add();
 					} else {
 						announce('auto: INPUT FAIL, '+this.error_message);
 						this.act_autorun_off();

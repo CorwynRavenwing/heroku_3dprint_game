@@ -446,13 +446,29 @@ class Block {
 				break;
 
 			case "input,zero":
+				this.machine_ob.act_input_zero();
+				update_screen();
+				break;
 			case "input,minus":
+				this.machine_ob.act_input_minus();
+				update_screen();
+				break;
 			case "input,add":
+				this.machine_ob.act_input_add();
+				update_screen();
+				break;
 			case "input,max":
+				this.machine_ob.act_input_max();
+				update_screen();
+				break;
 
 			case "output,clear":
+				this.machine_ob.act_output_clear();
+				update_screen();
+				break;
 			case "output,set":
-				console.log("A_D_NEW(): write me", subtype, control);
+				this.machine_ob.act_output_set();
+				update_screen();
 				break;
 
 			default:
@@ -496,11 +512,11 @@ class Block {
 					this.act_autorun_OLD();
 					this.act_run_OLD();
 					this.act_automate_OLD();
+					this.act_output();
 					break;
 
 				case 'COPY GUTS OUT OF THESE FUNCTIONS':
 					this.act_input();
-					this.act_output();
 					break;
 
 				case 'time':
@@ -544,14 +560,12 @@ class Block {
 		update_screen();
 	}
 
-	act_input() {
-		this.machine_ob.act_input();
-		update_screen();
+	act_input_DELETEME() {
+		console.error('use the other one')
 	}
 
-	act_output() {
-		this.machine_ob.act_output();
-		update_screen();
+	act_output_DELETEME() {
+		console.error('use the other one')
 	}
 
 	update_display() {
